@@ -1,0 +1,43 @@
+Zadatak 1:
+    - Dodane ikone prema zahtjevima postavke
+    - Podešeno ponašanje ikone prilikom hovera
+    - Podešeno ponašane teksta u meniju prilikom hovera
+    - Trajanje animacije prilagođeno rahatluku oka
+    - U odnosu na početni projekat ovakvo rješenje je intuitivnije i preglednije
+
+Zadatak 2:
+    - Layout koji je u originalnom projektu postignut koristeći grid je repliciran
+      sa 99% preciznosti. Jedina iznimka je u tome što se wrappani elementi kojih je
+      nedovoljno da se pokrije cijela širina reda postavljaju na centar umjesto 
+      s lijeva na desno. Ukupno sam potrošio 3h na ovom problemu, pokušavajući na razne 
+      načine postići jednak layout kao što se dobije koristeći CSS grid, međutim,  
+      korištenjem flexa ovo jednostavno nije moguće.
+        *   Ukoliko se justify-content postavi na left ili flex-start, nemoguće je postići 
+            da elementi bilo kojeg reda budu centrirani, samo će se redati s lijeva na desno.
+        *   Ukoliko se pokuša koristiti vanjski div (tip-nekretnine) kao flex wrapper, 
+            iako je u njemu postavljem justify-contents parametar na center, ukoliko se na 
+            unutrašnji flex (grid-lista-nekretnine) postavi justify-contents na flex-start
+            ili left, opet neće prvi elementi biti centrirani na stranici nego poredani s 
+            lijeva na desno. 
+        *   Ukoliko se podesi flex layout sa left horizontalnim alignmentom, te se pokuša 
+            centrirati pomoću paddinga ili margina, svakoj listi nekretnina bi se morali 
+            posebno podešavati padding i margine, što zahtijeva manipulacije sa html-om, a
+            što je postavkom zadatka bilo zabranjeno.
+    
+    - Flex layout jednostavno ne služi za ovakve vrste poravnanja, s obzirom da isti samo 
+      poznaje raspored elemenata u jednoj dimenziji, bilo to u redu ili koloni. Ukoliko
+      nam treba manipulacija s elementima liste i po redovima i po kolonama, za to je 
+      najpogodnije koristiti grid.
+
+    - Moguće je koristiti i @media queries za specifično raspoređivanje elemenata na osnovu 
+      veličine ekrana i sličnih parametara, međutim, to je u ovom slučaju jedna ogromna 
+      i prilično nepotrebna komplikacija, s obzirom da jednostavno korištenje samo flex 
+      layouta daje praktično identične rezultate. Ukoliko je zaista zahtjev da wrappani
+      elementi budu poredani s lijeva na desno ukoliko ih nema dovoljno da pokriju cijeli
+      red, tada je najpogodnije koristiti grid umjesto flexa.
+    
+    - Smatram da je pruženo rješenje sa korištenjem flexa najbliže koje se može dobiti
+      originalnom layoutu koji je postignut korištenjem grida.
+
+Zadatak 3:
+    - 

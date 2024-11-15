@@ -15,7 +15,6 @@ ul {
 
 li {
     float: left;
-    margion: 0 10px;
 }
 
 li a {
@@ -45,5 +44,5 @@ li a:hover {
 }
 
 .icons:hover {
-    transform: scale(1.5);
+    transform: scale(1.7);
 }

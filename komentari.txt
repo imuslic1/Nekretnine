@@ -40,4 +40,9 @@ Zadatak 2:
       originalnom layoutu koji je postignut korištenjem grida.
 
 Zadatak 3:
-    - 
+    - Tražena implementacija je postignuta korištenjem @media query-ja za širinu ekrana.
+      Ukoliko je širina unutar nekog od zadanih range-eva, div "upiti" se ponaša onako 
+      kako je to predviđeno postavkom. Korišten je flex layout kako bi se elementi 
+      ravnomjerno poredali onako kako je to potrebno. Modificiran je početni css za #upiti
+      i .upit, međutim modifikacije su minimalne i tiču se samo postavljanja flex layouta i
+      podešavanja paddinga da bi isti bio konzistentan za sve širine ekrana.

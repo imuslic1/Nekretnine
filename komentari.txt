@@ -10,8 +10,8 @@ Zadatak 2:
       sa 99% preciznosti. Jedina iznimka je u tome što se wrappani elementi kojih je
       nedovoljno da se pokrije cijela širina reda postavljaju na centar umjesto 
       s lijeva na desno. Ukupno sam potrošio 3h na ovom problemu, pokušavajući na razne 
-      načine postići jednak layout kao što se dobije koristeći CSS grid, međutim,  
-      korištenjem flexa ovo jednostavno nije moguće.
+      načine postići jednak layout kao što se dobije koristeći CSS grid, međutim, čini mi se
+      da korištenjem flexa ovo jednostavno nije moguće.
         *   Ukoliko se justify-content postavi na left ili flex-start, nemoguće je postići 
             da elementi bilo kojeg reda budu centrirani, samo će se redati s lijeva na desno.
         *   Ukoliko se pokuša koristiti vanjski div (tip-nekretnine) kao flex wrapper, 

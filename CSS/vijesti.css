@@ -40,17 +40,31 @@ iframe {
     float: left;
 }
 
+.glavna_vijest p {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
 .visoka_vijest {
     aspect-ratio: 1/2;
     grid-row: span 2;
     background-color: cadetblue;
     border: 1px solid #ccc;
+    overflow: hidden;
+    text-align: left;
+
 }
 
 .kvadratna_vijest {
     aspect-ratio: 1/1;
+    max-height: 100%;
     background-color: coral;
     border: 1px solid #ccc;
+    overflow: hidden;
+    text-align: left;
 }
 
 @media screen and (max-width: 800px) {

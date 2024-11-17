@@ -14,24 +14,20 @@ iframe {
 #page_wrapper {
     margin: 0 auto;
     padding: 20px;
-    max-width: 1200px;
     
     display: grid;
     text-align: center;
-    justify-content: center;
-    align-items: center;
     grid-auto-flow: row;
 }
 
 .glavna_vijest {
     aspect-ratio: 2/1;
-    width: 1200px;
     grid-column: span 4;
     grid-row: span 2;
     background-color: aquamarine;
-    border: 1px solid black;
     text-align: center;
     padding: 20px;
+    border: 1px solid #ccc;
 }
 
 .glavna_vijest img {
@@ -46,33 +42,28 @@ iframe {
 
 .visoka_vijest {
     aspect-ratio: 1/2;
-    width: 300px;
     grid-row: span 2;
     background-color: cadetblue;
-    border: 1px solid black;
+    border: 1px solid #ccc;
 }
 
 .kvadratna_vijest {
     aspect-ratio: 1/1;
-    width: 300px;
     background-color: coral;
-    border: 1px solid black;
+    border: 1px solid #ccc;
 }
 
 @media screen and (max-width: 800px) {
     .glavna_vijest {
-        width: 600px;
         aspect-ratio: 1/1;
         grid-column: span 2;
         grid-row: span 2;
     }
     .visoka {
-        width: 300px;
         grid-row: span 2;
     }
     .kvadratna {
         aspect-ratio: 1/1;
-        width: 300px;
         background-color: coral;
     }
 

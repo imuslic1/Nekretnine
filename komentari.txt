@@ -46,3 +46,6 @@ Zadatak 3:
       ravnomjerno poredali onako kako je to potrebno. Modificiran je početni css za #upiti
       i .upit, međutim modifikacije su minimalne i tiču se samo postavljanja flex layouta i
       podešavanja paddinga da bi isti bio konzistentan za sve širine ekrana.
+
+Zadatak 4: 
+    - Ovaj zadatak ne bih komentarisao.

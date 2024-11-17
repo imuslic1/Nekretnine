@@ -20,6 +20,7 @@ iframe {
     text-align: center;
     justify-content: center;
     align-items: center;
+    grid-auto-flow: row;
 }
 
 .glavna_vijest {
@@ -29,6 +30,18 @@ iframe {
     grid-row: span 2;
     background-color: aquamarine;
     border: 1px solid black;
+    text-align: center;
+    padding: 20px;
+}
+
+.glavna_vijest img {
+    max-width: 90%;
+    height: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    float: left;
 }
 
 .visoka_vijest {

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pocetniElementi = glavniElement.innerHTML;
 
     window.addEventListener("resize", () => {
-        if (window.innerWidth < 600) {
+        if (window.innerWidth > 600) {
             glavniElement.innerHTML = pocetniElementi;
         }
     });

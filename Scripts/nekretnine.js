@@ -178,6 +178,7 @@ const listaKorisnika = [{
     username: "username2",
 }]
 
+
 const divStan = document.getElementById("stan");
 const divKuca = document.getElementById("kuca");
 const divPp = document.getElementById("pp");
@@ -190,3 +191,4 @@ nekretnine.init(listaNekretnina, listaKorisnika);
 spojiNekretnine(divStan, nekretnine, "Stan");
 spojiNekretnine(divKuca, nekretnine, "Kuća");
 spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
+

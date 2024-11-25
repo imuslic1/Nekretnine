@@ -20,12 +20,13 @@ let prosjecnaKvadratura = function(kriterij) {
 }
 
 let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
+    if(!kriterij.isNumber()) return undefined;
     let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
     let sumaSvojstva = 0;
 
     listaNekretninaPoKriteriju.forEach(element => {
-        let svojstvo = listaNekretninaPoKriteriju[nazivSvojstva];
-        sumaSvojstva += svojstvo;
+        let svojstvoValue = element[nazivSvojstva];
+        sumaSvojstva += svojstvoValue;
     });
 
     return sumaSvojstva / listaNekretninaPoKriteriju.length;

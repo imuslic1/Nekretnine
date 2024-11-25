@@ -1,5 +1,5 @@
-const listaKorisnika = Array.from(nekretnine.listaKorisnika);
-const listaNekretnina = Array.from(nekretnine.listaNekretnina);
+const listaKorisnika = nekretnine.listaKorisnika;
+const listaNekretnina = nekretnine.listaNekretnina;
 
 var spisakNekretnina = SpisakNekretnina();
 
@@ -8,7 +8,7 @@ let init = function(listaNekretnina, listaKorisnika) {
 }
 
 let prosjecnaKvadratura = function(kriterij) {
-    let listaNekretninaPoKriteriju = Array.from(SpisakNekretnina.filtrirajNekretnine(kriterij));
+    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
     let sumaKvadratura = 0;
 
     listaNekretninaPoKriteriju.forEach(element => {
@@ -20,7 +20,7 @@ let prosjecnaKvadratura = function(kriterij) {
 }
 
 let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
-    let listaNekretninaPoKriteriju = Array.from(SpisakNekretnina.filtrirajNekretnine(kriterij));
+    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
     let sumaSvojstva = 0;
 
     listaNekretninaPoKriteriju.forEach(element => {
@@ -32,7 +32,7 @@ let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
 }
 
 let outlier = function(kriterij, nazivSvojstva) {
-    let listaNekretninaPoKriteriju = Array.from(SpisakNekretnina.filtrirajNekretnine(kriterij));
+    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
     let prosjek = prosjecnaVrijednostSvojstva(kriterij, nazivSvojstva);
     let indexMaxOdstupanja = 0;
     let maxOdstupanje = 0;

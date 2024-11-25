@@ -53,3 +53,26 @@ let mojeNekretnine = function(korisnik) {
     return listaNekretninaSaUpitomOdKorisnika;
 }
 
+let histogramCijena = function(periodi, rasponiCijena) {
+    let histogram = [];
+
+    periodi.forEach((period, indeksPerioda) => {
+        rasponiCijena.forEach((rasponCijena, indeksRaspona) => {
+            let brojNekretnina = listaNekretnina.filter(nekretnina => {
+                let cijena = nekretnina.cijena;
+                let datumObjave = parseInt(nekretnina.datum_objave.split('.')[2]);
+                return (
+                    datumObjave >= period.od && 
+                    datumObjave < period.do && 
+                    cijena >= rasponCijena[0] && 
+                    cijena < rasponCijena[1]
+                );            
+            }).length;
+
+            histogram.push({indeksPerioda, indeksRaspona, brojNekretnina});
+        
+        });   
+    });
+
+    return histogram;
+}

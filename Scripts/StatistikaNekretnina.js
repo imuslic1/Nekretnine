@@ -47,3 +47,9 @@ let outlier = function(kriterij, nazivSvojstva) {
 
     return listaNekretninaPoKriteriju[indexMaxOdstupanja];
 }
+
+let mojeNekretnine = function(korisnik) {
+    let listaNekretninaSaUpitomOdKorisnika = listaNekretnina.filter(nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik.id));
+    return listaNekretninaSaUpitomOdKorisnika;
+}
+

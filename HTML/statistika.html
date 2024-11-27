@@ -23,7 +23,7 @@
                     <tr>
                         <td></td>
                         <td>DO: <input type = "number" id="cijena-do"></td>
-                        <td><input type="submit" id="cijena-dodaj-opseg" value="Dodaj"></td>
+                        <td><button type="button" id="cijena-dodaj-opseg">Dodaj opseg</button></td>
                     </tr>
                     
                     <tr>
@@ -32,12 +32,12 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td>OD: <input type="number" id="godine-od"></td>
+                        <td>OD: <input type="number" id="godina-od"></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>DO: <input type="number" id="godine-do"></td>
-                        <td><input type="submit" id="godine-dodaj-opseg" value="Dodaj"></td>
+                        <td>DO: <input type="number" id="godina-do"></td>
+                        <td><button type="button" id="godina-dodaj-opseg">Dodaj opseg</td>
                     </tr>
 
                     <tr><td><h3>Grijanje: </h3></td></tr>
@@ -69,29 +69,21 @@
                     </tr>
                     
                     <tr>
-                        <td><input type="reset" value="Resetuj postavke" onclick="resetForm()"></td>
-                        <td><input type="submit" value="Prikaži histograme" onclick="drawHisto()"></td>
+                        <td><button type="button" id="reset">Resetuj formu</td>
+                        <td><button type="button" id="prikazi-histo">Prikaži graf/grafove</td>
                     </tr>
             
             
                 </table>
             </form>
         </div>
-        <div id="prikaz-rangova-cijena">OPSEZI CIJENA:
-            <ul id="rangovi-cijena">
-                <li>rang-cijene 1</li>
-                <li>rang-cijene 2</li>
-                <li>rang-cijene 3</li>
-                <li>rang-cijene 4</li>
-                <li>rang-cijene 5</li>
+        <div id="prikaz-rangova-cijena">UNESENI OPSEZI CIJENA:
+            <ul id="rangovi-cijena"></ul>
+               
         </div>
-        <div id="prikaz-rangova-godina">OPSEZI GODINA:
-            <ul id="rangovi-godina">
-                <li>rang-godina 1</li>
-                <li>rang-godina 2</li>
-                <li>rang-godina 3</li>
-                <li>rang-godina 4</li>
-                <li>rang-godina 5</li>
+        <div id="prikaz-rangova-godina">UNESENI OPSEZI GODINA:
+            <ul id="rangovi-godina"></ul>
+
         </div>
         <div id="histogrami">
             <h2>GRAF</h2>
@@ -103,7 +95,7 @@
         </div>
     </div>
 
-    <script src="../JS/statistika.js"></script>
+    <script src="../Scripts/statistika.js"></script>
 </body>
 
 

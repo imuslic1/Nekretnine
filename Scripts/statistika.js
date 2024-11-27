@@ -8,7 +8,239 @@ dodajGodinuButton.addEventListener("click", dodajGodinu);
 resetButton.addEventListener("click", clearFields);
 prikaziButton.addEventListener("click", showHisto);
 
-const histogramData = {}
+const statistikaNekretnina = StatistikaNekretnina();
+
+const listaNekretnina = [{
+    id: 1,
+    tip_nekretnine: "Stan",
+    naziv: "Useljiv stan Sarajevo",
+    kvadratura: 58,
+    cijena: 232000,
+    tip_grijanja: "plin",
+    lokacija: "Novo Sarajevo",
+    godina_izgradnje: 2019,
+    datum_objave: "01.10.2023.",
+    opis: "Sociis natoque penatibus.",
+    upiti: [{
+        korisnik_id: 1,
+        tekst_upita: "Nullam eu pede mollis pretium."
+    },
+    {
+        korisnik_id: 2,
+        tekst_upita: "Phasellus viverra nulla."
+    }]
+},{
+    id: 1,
+    tip_nekretnine: "Stan",
+    naziv: "Useljiv stan Sarajevo",
+    kvadratura: 58,
+    cijena: 32000,
+    tip_grijanja: "plin",
+    lokacija: "Novo Sarajevo",
+    godina_izgradnje: 2019,
+    datum_objave: "01.10.2009.",
+    opis: "Sociis natoque penatibus.",
+    upiti: [{
+        korisnik_id: 1,
+        tekst_upita: "Nullam eu pede mollis pretium."
+    },
+    {
+        korisnik_id: 2,
+        tekst_upita: "Phasellus viverra nulla."
+    }]
+},{
+    id: 1,
+    tip_nekretnine: "Stan",
+    naziv: "Useljiv stan Sarajevo",
+    kvadratura: 58,
+    cijena: 232000,
+    tip_grijanja: "toplana",
+    lokacija: "Novo Sarajevo",
+    godina_izgradnje: 2019,
+    datum_objave: "01.10.2003.",
+    opis: "Sociis natoque penatibus.",
+    upiti: [{
+        korisnik_id: 1,
+        tekst_upita: "Nullam eu pede mollis pretium."
+    },
+    {
+        korisnik_id: 2,
+        tekst_upita: "Phasellus viverra nulla."
+    }]
+},
+{
+    id: 2,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 70000,
+    tip_grijanja: "struja",
+    lokacija: "Centar",
+    godina_izgradnje: 2005,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 3,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 70000,
+    tip_grijanja: "struja",
+    lokacija: "Centar",
+    godina_izgradnje: 2005,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 4,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 70000,
+    tip_grijanja: "struja",
+    lokacija: "Centar",
+    godina_izgradnje: 2005,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 5,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 75000,
+    tip_grijanja: "struja",
+    lokacija: "Centar",
+    godina_izgradnje: 2009,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 6,
+    tip_nekretnine: "Stan",
+    naziv: "Stan Novo Sarajevo",
+    kvadratura: 20,
+    cijena: 125000,
+    tip_grijanja: "toplana",
+    lokacija: "Centar",
+    godina_izgradnje: 2010,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 7,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 70000,
+    tip_grijanja: "toplana",
+    lokacija: "Centar",
+    godina_izgradnje: 2005,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 8,
+    tip_nekretnine: "Kuća",
+    naziv: "Mali poslovni prostor",
+    kvadratura: 20,
+    cijena: 70000,
+    tip_grijanja: "struja",
+    lokacija: "Centar",
+    godina_izgradnje: 2005,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 9,
+    tip_nekretnine: "Stan",
+    naziv: "Stan Alipašino polje",
+    kvadratura: 60,
+    cijena: 180000,
+    tip_grijanja: "toplana",
+    lokacija: "Alipašino polje",
+    godina_izgradnje: 1985,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+{
+    id: 10,
+    tip_nekretnine: "Stan",
+    naziv: "Stan Grbavica",
+    kvadratura: 100,
+    cijena: 375000,
+    tip_grijanja: "plin",
+    lokacija: "Grbavica",
+    godina_izgradnje: 2000,
+    datum_objave: "20.08.2023.",
+    opis: "Magnis dis parturient montes.",
+    upiti: [{
+        korisnik_id: 2,
+        tekst_upita: "Integer tincidunt."
+    }
+    ]
+},
+
+
+
+]
+
+const listaKorisnika = [{
+    id: 1,
+    ime: "Neko",
+    prezime: "Nekic",
+    username: "username1",
+},
+{
+    id: 2,
+    ime: "Neko2",
+    prezime: "Nekic2",
+    username: "username2",
+}]
+
+const histogramCijeneData = [];
+const histogramGodineData = [];
 
 clearFields(); 
 
@@ -33,10 +265,13 @@ function clearFields() {
     document.getElementById("tip-struja").checked = false;
     document.getElementById("tip-toplana").checked = false;
 
-    //location.reload();
-
     console.log("Form cleared.");
-    histogramData = {};
+    if(histogramCijeneData.length > 0) {
+        histogramCijeneData.length = 0;
+    }
+    if(histogramGodineData.length > 0) {
+        histogramGodineData.length = 0;
+    }
 }
 
 function clearUnosCijene() {
@@ -78,6 +313,8 @@ function dodajCijenu() {
     let stringToPut = `${from} - ${to}`;
     addLiToUl(div, stringToPut);
     clearUnosCijene();
+
+    histogramCijeneData.push([from, to]);
 }
 
 function dodajGodinu() {
@@ -102,11 +339,96 @@ function dodajGodinu() {
     let stringToPut = `${from} - ${to}`;
     addLiToUl(div, stringToPut);
     clearUnosGodine();
-   
+
+    histogramGodineData.push([from, to]);   
+}
+
+function drawHistograms(histogram, periodi, rasponiCijena) {
+    // Clear the existing histograms
+    const histogramContainer = document.getElementById('histogrami');
+    histogramContainer.innerHTML = ''; // Clear existing canvas elements
+
+    // Iterate through the periods to create one histogram per year range
+    periodi.forEach((period, periodIndex) => {
+        const canvas = document.createElement('canvas');
+        canvas.id = `graf-canvas-${periodIndex}`;
+        histogramContainer.appendChild(canvas);
+
+        // Filter the histogram data for the current period
+        const periodData = histogram.filter(item => item.indeksPerioda === periodIndex);
+
+        // Prepare data for Chart.js
+        const labels = rasponiCijena.map(
+            (raspon, index) => `${raspon[0]} - ${raspon[1]}`
+        );
+        const data = Array(rasponiCijena.length).fill(0);
+        periodData.forEach(item => {
+            data[item.indeksRaspona] = item.brojNekretnina;
+        });
+
+        // Create the histogram chart
+        new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: `Broj nekretnina (${period.od} - ${period.do})`,
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Histogram: Period (${period.od} - ${period.do})`,
+                    },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Raspon cijena',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Broj nekretnina',
+                        },
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
 }
 
 function showHisto() {
+    let periodi = [];
+    let rasponiCijena = histogramCijeneData;
+    let rasponiGodina = histogramGodineData;
 
+    if(rasponiCijena.length === 0 || rasponiGodina.length === 0) {
+        alert("Morate unijeti bar jedan opseg cijena i godina!");
+        return;
+    }
+
+    for(let i=0; i<rasponiGodina.length; ++i) {
+        let from = parseInt(rasponiGodina[i][0]);
+        let to = parseInt(rasponiGodina[i][1]);
+        periodi.push({od: from, do: to});
+    }
+
+    let histogram = statistikaNekretnina.histogramCijena(periodi, rasponiCijena);
+    drawHistograms(histogram, periodi, rasponiCijena);
+    console.log(histogram);
+    console.log("Histogram prikazan!");
 
 }
 

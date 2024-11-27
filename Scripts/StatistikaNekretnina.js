@@ -1,9 +1,7 @@
-const listaKorisnika = nekretnine.listaKorisnika;
-const listaNekretnina = nekretnine.listaNekretnina;
-
 var spisakNekretnina = SpisakNekretnina();
 
-let StatistikaNekretnina = function() {
+
+function StatistikaNekretnina() {
 
     let init = function(listaNekretnina, listaKorisnika) { 
         spisakNekretnina.init(listaNekretnina, listaKorisnika);

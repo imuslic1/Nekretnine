@@ -52,9 +52,6 @@ let SpisakNekretnina = function () {
                 return false;
             }
 
-            
-
-
             return true;
         });
     }

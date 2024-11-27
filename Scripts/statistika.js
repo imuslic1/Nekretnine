@@ -401,6 +401,10 @@ function drawHistograms(histogram, periodi, rasponiCijena) {
                             display: true,
                             text: 'Broj nekretnina',
                         },
+                        ticks: {
+                            stepSize: 1,
+                            padding: 10,
+                        },
                         beginAtZero: true,
                     },
                 },

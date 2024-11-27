@@ -14,17 +14,38 @@ iframe {
 
 #wrapper {
     display: grid;
-    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 40px;
     justify-content: left;
     padding: 20px;
 }
 
 #input {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#input h3 {
     text-align: left;
+    margin: 0;
+}
+
+#input button {
+    white-space: nowrap;
+}
+
+#input td {
+    width: 100px;  
+    height: 30px;
+    text-align: left;
+    vertical-align: bottom;
+    padding: 5px;
 }
 
 #form {
     margin: 10px;
+    grid-column: 1;
     grid-row: span 2;
 }
 
@@ -38,8 +59,29 @@ iframe {
     grid-row: 1;
 }
 
+#prikaz-rangova-cijena ul,
+#prikaz-rangova-godina ul {
+    text-align: left;
+}
+
+
+#histo-wrapper {
+    grid-column: span 4;
+    grid-row: auto;
+}
+
 #histogrami {
-    grid-column: 4;
+    display: grid; /* Enable grid layout inside the histogram container */
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    gap: 20px;
+    justify-content: center;
+    height: 400px;
+    max-width: 2fr;
+}
+
+#histogrami canvas {
+    border: 2px solid #c0c0c0;
 }
 
 #naslov {
@@ -49,5 +91,4 @@ iframe {
     margin: 0 auto;
     max-width: 100%;
 }
-
 

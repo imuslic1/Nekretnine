@@ -8,7 +8,7 @@ let init = function(listaNekretnina, listaKorisnika) {
 }
 
 let prosjecnaKvadratura = function(kriterij) {
-    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
+    let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
     let sumaKvadratura = 0;
 
     listaNekretninaPoKriteriju.forEach(element => {
@@ -20,8 +20,7 @@ let prosjecnaKvadratura = function(kriterij) {
 }
 
 let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
-    if(!kriterij.isNumber()) return undefined;
-    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
+    let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
     let sumaSvojstva = 0;
 
     listaNekretninaPoKriteriju.forEach(element => {
@@ -33,7 +32,8 @@ let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
 }
 
 let outlier = function(kriterij, nazivSvojstva) {
-    let listaNekretninaPoKriteriju = SpisakNekretnina.filtrirajNekretnine(kriterij);
+    if(!kriterij.isNumber()) return undefined;
+    let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
     let prosjek = prosjecnaVrijednostSvojstva(kriterij, nazivSvojstva);
     let indexMaxOdstupanja = 0;
     let maxOdstupanje = 0;

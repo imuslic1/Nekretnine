@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistika</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/statistika.css">
+</head>
+<body>
+    <iframe src="meni.html"></iframe>
+    <h1 id="naslov">STATISTIKA</h1>
+    <div id="wrapper">
+        
+        <div id="form">
+            <form>
+                <table id="input">
+                    <tr>
+                        <td><h3>CIJENA: </h3></td>
+                        <td></td>            
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>OD: <input type = "number" id="cijena-od"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>DO: <input type = "number" id="cijena-do"></td>
+                        <td><input type="submit" id="cijena-dodaj-opseg" value="Dodaj"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><h3>GODINA: </h3></td>
+                        <td></td>            
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>OD: <input type="number" id="godine-od"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>DO: <input type="number" id="godine-do"></td>
+                        <td><input type="submit" id="godine-dodaj-opseg" value="Dodaj"></td>
+                    </tr>
+
+                    <tr><td><h3>Grijanje: </h3></td></tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" id="tip-plin">
+                            <label for="tip">Plin</label>
+                    </td></tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" id="tip-struja">
+                            <label for="tip">Struja</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" id="tip-toplana">
+                            <label for="tip">Toplana</label>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><h3>Godina izgradnje:</h3></td>
+                        <td><input type = "number" id="godine-od"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><input type="reset" value="Resetuj postavke" onclick="resetForm()"></td>
+                        <td><input type="submit" value="Prikaži histograme" onclick="drawHisto()"></td>
+                    </tr>
+            
+            
+                </table>
+            </form>
+        </div>
+        <div id="prikaz-rangova-cijena">OPSEZI CIJENA:
+            <ul id="rangovi-cijena">
+                <li>rang-cijene 1</li>
+                <li>rang-cijene 2</li>
+                <li>rang-cijene 3</li>
+                <li>rang-cijene 4</li>
+                <li>rang-cijene 5</li>
+        </div>
+        <div id="prikaz-rangova-godina">OPSEZI GODINA:
+            <ul id="rangovi-godina">
+                <li>rang-godina 1</li>
+                <li>rang-godina 2</li>
+                <li>rang-godina 3</li>
+                <li>rang-godina 4</li>
+                <li>rang-godina 5</li>
+        </div>
+        <div id="histogrami">
+            <h2>GRAF</h2>
+            <h2>GRAF</h2>
+            <h2>GRAF</h2>
+            <h2>GRAF</h2>
+            <h2>GRAF</h2>
+            <canvas id="graf-canvas"></canvas>
+        </div>
+    </div>
+
+    <script src="../JS/statistika.js"></script>
+</body>
+
+
+
+</html>
+

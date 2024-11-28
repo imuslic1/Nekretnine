@@ -267,10 +267,10 @@ function clearFields() {
 
     console.log("Form cleared.");
     if(histogramCijeneData.length > 0) {
-        histogramCijeneData = [];
+        histogramCijeneData.length = 0;
     }
     if(histogramGodineData.length > 0) {
-        histogramGodineData = [];
+        histogramGodineData.length = 0;
     }
 }
 

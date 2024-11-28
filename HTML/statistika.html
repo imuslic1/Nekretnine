@@ -8,7 +8,94 @@
 
     <iframe src="meni.html"></iframe>
     <h1 id="naslov">STATISTIKA</h1>
-    <div id="wrapper">
+    <h2 id="naslov2">Informacije o nekretninama</h2>
+
+    <div id="wrapper1">
+        <div id="tabela">
+            <table id="input-informacije">
+
+                <tr>
+                    <td>
+                        <h3>Tip nekretnine: </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" id="stan" name="tip_nekretnine"> Stan
+                    </td>
+                    <td>
+                        <input type="radio" id="kuca" name="tip_nekretnine"> Kuća
+                    </td>
+                    <td>
+                        <input type="radio" id="poslovni_prostor" name="tip_nekretnine"> Poslovni prostor
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h3>Kvadratura: </h3>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Od: <input type="number" id="min_kvadratura">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Do: <input type="number" id="max_kvadratura">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h3>Lokacija: </h3>
+                    </td>
+                    <td id="lokacija-td">
+                        <input type="text" id="lokacija">
+                    </td>
+                </tr>
+
+
+
+                <tr><td><h3>Grijanje: </h3></td></tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" id="tip-plin">
+                        <label for="tip">Plin</label>
+                </td></tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" id="tip-struja">
+                        <label for="tip">Struja</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" id="tip-toplana">
+                        <label for="tip">Toplana</label>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><h3>Godina izgradnje:</h3></td>
+                    <td><input type = "number" id="godine-od"></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+
+
+
+    <h2 id="naslov3">Generiranje histograma</h2>
+    <div id="wrapper2">
         
         <div id="form">
             <form>
@@ -28,7 +115,7 @@
                     </tr>
                     
                     <tr>
-                        <td><h3>GODINA: </h3></td>
+                        <td><h3>GODINA OBJAVE: </h3></td>
                         <td></td>            
                     </tr>
                     <tr>
@@ -41,34 +128,6 @@
                         <td><button type="button" id="godina-dodaj-opseg">Dodaj opseg</td>
                     </tr>
 
-                    <tr><td><h3>Grijanje: </h3></td></tr>
-                    
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="checkbox" id="tip-plin">
-                            <label for="tip">Plin</label>
-                    </td></tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="checkbox" id="tip-struja">
-                            <label for="tip">Struja</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="checkbox" id="tip-toplana">
-                            <label for="tip">Toplana</label>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td><h3>Godina izgradnje:</h3></td>
-                        <td><input type = "number" id="godine-od"></td>
-                    </tr>
-                    
                     <tr>
                         <td><button type="button" id="reset">Resetuj formu</td>
                         <td><button type="button" id="prikazi-histo">Prikaži graf/grafove</td>

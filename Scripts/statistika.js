@@ -8,8 +8,6 @@ dodajGodinuButton.addEventListener("click", dodajGodinu);
 resetButton.addEventListener("click", clearFields);
 prikaziButton.addEventListener("click", showHisto);
 
-const statistikaNekretnina = StatistikaNekretnina();
-
 const listaNekretnina = [{
     id: 1,
     tip_nekretnine: "Stan",
@@ -128,7 +126,7 @@ const listaNekretnina = [{
     tip_grijanja: "struja",
     lokacija: "Centar",
     godina_izgradnje: 2009,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.2013.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
@@ -145,7 +143,7 @@ const listaNekretnina = [{
     tip_grijanja: "toplana",
     lokacija: "Centar",
     godina_izgradnje: 2010,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.2011.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
@@ -162,7 +160,7 @@ const listaNekretnina = [{
     tip_grijanja: "toplana",
     lokacija: "Centar",
     godina_izgradnje: 2005,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.2009.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
@@ -179,7 +177,7 @@ const listaNekretnina = [{
     tip_grijanja: "struja",
     lokacija: "Centar",
     godina_izgradnje: 2005,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.2001.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
@@ -196,7 +194,7 @@ const listaNekretnina = [{
     tip_grijanja: "toplana",
     lokacija: "Alipašino polje",
     godina_izgradnje: 1985,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.1992.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
@@ -213,18 +211,14 @@ const listaNekretnina = [{
     tip_grijanja: "plin",
     lokacija: "Grbavica",
     godina_izgradnje: 2000,
-    datum_objave: "20.08.2023.",
+    datum_objave: "20.08.2015.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
         korisnik_id: 2,
         tekst_upita: "Integer tincidunt."
     }
     ]
-},
-
-
-
-]
+},]
 
 const listaKorisnika = [{
     id: 1,
@@ -238,6 +232,10 @@ const listaKorisnika = [{
     prezime: "Nekic2",
     username: "username2",
 }]
+
+
+const statistikaNekretnina = StatistikaNekretnina();
+statistikaNekretnina.init(listaNekretnina, listaKorisnika);
 
 const histogramCijeneData = [];
 const histogramGodineData = [];
@@ -265,12 +263,14 @@ function clearFields() {
     document.getElementById("tip-struja").checked = false;
     document.getElementById("tip-toplana").checked = false;
 
+    document.getElementById("histogrami").innerHTML = "";
+
     console.log("Form cleared.");
     if(histogramCijeneData.length > 0) {
-        histogramCijeneData.length = 0;
+        histogramCijeneData = [];
     }
     if(histogramGodineData.length > 0) {
-        histogramGodineData.length = 0;
+        histogramGodineData = [];
     }
 }
 
@@ -344,20 +344,16 @@ function dodajGodinu() {
 }
 
 function drawHistograms(histogram, periodi, rasponiCijena) {
-    // Clear the existing histograms
     const histogramContainer = document.getElementById('histogrami');
-    histogramContainer.innerHTML = ''; // Clear existing canvas elements
+    histogramContainer.innerHTML = ''; 
 
-    // Iterate through the periods to create one histogram per year range
     periodi.forEach((period, periodIndex) => {
         const canvas = document.createElement('canvas');
         canvas.id = `graf-canvas-${periodIndex}`;
         histogramContainer.appendChild(canvas);
 
-        // Filter the histogram data for the current period
         const periodData = histogram.filter(item => item.indeksPerioda === periodIndex);
 
-        // Prepare data for Chart.js
         const labels = rasponiCijena.map(
             (raspon, index) => `${raspon[0]} - ${raspon[1]}`
         );
@@ -366,7 +362,6 @@ function drawHistograms(histogram, periodi, rasponiCijena) {
             data[item.indeksRaspona] = item.brojNekretnina;
         });
 
-        // Create the histogram chart
         new Chart(canvas, {
             type: 'bar',
             data: {
@@ -435,6 +430,4 @@ function showHisto() {
     console.log("Histogram prikazan!");
 
 }
-
-
 

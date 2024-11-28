@@ -12,7 +12,7 @@ iframe {
     height: 100%;
 }
 
-#wrapper {
+#wrapper1, #wrapper2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
@@ -21,29 +21,34 @@ iframe {
     padding: 20px;
 }
 
-#input {
+#input, #input-informacije {
     width: 100%;
-    border-collapse: collapse;
 }
 
-#input h3 {
+#input h3, #input-informacije h3 {
     text-align: left;
     margin: 0;
 }
 
-#input button {
+#input button, #input-informacije button {
     white-space: nowrap;
 }
 
-#input td {
+#input td, #input-informacije td {
     width: 100px;  
     height: 30px;
     text-align: left;
     vertical-align: bottom;
-    padding: 5px;
+    padding: 2px;
+    white-space: nowrap;
+
 }
 
-#form {
+#lokacija-td input {
+    float: right;
+}
+
+#form, #form-informacije {
     margin: 10px;
     grid-column: 1;
     grid-row: span 2;

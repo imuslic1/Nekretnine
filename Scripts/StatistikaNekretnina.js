@@ -1,7 +1,5 @@
-var spisakNekretnina = SpisakNekretnina();
-
-
 function StatistikaNekretnina() {
+    var spisakNekretnina = SpisakNekretnina();
 
     let init = function(listaNekretnina, listaKorisnika) { 
         spisakNekretnina.init(listaNekretnina, listaKorisnika);
@@ -20,19 +18,19 @@ function StatistikaNekretnina() {
     }
 
     let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
-        let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
         let sumaSvojstva = 0;
 
-        listaNekretninaPoKriteriju.forEach(element => {
+        listaNekretnina.forEach(element => {
             let svojstvoValue = element[nazivSvojstva];
             sumaSvojstva += svojstvoValue;
         });
 
-        return sumaSvojstva / listaNekretninaPoKriteriju.length;
+        return sumaSvojstva / listaNekretnina.length;
     }
 
     let outlier = function(kriterij, nazivSvojstva) {
         if(!kriterij.isNumber()) return undefined;
+
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
         let prosjek = prosjecnaVrijednostSvojstva(kriterij, nazivSvojstva);
         let indexMaxOdstupanja = 0;
@@ -50,7 +48,14 @@ function StatistikaNekretnina() {
     }
 
     let mojeNekretnine = function(korisnik) {
-        let listaNekretninaSaUpitomOdKorisnika = listaNekretnina.filter(nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik.id));
+        let listaNekretninaSaUpitomOdKorisnika = listaNekretnina.filter(
+            nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik.id));
+        
+        listaNekretninaSaUpitomOdKorisnika.sort((a, b) => {
+            return a.upiti.length > b.upiti.length;
+        });
+
+        
         return listaNekretninaSaUpitomOdKorisnika;
     }
 
@@ -62,12 +67,14 @@ function StatistikaNekretnina() {
                 let brojNekretnina = listaNekretnina.filter(nekretnina => {
                     let cijena = nekretnina.cijena;
                     let datumObjave = parseInt(nekretnina.datum_objave.split('.')[2]);
-                    return (
-                        datumObjave >= period.od && 
-                        datumObjave < period.do && 
-                        cijena >= rasponCijena[0] && 
-                        cijena < rasponCijena[1]
-                    );            
+                    if(!dodatneOpcije)
+                        return (
+                            datumObjave >= period.od && 
+                            datumObjave < period.do && 
+                            cijena >= rasponCijena[0] && 
+                            cijena < rasponCijena[1]
+                        );            
+                    
                 }).length;
 
                 histogram.push({indeksPerioda, indeksRaspona, brojNekretnina});
@@ -81,7 +88,6 @@ function StatistikaNekretnina() {
     return {
         init: init,
         prosjecnaKvadratura: prosjecnaKvadratura,
-        prosjecnaVrijednostSvojstva: prosjecnaVrijednostSvojstva,
         outlier: outlier,
         mojeNekretnine: mojeNekretnine,
         histogramCijena: histogramCijena

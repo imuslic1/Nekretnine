@@ -257,7 +257,6 @@ function clearFields() {
     document.getElementById("cijena-do").value = "";
     document.getElementById("godina-od").value = "";
     document.getElementById("godina-do").value = "";
-    document.getElementById("godine-od").value = "";
 
     document.getElementById("tip-plin").checked = false;
     document.getElementById("tip-struja").checked = false;
@@ -407,6 +406,20 @@ function drawHistograms(histogram, periodi, rasponiCijena) {
         });
     });
 }
+
+function fillNekretnineByKorisnik() {
+    let selectedKorisnik = document.getElementById("izbor-korisnika").value;
+    let korisnik = selectedKorisnik.split("-")[1].toNomber();
+    const nekretnine = statistikaNekretnina.mojeNekretnine(korisnik);
+    const list = document.getElementById("moje-nekretnine-list");
+    nekretnine.forEach(nekretnina => {
+        const listItem = document.createElement("li");
+        listItem.textContent = nekretnina;
+        list.appendChild(listItem);
+    });
+}
+
+
 
 function showHisto() {
     let periodi = [];

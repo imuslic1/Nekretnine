@@ -49,7 +49,7 @@ function StatistikaNekretnina() {
 
     let mojeNekretnine = function(korisnik) {
         let listaNekretninaSaUpitomOdKorisnika = listaNekretnina.filter(
-            nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik.id));
+            nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik));
         
         listaNekretninaSaUpitomOdKorisnika.sort((a, b) => {
             return a.upiti.length > b.upiti.length;
@@ -67,7 +67,6 @@ function StatistikaNekretnina() {
                 let brojNekretnina = listaNekretnina.filter(nekretnina => {
                     let cijena = nekretnina.cijena;
                     let datumObjave = parseInt(nekretnina.datum_objave.split('.')[2]);
-                    if(!dodatneOpcije)
                         return (
                             datumObjave >= period.od && 
                             datumObjave < period.do && 

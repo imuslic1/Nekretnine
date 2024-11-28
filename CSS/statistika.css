@@ -12,9 +12,26 @@ iframe {
     height: 100%;
 }
 
-#wrapper1, #wrapper2 {
+#global-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+}
+
+#wrapper1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 40px;
+    justify-content: left;
+    padding: 20px;
+}
+
+#wrapper2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     gap: 40px;
     justify-content: left;
@@ -32,6 +49,22 @@ iframe {
 
 #input button, #input-informacije button {
     white-space: nowrap;
+}
+
+#podaci-tabela {
+
+    text-align: left;
+    margin: 0;
+    padding: 5px;
+}
+
+#podaci-tabela td {
+    white-space: nowrap;
+}
+
+.data {
+    padding-left: 30px;
+    text-align: right;
 }
 
 #input td, #input-informacije td {
@@ -71,7 +104,7 @@ iframe {
 
 
 #histo-wrapper {
-    grid-column: span 4;
+    grid-column: span 3;
     grid-row: auto;
 }
 

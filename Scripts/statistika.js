@@ -233,9 +233,13 @@ const listaKorisnika = [{
     username: "username2",
 }]
 
-
+const spisakNekretnina = SpisakNekretnina();
 const statistikaNekretnina = StatistikaNekretnina();
-statistikaNekretnina.init(listaNekretnina, listaKorisnika);
+
+document.addEventListener("DOMContentLoaded", () => {
+    statistikaNekretnina.init(listaNekretnina, listaKorisnika);
+});
+
 
 const histogramCijeneData = [];
 const histogramGodineData = [];
@@ -419,6 +423,46 @@ function fillNekretnineByKorisnik() {
     });
 }
 
+function filterAndShowData() {
+    let stan = document.getElementById("stan").checked;
+    let kuca = document.getElementById("kuca").checked;
+    let poslovniProstor = document.getElementById("poslovni-prostor").checked;
+    var tipNekretnine = null;
+    if(stan)
+        tipNekretnine = "Stan";
+    else if(kuca)
+        tipNekretnine = "Kuca";
+    else if(poslovniProstor)
+        tipNekretnine = "Poslovni prostor";
+
+    let minKvadratura = document.getElementById("min-kvadratura").value;
+    let maxKvadratura = document.getElementById("max-kvadratura").value;
+    let lokacija = document.getElementById("lokacija").value;
+    let tipGrijanja = null;
+    if(document.getElementById("tip-plin").checked)
+        tipGrijanja = "plin";
+    else if(document.getElementById("tip-struja").checked)
+        tipGrijanja = "struja";
+    else if(document.getElementById("tip-toplana").checked)
+        tipGrijanja = "toplana";
+    let godinaIzgradnje = document.getElementById("godina-izgradnje").value;
+
+    let kriterij = {
+        tip_nekretnine: tipNekretnine,
+        min_kvadratura: minKvadratura,
+        max_kvadratura: maxKvadratura,
+        lokacija: lokacija,
+        tip_grijanja: tipGrijanja,
+        godina_izgradnje: godinaIzgradnje,
+    }
+
+    let filtriranaLista = spisakNekretnina.filtrirajNekretnine(kriterij);
+
+    console.log(filtriranaLista);
+
+}
+
+document.getElementById("prikazi-podatke").addEventListener("click", filterAndShowData);
 
 
 function showHisto() {

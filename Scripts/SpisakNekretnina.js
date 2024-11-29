@@ -5,13 +5,13 @@ let SpisakNekretnina = function () {
 
 
     //implementacija metoda
-    let init = function (listaNekretnina, listaKorisnika) {
-        this.listaNekretnina = listaNekretnina;
-        this.listaKorisnika = listaKorisnika;
+    let init = function (nekretnine, korisnici) {
+        listaNekretnina = nekretnine;
+        listaKorisnika = korisnici;
     }
 
     let filtrirajNekretnine = function (kriterij) {
-        return this.listaNekretnina.filter(nekretnina => {
+        return listaNekretnina.filter(nekretnina => {
             // Filtriranje po tipu nekretnine
             if (kriterij.tip_nekretnine && nekretnina.tip_nekretnine !== kriterij.tip_nekretnine) {
                 return false;

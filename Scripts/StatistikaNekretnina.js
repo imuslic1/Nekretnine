@@ -29,21 +29,19 @@ function StatistikaNekretnina() {
     }
 
     let outlier = function(kriterij, nazivSvojstva) {
-        if(!kriterij.isNumber()) return undefined;
-
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
         let prosjek = prosjecnaVrijednostSvojstva(kriterij, nazivSvojstva);
         let indexMaxOdstupanja = 0;
         let maxOdstupanje = 0;
 
-        for(let i=0; i<listaNekretninaPoKriteriju.length; ++i) {
-            let odstupanje = Math.abs(listaNekretninaPoKriteriju[i][nazivSvojstva] - prosjek);
-            if(odstupanje > maxOdstupanje) {
+        listaNekretninaPoKriteriju.forEach((nekretnina, i) => {
+            let odstupanje = Math.abs(nekretnina[nazivSvojstva] - prosjek);
+            if (odstupanje > maxOdstupanje) {
                 maxOdstupanje = odstupanje;
                 indexMaxOdstupanja = i;
             }
-        }
-
+        });
+    
         return listaNekretninaPoKriteriju[indexMaxOdstupanja];
     }
 

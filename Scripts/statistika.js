@@ -1,13 +1,3 @@
-const dodajCijenuButton = document.getElementById('cijena-dodaj-opseg');
-const dodajGodinuButton = document.getElementById("godina-dodaj-opseg");
-const resetButton = document.getElementById("reset");
-const prikaziButton = document.getElementById("prikazi-histo");
-
-dodajCijenuButton.addEventListener("click", dodajCijenu);
-dodajGodinuButton.addEventListener("click", dodajGodinu);
-resetButton.addEventListener("click", clearFields);
-prikaziButton.addEventListener("click", showHisto);
-
 const listaNekretnina = [{
     id: 1,
     tip_nekretnine: "Stan",
@@ -233,6 +223,20 @@ const listaKorisnika = [{
     username: "username2",
 }]
 
+const dodajCijenuButton = document.getElementById('cijena-dodaj-opseg');
+const dodajGodinuButton = document.getElementById("godina-dodaj-opseg");
+const resetHistogramButton = document.getElementById("reset");
+const resetDataButton = document.getElementById("reset-1");
+const prikaziHistogrameButton = document.getElementById("prikazi-histo");
+const prikaziPodatkeButton = document.getElementById("prikazi-podatke");
+
+dodajCijenuButton.addEventListener("click", dodajCijenu);
+dodajGodinuButton.addEventListener("click", dodajGodinu);
+resetHistogramButton.addEventListener("click", clearHistogramFields);
+resetDataButton.addEventListener("click", clearDataFields);
+prikaziHistogrameButton.addEventListener("click", showHisto);
+prikaziPodatkeButton.addEventListener("click", filterAndShowData);
+
 const spisakNekretnina = SpisakNekretnina();
 const statistikaNekretnina = StatistikaNekretnina();
 
@@ -240,13 +244,31 @@ document.addEventListener("DOMContentLoaded", () => {
     statistikaNekretnina.init(listaNekretnina, listaKorisnika);
 });
 
-
 const histogramCijeneData = [];
 const histogramGodineData = [];
 
-clearFields(); 
+clearHistogramFields(); 
+clearDataFields();
 
-function clearFields() {
+function clearDataFields() {
+    document.getElementById("min-kvadratura").value = "";
+    document.getElementById("max-kvadratura").value = "";
+    document.getElementById("lokacija").value = "";
+    document.getElementById("godina-izgradnje").value = "";
+    document.getElementById("stan").checked = false;
+    document.getElementById("kuca").checked = false;
+    document.getElementById("poslovni-prostor").checked = false;
+    document.getElementById("tip-plin").checked = false;
+    document.getElementById("tip-struja").checked = false;
+    document.getElementById("tip-toplana").checked = false;
+
+    document.getElementById("prosjecna-kvadratura").innerHTML = "";
+    document.getElementById("outlier-po-kriteriju").innerHTML = "";
+    document.getElementById("moje-nekretnine-list").innerHTML = "";
+}
+
+
+function clearHistogramFields() {
     let cijene = document.getElementById("rangovi-cijena");
     let godine = document.getElementById("rangovi-godina");
 
@@ -276,6 +298,8 @@ function clearFields() {
         histogramGodineData.length = 0;
     }
 }
+
+
 
 function clearUnosCijene() {
     document.getElementById("cijena-od").value = "";
@@ -346,6 +370,65 @@ function dodajGodinu() {
     histogramGodineData.push([from, to]);   
 }
 
+
+
+function fillNekretnineByKorisnik() {
+    let selectedKorisnik = document.getElementById("izbor-korisnika").value;
+    let korisnik = parseInt(selectedKorisnik.split("-")[1]);
+    const nekretnine = statistikaNekretnina.mojeNekretnine(korisnik);
+    const list = document.getElementById("moje-nekretnine-list");
+    list.innerHTML = "";
+    nekretnine.forEach(nekretnina => {
+        const listItem = document.createElement("li");
+        listItem.textContent = nekretnina.naziv;
+        list.appendChild(listItem);
+    });
+}
+
+function filterAndShowData() {
+    let stan = document.getElementById("stan").checked;
+    let kuca = document.getElementById("kuca").checked;
+    let poslovniProstor = document.getElementById("poslovni-prostor").checked;
+    var tipNekretnine = null;
+    if(stan)
+        tipNekretnine = "Stan";
+    else if(kuca)
+        tipNekretnine = "Kuca";
+    else if(poslovniProstor)
+        tipNekretnine = "Poslovni prostor";
+
+    let minKvadratura = document.getElementById("min-kvadratura").value;
+    let maxKvadratura = document.getElementById("max-kvadratura").value;
+    let lokacija = document.getElementById("lokacija").value;
+    let tipGrijanja = null;
+    if(document.getElementById("tip-plin").checked)
+        tipGrijanja = "plin";
+    else if(document.getElementById("tip-struja").checked)
+        tipGrijanja = "struja";
+    else if(document.getElementById("tip-toplana").checked)
+        tipGrijanja = "toplana";
+    let godinaIzgradnje = document.getElementById("godina-izgradnje").value;
+
+    let kriterij = {
+        tip_nekretnine: tipNekretnine,
+        min_kvadratura: minKvadratura,
+        max_kvadratura: maxKvadratura,
+        lokacija: lokacija,
+        tip_grijanja: tipGrijanja,
+        godina_izgradnje: godinaIzgradnje,
+    }
+
+    let prosjecnaKvadratura = statistikaNekretnina.prosjecnaKvadratura(kriterij);
+    let outlier = statistikaNekretnina.outlier(kriterij, "cijena");
+
+    document.getElementById("prosjecna-kvadratura").innerHTML = `Prosjecna kvadratura: ${prosjecnaKvadratura.naziv} (${prosjecnaKvadratura.kvadratura})`;
+    document.getElementById("outlier-po-kriteriju").innerHTML = `Outlier po kriteriju: ${outlier.naziv} (${outlier.cijena})`;
+
+    fillNekretnineByKorisnik();
+    podaciPrikazani = true;
+}
+
+
 function drawHistograms(histogram, periodi, rasponiCijena) {
     const histogramContainer = document.getElementById('histogrami');
     histogramContainer.innerHTML = ''; 
@@ -410,60 +493,6 @@ function drawHistograms(histogram, periodi, rasponiCijena) {
         });
     });
 }
-
-function fillNekretnineByKorisnik() {
-    let selectedKorisnik = document.getElementById("izbor-korisnika").value;
-    let korisnik = selectedKorisnik.split("-")[1].toNomber();
-    const nekretnine = statistikaNekretnina.mojeNekretnine(korisnik);
-    const list = document.getElementById("moje-nekretnine-list");
-    nekretnine.forEach(nekretnina => {
-        const listItem = document.createElement("li");
-        listItem.textContent = nekretnina;
-        list.appendChild(listItem);
-    });
-}
-
-function filterAndShowData() {
-    let stan = document.getElementById("stan").checked;
-    let kuca = document.getElementById("kuca").checked;
-    let poslovniProstor = document.getElementById("poslovni-prostor").checked;
-    var tipNekretnine = null;
-    if(stan)
-        tipNekretnine = "Stan";
-    else if(kuca)
-        tipNekretnine = "Kuca";
-    else if(poslovniProstor)
-        tipNekretnine = "Poslovni prostor";
-
-    let minKvadratura = document.getElementById("min-kvadratura").value;
-    let maxKvadratura = document.getElementById("max-kvadratura").value;
-    let lokacija = document.getElementById("lokacija").value;
-    let tipGrijanja = null;
-    if(document.getElementById("tip-plin").checked)
-        tipGrijanja = "plin";
-    else if(document.getElementById("tip-struja").checked)
-        tipGrijanja = "struja";
-    else if(document.getElementById("tip-toplana").checked)
-        tipGrijanja = "toplana";
-    let godinaIzgradnje = document.getElementById("godina-izgradnje").value;
-
-    let kriterij = {
-        tip_nekretnine: tipNekretnine,
-        min_kvadratura: minKvadratura,
-        max_kvadratura: maxKvadratura,
-        lokacija: lokacija,
-        tip_grijanja: tipGrijanja,
-        godina_izgradnje: godinaIzgradnje,
-    }
-
-    let filtriranaLista = spisakNekretnina.filtrirajNekretnine(kriterij);
-
-    console.log(filtriranaLista);
-
-}
-
-document.getElementById("prikazi-podatke").addEventListener("click", filterAndShowData);
-
 
 function showHisto() {
     let periodi = [];

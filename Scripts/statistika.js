@@ -419,7 +419,7 @@ function filterAndShowData() {
     }
 
     let prosjecnaKvadratura = statistikaNekretnina.prosjecnaKvadratura(kriterij);
-    let outlier = statistikaNekretnina.outlier(kriterij, "cijena");
+    let outlier = statistikaNekretnina.outlier(kriterij, "godina_izgradnje");
 
     document.getElementById("prosjecna-kvadratura").innerHTML = `Prosjecna kvadratura: ${prosjecnaKvadratura.naziv} (${prosjecnaKvadratura.kvadratura})`;
     document.getElementById("outlier-po-kriteriju").innerHTML = `Outlier po kriteriju: ${outlier.naziv} (${outlier.cijena})`;

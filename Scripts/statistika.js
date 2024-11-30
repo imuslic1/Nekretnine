@@ -396,6 +396,15 @@ function izracunajOutlier() {
     document.getElementById("outlier").innerHTML = outlier; //podesi tacan id 
 }
 
+function showMojeNekretnine(korisnik) {
+    let nekretnine = statistikaNekretnina.mojeNekretnine(korisnik);
+    let list = document.getElementById("moje-nekretnine-list"); //podesi tacan id 
+    list.innerHTML = "";
+    nekretnine.forEach(nekretnina => {
+        addLiToUl(list, nekretnina.naziv);
+    });
+}
+
 function drawHistograms(histogram, periodi, rasponiCijena) {
     const histogramContainer = document.getElementById('histogrami');
     histogramContainer.innerHTML = ''; 

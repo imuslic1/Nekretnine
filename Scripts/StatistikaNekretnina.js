@@ -17,7 +17,7 @@ function StatistikaNekretnina() {
         return sumaKvadratura / listaNekretninaPoKriteriju.length;
     }
 
-    let prosjecnaVrijednostSvojstva = function(kriterij, nazivSvojstva) {
+    let prosjecnaVrijednostSvojstva = function(nazivSvojstva) {
         let sumaSvojstva = 0;
 
         listaNekretnina.forEach(element => {
@@ -30,7 +30,7 @@ function StatistikaNekretnina() {
 
     let outlier = function(kriterij, nazivSvojstva) {
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
-        let prosjek = prosjecnaVrijednostSvojstva(kriterij, nazivSvojstva);
+        let prosjek = prosjecnaVrijednostSvojstva(nazivSvojstva);
         let indexMaxOdstupanja = 0;
         let maxOdstupanje = 0;
 

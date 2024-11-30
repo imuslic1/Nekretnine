@@ -389,6 +389,13 @@ function izracunajProsjecnuKvadraturu() {
     document.getElementById("prosjecna-kvadratura").innerHTML = prosjek; //podesi tacan id 
 }
 
+function izracunajOutlier() {
+    let kriterij = getKriterij("outlier");
+    let svojstvo = document.getElementById("izbor-svojstva-outlier").value; //podesi id na tacan iz layouta
+    let outlier = statistikaNekretnina.outlier(kriterij, svojstvo);
+    document.getElementById("outlier").innerHTML = outlier; //podesi tacan id 
+}
+
 function drawHistograms(histogram, periodi, rasponiCijena) {
     const histogramContainer = document.getElementById('histogrami');
     histogramContainer.innerHTML = ''; 

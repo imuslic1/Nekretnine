@@ -299,8 +299,6 @@ function clearHistogramFields() {
     }
 }
 
-
-
 function clearUnosCijene() {
     document.getElementById("cijena-od").value = "";
     document.getElementById("cijena-do").value = "";
@@ -370,8 +368,6 @@ function dodajGodinu() {
     histogramGodineData.push([from, to]);   
 }
 
-
-
 function fillNekretnineByKorisnik() {
     let selectedKorisnik = document.getElementById("izbor-korisnika").value;
     let korisnik = parseInt(selectedKorisnik.split("-")[1]);
@@ -385,48 +381,7 @@ function fillNekretnineByKorisnik() {
     });
 }
 
-function filterAndShowData() {
-    let stan = document.getElementById("stan").checked;
-    let kuca = document.getElementById("kuca").checked;
-    let poslovniProstor = document.getElementById("poslovni-prostor").checked;
-    var tipNekretnine = null;
-    if(stan)
-        tipNekretnine = "Stan";
-    else if(kuca)
-        tipNekretnine = "Kuca";
-    else if(poslovniProstor)
-        tipNekretnine = "Poslovni prostor";
 
-    let minKvadratura = document.getElementById("min-kvadratura").value;
-    let maxKvadratura = document.getElementById("max-kvadratura").value;
-    let lokacija = document.getElementById("lokacija").value;
-    let tipGrijanja = null;
-    if(document.getElementById("tip-plin").checked)
-        tipGrijanja = "plin";
-    else if(document.getElementById("tip-struja").checked)
-        tipGrijanja = "struja";
-    else if(document.getElementById("tip-toplana").checked)
-        tipGrijanja = "toplana";
-    let godinaIzgradnje = document.getElementById("godina-izgradnje").value;
-
-    let kriterij = {
-        tip_nekretnine: tipNekretnine,
-        min_kvadratura: minKvadratura,
-        max_kvadratura: maxKvadratura,
-        lokacija: lokacija,
-        tip_grijanja: tipGrijanja,
-        godina_izgradnje: godinaIzgradnje,
-    }
-
-    let prosjecnaKvadratura = statistikaNekretnina.prosjecnaKvadratura(kriterij);
-    let outlier = statistikaNekretnina.outlier(kriterij, "godina_izgradnje");
-
-    document.getElementById("prosjecna-kvadratura").innerHTML = `Prosjecna kvadratura: ${prosjecnaKvadratura.naziv} (${prosjecnaKvadratura.kvadratura})`;
-    document.getElementById("outlier-po-kriteriju").innerHTML = `Outlier po kriteriju: ${outlier.naziv} (${outlier.cijena})`;
-
-    fillNekretnineByKorisnik();
-    podaciPrikazani = true;
-}
 
 
 function drawHistograms(histogram, periodi, rasponiCijena) {

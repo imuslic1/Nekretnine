@@ -226,16 +226,16 @@ const listaKorisnika = [{
 const dodajCijenuButton = document.getElementById('cijena-dodaj-opseg');
 const dodajGodinuButton = document.getElementById("godina-dodaj-opseg");
 const resetHistogramButton = document.getElementById("reset");
-const resetDataButton = document.getElementById("reset-1");
+const resetProsjecnaKvadraturaButton = document.getElementById("reset-1"); //podesi id na tacan iz layouta
 const prikaziHistogrameButton = document.getElementById("prikazi-histo");
-const prikaziPodatkeButton = document.getElementById("prikazi-podatke");
+const izracunajProsjecnuKvadraturuButton = document.getElementById("prikazi-podatke"); //podesi id na tacan iz layouta
 
 dodajCijenuButton.addEventListener("click", dodajCijenu);
 dodajGodinuButton.addEventListener("click", dodajGodinu);
 resetHistogramButton.addEventListener("click", clearHistogramFields);
-resetDataButton.addEventListener("click", clearDataFields);
+resetProsjecnaKvadraturaButton.addEventListener("click", clearProsjekKvadraturaFields);
 prikaziHistogrameButton.addEventListener("click", showHisto);
-prikaziPodatkeButton.addEventListener("click", filterAndShowData);
+izracunajProsjecnuKvadraturuButton.addEventListener("click", izracunajProsjecnuKvadraturu);
 
 const spisakNekretnina = SpisakNekretnina();
 const statistikaNekretnina = StatistikaNekretnina();
@@ -248,23 +248,11 @@ const histogramCijeneData = [];
 const histogramGodineData = [];
 
 clearHistogramFields(); 
-clearDataFields();
+clearProsjekKvadraturaFields();
 
-function clearDataFields() {
-    document.getElementById("min-kvadratura").value = "";
-    document.getElementById("max-kvadratura").value = "";
-    document.getElementById("lokacija").value = "";
-    document.getElementById("godina-izgradnje").value = "";
-    document.getElementById("stan").checked = false;
-    document.getElementById("kuca").checked = false;
-    document.getElementById("poslovni-prostor").checked = false;
-    document.getElementById("tip-plin").checked = false;
-    document.getElementById("tip-struja").checked = false;
-    document.getElementById("tip-toplana").checked = false;
+function clearProsjekKvadraturaFields() {
+   //TODO: Implementirati funkciju kad bude gotov layout 
 
-    document.getElementById("prosjecna-kvadratura").innerHTML = "";
-    document.getElementById("outlier-po-kriteriju").innerHTML = "";
-    document.getElementById("moje-nekretnine-list").innerHTML = "";
 }
 
 
@@ -380,9 +368,26 @@ function fillNekretnineByKorisnik() {
         list.appendChild(listItem);
     });
 }
+ 
+function getKriterij(kvadraturaIliOutlier) {
+    let kriterij = {};
+    if(kvadraturaIliOutlier === "kvadratura") {
+        let selectedKriterij = document.getElementById("izbor-kriterija").value; //podesi id na tacan layouta
+        let selectedValue = document.getElementById("kriterij-vrijednost").value;    
+    }
+    else {
+        let selectedKriterij = document.getElementById("izbor-kriterija-outlier").value; //podesi id na tacan iz 
+        let selectedValue = document.getElementById("kriterij-vrijednost-outlier").value;
+    }
+    kriterij[selectedKriterij] = selectedValue;
+    return kriterij;
+}
 
-
-
+function izracunajProsjecnuKvadraturu() {
+    let kriterij = getKriterij("kvadratura");
+    let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterij);
+    document.getElementById("prosjecna-kvadratura").innerHTML = prosjek; //podesi tacan id 
+}
 
 function drawHistograms(histogram, periodi, rasponiCijena) {
     const histogramContainer = document.getElementById('histogrami');

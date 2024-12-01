@@ -58,7 +58,7 @@ const listaNekretnina = [{
 },
 {
     id: 2,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 70000,
@@ -75,7 +75,7 @@ const listaNekretnina = [{
 },
 {
     id: 3,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 70000,
@@ -92,7 +92,7 @@ const listaNekretnina = [{
 },
 {
     id: 4,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 70000,
@@ -109,7 +109,7 @@ const listaNekretnina = [{
 },
 {
     id: 5,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 75000,
@@ -143,7 +143,7 @@ const listaNekretnina = [{
 },
 {
     id: 7,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 70000,
@@ -160,7 +160,7 @@ const listaNekretnina = [{
 },
 {
     id: 8,
-    tip_nekretnine: "Kuća",
+    tip_nekretnine: "Kuca",
     naziv: "Mali poslovni prostor",
     kvadratura: 20,
     cijena: 70000,
@@ -314,6 +314,7 @@ function clearKvadraturaFields() {
         lokacija: undefined,
         godina_izgradnje: undefined,
     };
+    console.log(kriterijKvadratura);
 }
 
 function clearOutlierFields() {
@@ -328,6 +329,7 @@ function clearOutlierFields() {
         lokacija: undefined,
         godina_izgradnje: undefined,
     };
+    console.log(kriterijOutlier);
 }
 
 function clearMojeNekretnineFields() {
@@ -350,12 +352,12 @@ document.getElementById('kriterij-prosjek').addEventListener('change', function 
 
     const selectedValue = this.value;
     const tableId = {
-        'tip-nekretnine': 'tip-nekretnine-dropdown-prosjek',
+        'tip_nekretnine': 'tip-nekretnine-dropdown-prosjek',
         'kvadratura': 'range-kvadrature-prosjek',
         'cijena': 'range-cijene-prosjek',
-        'tip-grijanja': 'grijanje-prosjek',
+        'tip_grijanja': 'grijanje-prosjek',
         'lokacija': 'lokacija-prosjek',
-        'godina-izgradnje': 'godina-izgradnje-prosjek'
+        'godina_izgradnje': 'godina-izgradnje-prosjek'
     }[selectedValue];
 
     if (tableId) {
@@ -364,6 +366,37 @@ document.getElementById('kriterij-prosjek').addEventListener('change', function 
 });
 
 document.getElementById('kriterij-prosjek').dispatchEvent(new Event('change'));
+
+document.getElementById('kriterij-outlier').addEventListener('change', function () {
+    const allTables = [
+        'tip-nekretnine-dropdown-outlier',
+        'kvadratura-outlier',
+        'cijena-outlier',
+        'grijanje-outlier',
+        'lokacija-outlier',
+        'godina-izgradnje-outlier'
+    ];
+
+    allTables.forEach(id => {
+        document.getElementById(id).style.display = 'none';
+    });
+
+    const selectedValue = this.value;
+    const tableId = {
+        'tip_nekretnine': 'tip-nekretnine-dropdown-outlier',
+        'kvadratura': 'kvadratura-outlier',
+        'cijena': 'cijena-outlier',
+        'tip_grijanja': 'grijanje-outlier',
+        'lokacija': 'lokacija-outlier',
+        'godina_izgradnje': 'godina-izgradnje-outlier'
+    }[selectedValue];
+
+    if (tableId) {
+        document.getElementById(tableId).style.display = 'table';
+    }
+});
+
+document.getElementById('kriterij-outlier').dispatchEvent(new Event('change'));
 
 
 function clearHistogramFields() {
@@ -485,24 +518,103 @@ function fillNekretnineByKorisnik() {
 }
 
 function dodajKriterijKvadratura(kvadraturaIliOutlier) {
+    //let selectedKriterij = document.getElementById("kriterij-prosjek").value;
+    const tipNekretnine = document.getElementById('tip-nekretnine-dropdown-prosjek-select').value;
+    const minKvadratura = document.getElementById('range-kvadrature-od').value;
+    const maxKvadratura = document.getElementById('range-kvadrature-do').value;
+    const minCijena = document.getElementById('range-cijene-od').value;
+    const maxCijena = document.getElementById('range-cijene-do').value;
+    const tipGrijanja = document.getElementById('tip-grijanja-dropdown').value;
+    const lokacija = document.getElementById('lokacija-prosjek-input').value;
+    const godinaIzgradnje = document.getElementById('godina-izgradnje-prosjek-input').value;
+
+    const allHideableFields = [
+        'tip-nekretnine-dropdown-prosjek',
+        'range-kvadrature-prosjek',
+        'range-cijene-prosjek',
+        'grijanje-prosjek',
+        'lokacija-prosjek',
+        'godina-izgradnje-prosjek'
+    ]
     
+    if(document.getElementById(allHideableFields[0]).style.display !== 'none') {
+        kriterijKvadratura.tip_nekretnine = tipNekretnine;
+    }
+    if(document.getElementById(allHideableFields[1]).style.display !== 'none') {
+        kriterijKvadratura.min_kvadratura = minKvadratura;
+        kriterijKvadratura.max_kvadratura = maxKvadratura;
+    }
+    if(document.getElementById(allHideableFields[2]).style.display !== 'none') {
+        kriterijKvadratura.min_cijena = minCijena;
+        kriterijKvadratura.max_cijena = maxCijena;
+    }
+    if(document.getElementById(allHideableFields[3]).style.display !== 'none') {
+        kriterijKvadratura.tip_grijanja = tipGrijanja;
+    }
+    if(document.getElementById(allHideableFields[4]).style.display !== 'none') {
+        kriterijKvadratura.lokacija = lokacija;
+    }
+    if(document.getElementById(allHideableFields[5]).style.display !== 'none') {
+        kriterijKvadratura.godina_izgradnje = godinaIzgradnje;
+    }
+   
+    console.log("Updated kriterijKvadratura:", kriterijKvadratura);
 }
 
 function dodajKriterijOutlier(kvadraturaIliOutlier) {
+    const tipNekretnine = document.getElementById('tip-nekretnine-dropdown-outlier-select').value;
+    const minKvadratura = document.getElementById('range-kvadrature-od').value;
+    const maxKvadratura = document.getElementById('range-kvadrature-do').value;
+    const minCijena = document.getElementById('range-cijene-od').value;
+    const maxCijena = document.getElementById('range-cijene-do').value;
+    const tipGrijanja = document.getElementById('tip-grijanja-dropdown').value;
+    const lokacija = document.getElementById('lokacija-outlier-input').value;
+    const godinaIzgradnje = document.getElementById('godina-izgradnje-outlier-input').value;
+
+    const allHideableFields = [
+        'tip-nekretnine-dropdown-outlier',
+        'kvadratura-outlier',
+        'cijena-outlier',
+        'grijanje-outlier',
+        'lokacija-outlier',
+        'godina-izgradnje-outlier'
+    ]
     
+    if(document.getElementById(allHideableFields[0]).style.display !== 'none') {
+        kriterijOutlier.tip_nekretnine = tipNekretnine;
+    }
+    if(document.getElementById(allHideableFields[1]).style.display !== 'none') {
+        kriterijOutlier.min_kvadratura = minKvadratura;
+        kriterijOutlier.max_kvadratura = maxKvadratura;
+    }
+    if(document.getElementById(allHideableFields[2]).style.display !== 'none') {
+        kriterijOutlier.min_cijena = minCijena;
+        kriterijOutlier.max_cijena = maxCijena;
+    }
+    if(document.getElementById(allHideableFields[3]).style.display !== 'none') {
+        kriterijOutlier.tip_grijanja = tipGrijanja;
+    }
+    if(document.getElementById(allHideableFields[4]).style.display !== 'none') {
+        kriterijOutlier.lokacija = lokacija;
+    }
+    if(document.getElementById(allHideableFields[5]).style.display !== 'none') {
+        kriterijOutlier.godina_izgradnje = godinaIzgradnje;
+    }
+   
+    console.log("Updated kriterijKvadratura:", kriterijOutlier);
 }
 
 function izracunajProsjecnuKvadraturu() {
-    let kriterij = dodajKriterij("kvadratura");
-    let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterij);
-    document.getElementById("prosjecna-kvadratura").innerHTML = prosjek; //podesi tacan id 
+    let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterijKvadratura);
+    console.log(prosjek);
+    document.getElementById("prosjek-data").innerText = prosjek; //podesi tacan id 
 }
 
 function izracunajOutlier() {
-    let kriterij = dodajKriterij("outlier");
-    let svojstvo = document.getElementById("izbor-svojstva-outlier").value; //podesi id na tacan iz layouta
-    let outlier = statistikaNekretnina.outlier(kriterij, svojstvo);
-    document.getElementById("outlier").innerHTML = outlier; //podesi tacan id 
+    let svojstvo = document.getElementById("svojstvo-outlier").value; //podesi id na tacan iz layouta
+    let outlier = statistikaNekretnina.outlier(kriterijOutlier, svojstvo);
+    let textToShow = `${outlier.naziv}` + " (" + `${outlier[svojstvo]}` + ")";
+    document.getElementById("outlier-data").innerText = textToShow; //podesi tacan id 
 }
 
 function showMojeNekretnine(korisnik) {

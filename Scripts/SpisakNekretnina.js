@@ -13,7 +13,7 @@ let SpisakNekretnina = function () {
     let filtrirajNekretnine = function (kriterij) {
         return listaNekretnina.filter(nekretnina => {
             // Filtriranje po tipu nekretnine
-            if (kriterij.tip_nekretnine && nekretnina.tip_nekretnine !== kriterij.tip_nekretnine) {
+            if (kriterij.tip_nekretnine && nekretnina.tip_nekretnine.toLowerCase() !== kriterij.tip_nekretnine.toLowerCase()) {
                 return false;
             }
 

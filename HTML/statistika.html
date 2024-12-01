@@ -18,12 +18,12 @@
                         <td>
                             Kriterij: 
                             <select id="kriterij-prosjek">
-                                <option value="tip-nekretnine">Tip nekretnine</option>
+                                <option value="tip_nekretnine">Tip nekretnine</option>
                                 <option value="kvadratura">Raspon kvadrature</option>
                                 <option value="cijena">Raspon cijene</option>
-                                <option value="tip-grijanja">Tip grijanja</option>
+                                <option value="tip_grijanja">Tip grijanja</option>
                                 <option value="lokacija">Lokacija</option>
-                                <option value="godina-izgradnje">Godina izgradnje (gggg)</option>
+                                <option value="godina_izgradnje">Godina izgradnje (gggg)</option>
                             </select>
                         </td>
                         <td>
@@ -81,7 +81,7 @@
                                     <td>Grijanje: </td>
                                     <td>
 
-                                        <select>
+                                        <select id="tip-grijanja-dropdown">
                                             <option value="plin">Plin</option>
                                             <option value="struja">Struja</option>
                                             <option value="toplana">Toplana</option>
@@ -131,19 +131,19 @@
                         <td>
                             Kriterij: 
                             <select id="kriterij-outlier">
-                                <option value="tip-nekretnine">Tip nekretnine</option>
+                                <option value="tip_nekretnine">Tip nekretnine</option>
                                 <option value="kvadratura">Raspon kvadrature</option>
                                 <option value="cijena">Raspon cijene</option>
-                                <option value="tip-grijanja">Tip grijanja</option>
+                                <option value="tip_grijanja">Tip grijanja</option>
                                 <option value="lokacija">Lokacija</option>
-                                <option value="godina-izgradnje">Godina izgradnje (gggg)</option>
+                                <option value="godina_izgradnje">Godina izgradnje (gggg)</option>
                             </select>
                         </td>
                         <td>
                             <table id="tip-nekretnine-dropdown-outlier">
                                 <tr>
                                     <td>
-                                        <select>
+                                        <select id="tip-nekretnine-dropdown-outlier-select">
                                             <option value="stan">Stan</option>
                                             <option value="kuca">Kuća</option>
                                             <option value="poslovni-prostor">Poslovni prostor</option>
@@ -202,6 +202,23 @@
                                 </tr>
 
                             </table>
+
+                            <table id="lokacija-outlier">
+                                <tr>
+                                    <td>
+                                        <input type="text" id="lokacija-outlier-input">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table id="godina-izgradnje-outlier">
+                                <tr>
+                                    <td>
+                                        <input type="number" id="godina-izgradnje-outlier-input">
+                                    </td>
+                                </tr>
+                            </table>
                             
                         </td>
                     </tr>
@@ -215,7 +232,7 @@
                                     <select id="svojstvo-outlier">
                                         <option value="kvadratura">Kvadratura</option>
                                         <option value="cijena">Cijena</option>
-                                        <option value="godina-izgradnje">Godina izgradnje</option>
+                                        <option value="godina_izgradnje">Godina izgradnje</option>
                                     </select>
                                 </td>
                             </tr>

@@ -50,7 +50,7 @@ function StatistikaNekretnina() {
 
     let mojeNekretnine = function(korisnik) {
         let listaNekretninaSaUpitomOdKorisnika = listaNekretnina.filter(
-            nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik));
+            nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik.id));
         
         listaNekretninaSaUpitomOdKorisnika.sort((a, b) => {
             return a.upiti.length < b.upiti.length;

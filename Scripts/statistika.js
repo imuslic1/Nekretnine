@@ -102,7 +102,7 @@ const listaNekretnina = [{
     datum_objave: "20.08.2023.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
-        korisnik_id: 2,
+        korisnik_id: 1,
         tekst_upita: "Integer tincidunt."
     }
     ]
@@ -136,7 +136,7 @@ const listaNekretnina = [{
     datum_objave: "20.08.2011.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
-        korisnik_id: 2,
+        korisnik_id: 1,
         tekst_upita: "Integer tincidunt."
     }
     ]
@@ -153,7 +153,7 @@ const listaNekretnina = [{
     datum_objave: "20.08.2009.",
     opis: "Magnis dis parturient montes.",
     upiti: [{
-        korisnik_id: 2,
+        korisnik_id: 1,
         tekst_upita: "Integer tincidunt."
     }
     ]
@@ -281,6 +281,8 @@ const prikaziMojeNekretnineButton = document.getElementById("prikazi-moje-nekret
     izracunajOutlierButton.addEventListener("click", izracunajOutlier);
     resetOutlierButton.addEventListener("click", clearOutlierFields);
 
+    // Moje nekretnine
+    prikaziMojeNekretnineButton.addEventListener("click", prikaziNekretnineKorisnika);    
 
 const spisakNekretnina = SpisakNekretnina();
 const statistikaNekretnina = StatistikaNekretnina();
@@ -290,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    fillNekretnineByKorisnik("korisnici-dropdown");
+    fillKorisniciDropdown("korisnici-dropdown");
 });
 
 const histogramCijeneData = [];
@@ -495,7 +497,7 @@ function dodajGodinu() {
     histogramGodineData.push([from, to]);   
 }
 
-function fillNekretnineByKorisnik() {
+function fillKorisniciDropdown() {
     let idDropdown = "korisnici-dropdown";
     const dropdown = document.getElementById(idDropdown);
 
@@ -617,13 +619,41 @@ function izracunajOutlier() {
     document.getElementById("outlier-data").innerText = textToShow; //podesi tacan id 
 }
 
-function showMojeNekretnine(korisnik) {
-    let nekretnine = statistikaNekretnina.mojeNekretnine(korisnik);
-    let list = document.getElementById("moje-nekretnine-list"); //podesi tacan id 
-    list.innerHTML = "";
+function prikaziNekretnineKorisnika() {
+    let korisnik= document.getElementById("korisnici-dropdown");
+
+    const odabranaVrijednost = korisnik.value;
+
+    // ako odabere praznu opciju
+    if (odabranaVrijednost === "") {
+        alert("Molimo odaberite korisnika!");
+        return;
+    }
+
+    const korisnikJSON = JSON.parse(korisnik.value);
+    console.log(korisnikJSON);
+    if(!korisnikJSON){
+        alert("Morate odabrati korisnika!");
+        return;
+    }
+
+    let nekretnine = statistikaNekretnina.mojeNekretnine(korisnikJSON);
+
+    if(nekretnine.length === 0){
+        alert("Korisnik nema nekretnina!");
+        return;
+    }
+
+    const ul = document.getElementById("moje-nekretnine-lista");
+    ul.innerHTML = "";
+
     nekretnine.forEach(nekretnina => {
-        addLiToUl(list, nekretnina.naziv);
+        let item = `${nekretnina.naziv} (${nekretnina.tip_nekretnine})`;
+        addLiToUl(ul, item);
     });
+
+    document.getElementById("podaci").style.display = "grid";
+
 }
 
 function drawHistograms(histogram, periodi, rasponiCijena) {

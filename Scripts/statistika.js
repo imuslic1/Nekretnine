@@ -563,13 +563,13 @@ function dodajKriterijKvadratura(kvadraturaIliOutlier) {
     console.log("Updated kriterijKvadratura:", kriterijKvadratura);
 }
 
-function dodajKriterijOutlier(kvadraturaIliOutlier) {
+function dodajKriterijOutlier() {
     const tipNekretnine = document.getElementById('tip-nekretnine-dropdown-outlier-select').value;
-    const minKvadratura = document.getElementById('range-kvadrature-od').value;
-    const maxKvadratura = document.getElementById('range-kvadrature-do').value;
-    const minCijena = document.getElementById('range-cijene-od').value;
-    const maxCijena = document.getElementById('range-cijene-do').value;
-    const tipGrijanja = document.getElementById('tip-grijanja-dropdown').value;
+    const minKvadratura = document.getElementById('kvadratura-outlier-od').value;
+    const maxKvadratura = document.getElementById('kvadratura-outlier-do').value;
+    const minCijena = document.getElementById('cijena-outlier-od').value;
+    const maxCijena = document.getElementById('cijena-outlier-do').value;
+    const tipGrijanja = document.getElementById('grijanje-outlier-dropdown').value;
     const lokacija = document.getElementById('lokacija-outlier-input').value;
     const godinaIzgradnje = document.getElementById('godina-izgradnje-outlier-input').value;
 
@@ -609,8 +609,12 @@ function dodajKriterijOutlier(kvadraturaIliOutlier) {
 function izracunajProsjecnuKvadraturu() {
     let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterijKvadratura);
     console.log(prosjek);
+    if(Object.values(kriterijKvadratura).every(value => value === undefined)) {
+        alert("Morate unijeti kriterij!");
+        return;
+    }
 
-    if(prosjek!==Number) {
+    if(prosjek==null) {
         alert("Nema nekretnina koje zadovoljavaju kriterij!");
         return;
     }
@@ -620,6 +624,15 @@ function izracunajProsjecnuKvadraturu() {
 function izracunajOutlier() {
     let svojstvo = document.getElementById("svojstvo-outlier").value; //podesi id na tacan iz layouta
     let outlier = statistikaNekretnina.outlier(kriterijOutlier, svojstvo);
+    console.log(outlier);
+    if(Object.values(kriterijOutlier).every(value => value === undefined)) {
+        alert("Morate unijeti kriterij!");
+        return;
+    }
+    if(outlier === null) {
+        alert("Nema nekretnina koje zadovoljavaju kriterij!");
+        return;
+    }
     let textToShow = `${outlier.naziv}` + " (" + `${outlier[svojstvo]}` + ")";
     document.getElementById("outlier-data").innerText = textToShow; //podesi tacan id 
 }

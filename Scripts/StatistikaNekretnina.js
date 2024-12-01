@@ -7,6 +7,7 @@ function StatistikaNekretnina() {
 
     let prosjecnaKvadratura = function(kriterij) {
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
+        if(listaNekretninaPoKriteriju.length === 0) return null;
         let sumaKvadratura = 0;
 
         listaNekretninaPoKriteriju.forEach(element => {
@@ -33,6 +34,7 @@ function StatistikaNekretnina() {
             return null;
 
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
+        if(listaNekretninaPoKriteriju.length === 0) return null;
         let prosjek = prosjecnaVrijednostSvojstva(nazivSvojstva);
         let indexMaxOdstupanja = 0;
         let maxOdstupanje = 0;

@@ -609,6 +609,11 @@ function dodajKriterijOutlier(kvadraturaIliOutlier) {
 function izracunajProsjecnuKvadraturu() {
     let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterijKvadratura);
     console.log(prosjek);
+
+    if(prosjek!==Number) {
+        alert("Nema nekretnina koje zadovoljavaju kriterij!");
+        return;
+    }
     document.getElementById("prosjek-data").innerText = prosjek; //podesi tacan id 
 }
 
@@ -624,8 +629,7 @@ function prikaziNekretnineKorisnika() {
 
     const odabranaVrijednost = korisnik.value;
 
-    // ako odabere praznu opciju
-    if (odabranaVrijednost === "") {
+    if(odabranaVrijednost === "") {
         alert("Molimo odaberite korisnika!");
         return;
     }

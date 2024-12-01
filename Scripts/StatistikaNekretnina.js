@@ -29,6 +29,9 @@ function StatistikaNekretnina() {
     }
 
     let outlier = function(kriterij, nazivSvojstva) {
+        if(nazivSvojstva !== 'kvadratura' && nazivSvojstva !== 'cijena' && nazivSvojstva !== 'godina_izgradnje') 
+            return null;
+
         let listaNekretninaPoKriteriju = spisakNekretnina.filtrirajNekretnine(kriterij);
         let prosjek = prosjecnaVrijednostSvojstva(nazivSvojstva);
         let indexMaxOdstupanja = 0;
@@ -50,7 +53,7 @@ function StatistikaNekretnina() {
             nekretnina => nekretnina.upiti.some(upit => upit.korisnik_id === korisnik));
         
         listaNekretninaSaUpitomOdKorisnika.sort((a, b) => {
-            return a.upiti.length > b.upiti.length;
+            return a.upiti.length < b.upiti.length;
         });
 
         

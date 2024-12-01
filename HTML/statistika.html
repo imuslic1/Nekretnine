@@ -30,7 +30,7 @@
                             <table id="tip-nekretnine-dropdown-prosjek">
                                 <tr>
                                     <td>
-                                        <select>
+                                        <select id="tip-nekretnine-dropdown-prosjek-select">
                                             <option value="stan">Stan</option>
                                             <option value="kuca">Kuća</option>
                                             <option value="poslovni-prostor">Poslovni prostor</option>
@@ -115,10 +115,10 @@
                             <button type="button" id="dodaj-kriterij-prosjek">Dodaj kriterij</button>
                         </td>
                         <td>
-                            <button type="button" id="izracunaj-prosjek">Prikaži prosječnu kvadraturu</button>
+                            <button type="button" id="izracunaj-prosjek">Izračunaj</button>
                         </td>
                         <td>
-                            <button type="button" id="reset-prosjek">Resetuj formu</button>
+                            <button type="button" id="reset-prosjek">Reset</button>
                         </td>
                     </tr>
                 </table>
@@ -226,10 +226,10 @@
                             <button type="button" id="dodaj-kriterij-outlier">Dodaj kriterij</button>
                         </td>
                         <td>
-                            <button type="button" id="prikazi-outlier">Prikaži outlier</button>
+                            <button type="button" id="prikazi-outlier">Izračunaj</button>
                         </td>
                         <td>
-                            <button type="button" id="reset-outlier">Resetuj formu</button>
+                            <button type="button" id="reset-outlier">Reset</button>
                         </td>
                     </tr>
                 </table>
@@ -254,7 +254,7 @@
 
             <h3 id="prosjecna-kvadratura-data">Prosječna kvadratura: </h3>
             <h3 id="outlier-data">Outlier: </h3>
-            <div id="outlier-data">
+            <div id="moje-nekretnine-data">
                 <h3>Nekretnine korisnika: </h3>
                 <ul id="moje-nekretnine-lista">
                     <li>item1</li>
@@ -300,12 +300,12 @@
                         <tr>
                             <td></td>
                             <td>DO: <input type="number" id="godina-do"></td>
-                            <td><button type="button" id="godina-dodaj-opseg">Dodaj opseg</td>
+                            <td><button type="button" id="godina-dodaj-opseg">Dodaj opseg</button></td>
                         </tr>
     
                         <tr>
-                            <td><button type="button" id="reset">Resetuj formu</td>
-                            <td><button type="button" id="prikazi-histo">Prikaži graf/grafove</td>
+                            <td><button type="button" id="reset">Resetuj formu</button></td>
+                            <td><button type="button" id="prikazi-histo">Prikaži graf/grafove</button></td>
                         </tr>
                 
                 

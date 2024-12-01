@@ -316,7 +316,6 @@ function clearKvadraturaFields() {
         lokacija: undefined,
         godina_izgradnje: undefined,
     };
-    console.log(kriterijKvadratura);
 }
 
 function clearOutlierFields() {
@@ -331,7 +330,6 @@ function clearOutlierFields() {
         lokacija: undefined,
         godina_izgradnje: undefined,
     };
-    console.log(kriterijOutlier);
 }
 
 function clearMojeNekretnineFields() {
@@ -419,7 +417,6 @@ function clearHistogramFields() {
 
     document.getElementById("histogrami").innerHTML = "";
 
-    console.log("Form cleared.");
     if(histogramCijeneData.length > 0) {
         histogramCijeneData.length = 0;
     }
@@ -450,14 +447,13 @@ function dodajCijenu() {
     let toInput = document.getElementById("cijena-do");
     let from = fromInput.value;
     let to = toInput.value;
-    
-    if(!from || !to) {
+    if(fromInput.value === "" || toInput.value === "") {
         alert("Morate unijeti cijenu 'od' i cijenu 'do'!");
         clearUnosCijene();
         return;
     }
 
-    if(!(from <= to)) {
+    if(parseInt(from) > parseInt(to)) {
         alert("Pogresan unos! Cijena 'od' mora biti manja ili jednaka cijeni 'do'!");
         clearUnosCijene();
         return;
@@ -483,7 +479,7 @@ function dodajGodinu() {
         return;
     }
 
-    if(!(from <= to)) {
+    if(!(parseInt(from) <= parseInt(to))) {
         alert("Pogresan unos! Godina 'od' mora biti manja ili jednaka godini 'do'!");
         clearUnosGodine();
         return;
@@ -558,9 +554,7 @@ function dodajKriterijKvadratura(kvadraturaIliOutlier) {
     }
     if(document.getElementById(allHideableFields[5]).style.display !== 'none') {
         kriterijKvadratura.godina_izgradnje = godinaIzgradnje;
-    }
-   
-    console.log("Updated kriterijKvadratura:", kriterijKvadratura);
+    } 
 }
 
 function dodajKriterijOutlier() {
@@ -603,12 +597,10 @@ function dodajKriterijOutlier() {
         kriterijOutlier.godina_izgradnje = godinaIzgradnje;
     }
    
-    console.log("Updated kriterijKvadratura:", kriterijOutlier);
 }
 
 function izracunajProsjecnuKvadraturu() {
     let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterijKvadratura);
-    console.log(prosjek);
     if(Object.values(kriterijKvadratura).every(value => value === undefined)) {
         alert("Morate unijeti kriterij!");
         return;
@@ -624,7 +616,6 @@ function izracunajProsjecnuKvadraturu() {
 function izracunajOutlier() {
     let svojstvo = document.getElementById("svojstvo-outlier").value; //podesi id na tacan iz layouta
     let outlier = statistikaNekretnina.outlier(kriterijOutlier, svojstvo);
-    console.log(outlier);
     if(Object.values(kriterijOutlier).every(value => value === undefined)) {
         alert("Morate unijeti kriterij!");
         return;
@@ -648,7 +639,6 @@ function prikaziNekretnineKorisnika() {
     }
 
     const korisnikJSON = JSON.parse(korisnik.value);
-    console.log(korisnikJSON);
     if(!korisnikJSON){
         alert("Morate odabrati korisnika!");
         return;
@@ -756,8 +746,5 @@ function showHisto() {
 
     let histogram = statistikaNekretnina.histogramCijena(periodi, rasponiCijena);
     drawHistograms(histogram, periodi, rasponiCijena);
-    console.log(histogram);
-    console.log("Histogram prikazan!");
-
 }
 

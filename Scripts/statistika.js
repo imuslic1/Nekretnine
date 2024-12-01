@@ -610,11 +610,11 @@ function izracunajProsjecnuKvadraturu() {
         alert("Nema nekretnina koje zadovoljavaju kriterij!");
         return;
     }
-    document.getElementById("prosjek-data").innerText = prosjek; //podesi tacan id 
+    document.getElementById("prosjek-data").innerText = prosjek;
 }
 
 function izracunajOutlier() {
-    let svojstvo = document.getElementById("svojstvo-outlier").value; //podesi id na tacan iz layouta
+    let svojstvo = document.getElementById("svojstvo-outlier").value;
     let outlier = statistikaNekretnina.outlier(kriterijOutlier, svojstvo);
     if(Object.values(kriterijOutlier).every(value => value === undefined)) {
         alert("Morate unijeti kriterij!");
@@ -625,7 +625,7 @@ function izracunajOutlier() {
         return;
     }
     let textToShow = `${outlier.naziv}` + " (" + `${outlier[svojstvo]}` + ")";
-    document.getElementById("outlier-data").innerText = textToShow; //podesi tacan id 
+    document.getElementById("outlier-data").innerText = textToShow;
 }
 
 function prikaziNekretnineKorisnika() {

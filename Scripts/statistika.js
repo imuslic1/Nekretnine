@@ -289,6 +289,10 @@ document.addEventListener("DOMContentLoaded", () => {
     statistikaNekretnina.init(listaNekretnina, listaKorisnika);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    fillNekretnineByKorisnik("korisnici-dropdown");
+});
+
 const histogramCijeneData = [];
 const histogramGodineData = [];
 
@@ -296,9 +300,10 @@ const histogramGodineData = [];
 clearHistogramFields(); 
 clearKvadraturaFields();
 clearOutlierFields();
+clearMojeNekretnineFields();
 
 function clearKvadraturaFields() {
-    document.getElementById("prosjecna-kvadratura-data").innerText = '';
+    document.getElementById("prosjek-data").innerText = '';
     kriterijKvadratura = {
         tip_nekretnine: undefined,
         min_kvadratura: undefined,
@@ -323,6 +328,10 @@ function clearOutlierFields() {
         lokacija: undefined,
         godina_izgradnje: undefined,
     };
+}
+
+function clearMojeNekretnineFields() {
+    document.getElementById("moje-nekretnine-lista").innerHTML = '';
 }
 
 document.getElementById('kriterij-prosjek').addEventListener('change', function () {
@@ -475,10 +484,6 @@ function fillNekretnineByKorisnik() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    fillNekretnineByKorisnik("korisnici-dropdown");
-});
- 
 function dodajKriterijKvadratura(kvadraturaIliOutlier) {
     
 }

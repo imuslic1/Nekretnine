@@ -169,3 +169,7 @@ iframe {
     white-space: nowrap;
 }
 
+#prosjek-prikaz, #outlier-prikaz, #moje-nekretnine-prikaz {
+    text-align: left;
+}
+

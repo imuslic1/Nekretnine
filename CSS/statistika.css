@@ -22,7 +22,7 @@ iframe {
 
 #wrapper1 {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     gap: 40px;
     justify-content: left;
@@ -38,24 +38,25 @@ iframe {
     padding: 20px;
 }
 
-#input, #input-informacije {
+#input{
+    margin: 0 auto;
     width: 100%;
 }
 
-#input h3, #input-informacije h3 {
+#input h3 {
     text-align: left;
     margin: 0;
 }
 
-#input button, #input-informacije button {
+#form {
+    padding : 10px;
+    box-shadow: 5px 5px 25px #999;
+    background-color: #f0eadf;
+    
+}
+
+#input button {
     white-space: nowrap;
-}
-
-#podaci-tabela {
-
-    text-align: left;
-    margin: 0;
-    padding: 5px;
 }
 
 #podaci-tabela td {
@@ -67,32 +68,37 @@ iframe {
     text-align: right;
 }
 
-#input td, #input-informacije td {
+#input td {
     width: 100px;  
     height: 30px;
     text-align: left;
     vertical-align: bottom;
     padding: 2px;
     white-space: nowrap;
-
+    
 }
 
 #lokacija-td input {
     float: right;
 }
 
-#form, #form-informacije {
-    margin: 10px;
+#form {
     grid-column: 1;
     grid-row: span 2;
 }
 
 #prikaz-rangova-cijena {
+    padding : 10px;
+    box-shadow: 5px 5px 25px #999;
+    background-color: #f0eadf;
     grid-column: 2;
     grid-row: 1;
 }
 
 #prikaz-rangova-godina {
+    padding : 10px;
+    box-shadow: 5px 5px 25px #999;
+    background-color: #f0eadf;
     grid-column: 3;
     grid-row: 1;
 }
@@ -137,5 +143,28 @@ iframe {
     margin: 0 auto;
     max-width: 100%;
     padding-top: 20px;
+}
+
+#prosjek, #outlier, #moje-nekretnine {
+    padding : 10px;
+    box-shadow: 5px 5px 25px #999;
+    background-color: #f0eadf;
+}
+
+#tabela-prosjek, #tabela-prosjek table {
+    text-align: left;
+    padding: 5px;
+}
+#tabela-outlier table, #tabela-outlier {
+    text-align: left;
+    padding: 5px;
+}
+#tabela-moje-nekretnine, #tabela-moje-nekretnine table {
+    text-align: left;
+    padding: 5px;
+}
+
+#tabela-prosjek td, #tabela-outlier td, #tabela-moje-nekretnine td {
+    white-space: nowrap;
 }
 

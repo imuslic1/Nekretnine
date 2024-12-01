@@ -223,19 +223,43 @@ const listaKorisnika = [{
     username: "username2",
 }]
 
+// Histogrami
 const dodajCijenuButton = document.getElementById('cijena-dodaj-opseg');
 const dodajGodinuButton = document.getElementById("godina-dodaj-opseg");
 const resetHistogramButton = document.getElementById("reset");
-const resetProsjecnaKvadraturaButton = document.getElementById("reset-1"); //podesi id na tacan iz layouta
 const prikaziHistogrameButton = document.getElementById("prikazi-histo");
-const izracunajProsjecnuKvadraturuButton = document.getElementById("prikazi-podatke"); //podesi id na tacan iz layouta
 
-dodajCijenuButton.addEventListener("click", dodajCijenu);
-dodajGodinuButton.addEventListener("click", dodajGodinu);
-resetHistogramButton.addEventListener("click", clearHistogramFields);
-resetProsjecnaKvadraturaButton.addEventListener("click", clearProsjekKvadraturaFields);
-prikaziHistogrameButton.addEventListener("click", showHisto);
-izracunajProsjecnuKvadraturuButton.addEventListener("click", izracunajProsjecnuKvadraturu);
+// Prosjecna kvadratura
+const dodajKriterijProsjekButton = document.getElementById("dodaj-kriterij-prosjek"); 
+const izracunajProsjecnuKvadraturuButton = document.getElementById("izracunaj-prosjek"); 
+const resetProsjecnaKvadraturaButton = document.getElementById("reset-prosjek"); 
+
+// Outlier
+const dodajKriterijOutlierButton = document.getElementById("dodaj-kriterij-outlier"); 
+const izracunajOutlierButton = document.getElementById("prikazi-outlier"); 
+const resetOutlierButton = document.getElementById("reset-outlier"); 
+
+// Moje nekretnine
+const izborKorisnika = document.getElementById("korisnici-dropdown"); 
+const prikaziMojeNekretnineButton = document.getElementById("prikazi-moje-nekretnine"); 
+
+// Event listeners
+    // Histogrami
+    dodajCijenuButton.addEventListener("click", dodajCijenu);
+    dodajGodinuButton.addEventListener("click", dodajGodinu);
+    resetHistogramButton.addEventListener("click", clearHistogramFields);
+    prikaziHistogrameButton.addEventListener("click", showHisto);
+
+    // Prosjecna kvadratura
+    //dodajKriterijProsjekButton.addEventListener("click", dodajKriterij("kvadratura"));
+    resetProsjecnaKvadraturaButton.addEventListener("click", clearKvadraturaFields);
+    izracunajProsjecnuKvadraturuButton.addEventListener("click", izracunajProsjecnuKvadraturu);
+
+    // Outlier
+    //dodajKriterijOutlierButton.addEventListener("click", dodajKriterij("outlier"));
+    izracunajOutlierButton.addEventListener("click", izracunajOutlier);
+    resetOutlierButton.addEventListener("click", clearOutlierFields);
+
 
 const spisakNekretnina = SpisakNekretnina();
 const statistikaNekretnina = StatistikaNekretnina();
@@ -244,16 +268,57 @@ document.addEventListener("DOMContentLoaded", () => {
     statistikaNekretnina.init(listaNekretnina, listaKorisnika);
 });
 
+const kriterijKvadratura = {};
+const kriterijOutlier = {};
+
 const histogramCijeneData = [];
 const histogramGodineData = [];
 
 clearHistogramFields(); 
-clearProsjekKvadraturaFields();
+clearKvadraturaFields();
 
-function clearProsjekKvadraturaFields() {
-   //TODO: Implementirati funkciju kad bude gotov layout 
+function clearKvadraturaFields() {
+    document.getElementById("prosjecna-kvadratura-data").innerText = '';
+
+    //kriterijKvadratura = {};
 
 }
+
+function clearOutlierFields() {
+   //TODO: Implementirati funkciju kad bude gotov layout 
+    //kriterijOutlier = {};
+}
+
+document.getElementById('kriterij-prosjek').addEventListener('change', function () {
+    const allTables = [
+        'tip-nekretnine-dropdown-prosjek',
+        'range-kvadrature-prosjek',
+        'range-cijene-prosjek',
+        'grijanje-prosjek',
+        'lokacija-prosjek',
+        'godina-izgradnje-prosjek'
+    ];
+
+    allTables.forEach(id => {
+        document.getElementById(id).style.display = 'none';
+    });
+
+    const selectedValue = this.value;
+    const tableId = {
+        'tip-nekretnine': 'tip-nekretnine-dropdown-prosjek',
+        'kvadratura': 'range-kvadrature-prosjek',
+        'cijena': 'range-cijene-prosjek',
+        'tip-grijanja': 'grijanje-prosjek',
+        'lokacija': 'lokacija-prosjek',
+        'godina-izgradnje': 'godina-izgradnje-prosjek'
+    }[selectedValue];
+
+    if (tableId) {
+        document.getElementById(tableId).style.display = 'table';
+    }
+});
+
+document.getElementById('kriterij-prosjek').dispatchEvent(new Event('change'));
 
 
 function clearHistogramFields() {
@@ -271,10 +336,6 @@ function clearHistogramFields() {
     document.getElementById("cijena-do").value = "";
     document.getElementById("godina-od").value = "";
     document.getElementById("godina-do").value = "";
-
-    document.getElementById("tip-plin").checked = false;
-    document.getElementById("tip-struja").checked = false;
-    document.getElementById("tip-toplana").checked = false;
 
     document.getElementById("histogrami").innerHTML = "";
 
@@ -368,29 +429,53 @@ function fillNekretnineByKorisnik() {
         list.appendChild(listItem);
     });
 }
- 
-function getKriterij(kvadraturaIliOutlier) {
-    let kriterij = {};
+
+function popuniDropdownKorisnik(idDropdown) {
+    const dropdown = document.getElementById(idDropdown);
+
+    if (!dropdown) {
+        console.error(`Element sa ID '${idDropdown}' nije pronađen.`);
+        return;
+    }
+
+    const praznaOpcija = document.createElement("option");
+    praznaOpcija.value = "";
+    praznaOpcija.textContent = "";
+    dropdown.appendChild(praznaOpcija);
+
+    listaKorisnika.forEach(korisnik => {
+        const opcija = document.createElement("option");
+        opcija.value = korisnik.id; 
+        opcija.textContent = `${korisnik.ime} ${korisnik.prezime} (${korisnik.username})`;
+        dropdown.appendChild(opcija);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    popuniDropdownKorisnik("korisnici-dropdown");
+});
+ /*
+function dodajKriterij(kvadraturaIliOutlier) {
     if(kvadraturaIliOutlier === "kvadratura") {
-        let selectedKriterij = document.getElementById("izbor-kriterija").value; //podesi id na tacan layouta
-        let selectedValue = document.getElementById("kriterij-vrijednost").value;    
+        //let selectedKriterij = document.getElementById("izbor-kriterija").value; //podesi id na tacan layouta
+        //let selectedValue = document.getElementById("kriterij-vrijednost").value;    
+        kriterijKvadratura[selectedKriterij] = selectedValue;
     }
     else {
         let selectedKriterij = document.getElementById("izbor-kriterija-outlier").value; //podesi id na tacan iz 
         let selectedValue = document.getElementById("kriterij-vrijednost-outlier").value;
+        kriterijOutlier[selectedKriterij] = selectedValue;
     }
-    kriterij[selectedKriterij] = selectedValue;
-    return kriterij;
-}
+}*/
 
 function izracunajProsjecnuKvadraturu() {
-    let kriterij = getKriterij("kvadratura");
+    let kriterij = dodajKriterij("kvadratura");
     let prosjek = statistikaNekretnina.prosjecnaKvadratura(kriterij);
     document.getElementById("prosjecna-kvadratura").innerHTML = prosjek; //podesi tacan id 
 }
 
 function izracunajOutlier() {
-    let kriterij = getKriterij("outlier");
+    let kriterij = dodajKriterij("outlier");
     let svojstvo = document.getElementById("izbor-svojstva-outlier").value; //podesi id na tacan iz layouta
     let outlier = statistikaNekretnina.outlier(kriterij, svojstvo);
     document.getElementById("outlier").innerHTML = outlier; //podesi tacan id 

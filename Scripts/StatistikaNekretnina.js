@@ -72,7 +72,7 @@ function StatistikaNekretnina() {
                             datumObjave < period.do && 
                             cijena >= rasponCijena[0] && 
                             cijena < rasponCijena[1]
-                        );            
+                        );
                     
                 }).length;
 

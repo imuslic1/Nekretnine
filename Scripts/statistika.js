@@ -233,6 +233,7 @@ var kriterijKvadratura = {
     lokacija: undefined,
     godina_izgradnje: undefined,
 };
+
 var kriterijOutlier = {
     tip_nekretnine: undefined,
     min_kvadratura: undefined,
@@ -747,4 +748,3 @@ function showHisto() {
     let histogram = statistikaNekretnina.histogramCijena(periodi, rasponiCijena);
     drawHistograms(histogram, periodi, rasponiCijena);
 }
-

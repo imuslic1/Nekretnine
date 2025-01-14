@@ -80,8 +80,6 @@ If the data is correct, the username is saved in the session and a success messa
 */
 
 app.post('/login', async (req, res) => {
-  console.log('Login request received');
-  console.log('session id:', req.session.id);
   const jsonObj = req.body;
   const now = new Date(new Date().getTime() + 60*60*1000); // +1h jer je vrijeme na serveru UTC
   const datumVrijeme = "["+ now.toISOString().split('T')[0] + "_" + now.toISOString().split('T')[1] + "]";
@@ -93,17 +91,13 @@ app.post('/login', async (req, res) => {
     req.session.lockoutUntil = null;
   }
   var sada = new Date()
-  console.log("Now:", sada);
-  console.log(req.session.lockoutUntil);
-
   
   // MORA SE IZ req.session VRATITI U DATUM JER MAGIČNO NAKON MAGIJE NIJE VIŠE DATUM NEGO STRING KOJI SE DESERIJALIZIRA
   // TYPESCRIPT JE BOLJI
   // ALL MY HOMIES HATE JAVASCRIPT
   // ALL MY HOMIES HATE NON STATIC TYPING
-  
+
   if(req.session.lockoutUntil && sada < new Date(req.session.lockoutUntil)) {                                                  
-    console.log('User is locked out');                                              
     const remainingTime = Math.ceil((new Date(req.session.lockoutUntil) - new Date()) / 1000); 
     res.status(429).json({ greska: `Previse neuspjesnih pokusaja. Pokusajte ponovo za ${remainingTime} sekundi.` }); 
     return;
@@ -135,8 +129,6 @@ app.post('/login', async (req, res) => {
       if(req.session.loginAttempts >= 3) {
 
         req.session.lockoutUntil = new Date(new Date().getTime() + 60000);
-        console.log("Too many requests, lockoutUntil set:")
-        console.log("User locked out until: " + req.session.lockoutUntil);
         req.session.loginAttempts = 0;
         res.status(429).json({ greska: "Previse neuspjesnih pokusaja. Pokusajte ponovo za 1 minutu." });
       } else {

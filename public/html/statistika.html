@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistika</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/statistika.css">
+</head>
+<body>
+
+    <iframe src="meni.html"></iframe>
+    <h1 id="naslov">STATISTIKA</h1>
+    <h2 id="naslov2">Informacije o nekretninama</h2>
+    <div id="global-wrapper">
+        <div id="wrapper1">
+            <div id="prosjek">
+                <h3>Prosječna kvadratura nekretnina</h3>
+                <table id="tabela-prosjek">
+                    <tr>
+                        <td>
+                            Kriterij: 
+                            <select id="kriterij-prosjek">
+                                <option value="tip_nekretnine">Tip nekretnine</option>
+                                <option value="kvadratura">Raspon kvadrature</option>
+                                <option value="cijena">Raspon cijene</option>
+                                <option value="tip_grijanja">Tip grijanja</option>
+                                <option value="lokacija">Lokacija</option>
+                                <option value="godina_izgradnje">Godina izgradnje (gggg)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <table id="tip-nekretnine-dropdown-prosjek">
+                                <tr>
+                                    <td>
+                                        <select id="tip-nekretnine-dropdown-prosjek-select">
+                                            <option value="stan">Stan</option>
+                                            <option value="kuca">Kuća</option>
+                                            <option value="poslovni prostor">Poslovni prostor</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table id="range-kvadrature-prosjek"> 
+                                <tr>
+                                    <td>
+                                        Od:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="range-kvadrature-od">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Do:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="range-kvadrature-do"> 
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table id="range-cijene-prosjek"> 
+                                <tr>
+                                    <td>
+                                        Od:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="range-cijene-od">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Do:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="range-cijene-do"> 
+                                    </td>
+                            </table>
+
+                            <table id="grijanje-prosjek">
+                                <tr>
+                                    <td>Grijanje: </td>
+                                    <td>
+
+                                        <select id="tip-grijanja-dropdown">
+                                            <option value="plin">Plin</option>
+                                            <option value="struja">Struja</option>
+                                            <option value="toplana">Toplana</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table id="lokacija-prosjek">
+                                <tr>
+                                    <td>
+                                        <input type="text" id="lokacija-prosjek-input">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table id="godina-izgradnje-prosjek">
+                                <tr>
+                                    <td>
+                                        <input type="number" id="godina-izgradnje-prosjek-input">
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="dodaj-kriterij-prosjek">Dodaj kriterij</button>
+                        </td>
+                        <td>
+                            <button type="button" id="izracunaj-prosjek">Izračunaj</button>
+                        </td>
+                        <td>
+                            <button type="button" id="reset-prosjek">Reset</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="outlier">
+                <h3>Outlier</h3>
+                <table id="tabela-outlier">
+                    <tr>
+                        <td>
+                            Kriterij: 
+                            <select id="kriterij-outlier">
+                                <option value="tip_nekretnine">Tip nekretnine</option>
+                                <option value="kvadratura">Raspon kvadrature</option>
+                                <option value="cijena">Raspon cijene</option>
+                                <option value="tip_grijanja">Tip grijanja</option>
+                                <option value="lokacija">Lokacija</option>
+                                <option value="godina_izgradnje">Godina izgradnje (gggg)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <table id="tip-nekretnine-dropdown-outlier">
+                                <tr>
+                                    <td>
+                                        <select id="tip-nekretnine-dropdown-outlier-select">
+                                            <option value="stan">Stan</option>
+                                            <option value="kuca">Kuća</option>
+                                            <option value="poslovni prostor">Poslovni prostor</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table id="kvadratura-outlier"> 
+                                <tr>
+                                    <td>
+                                        Od:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="kvadratura-outlier-od">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Do:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="kvadratura-outlier-do"> 
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table id="cijena-outlier"> 
+                                <tr>
+                                    <td>
+                                        Od:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="cijena-outlier-od">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Do:
+                                    </td>
+                                    <td>
+                                        <input type="number" id="cijena-outlier-do"> 
+                                    </td>
+                            </table>
+
+                            <table id="grijanje-outlier">
+                                <tr>
+                                    <td>Grijanje: </td>
+                                    <td>
+                                        <select id="grijanje-outlier-dropdown">
+                                            <option value="plin">Plin</option>
+                                            <option value="struja">Struja</option>
+                                            <option value="toplana">Toplana</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table id="lokacija-outlier">
+                                <tr>
+                                    <td>
+                                        <input type="text" id="lokacija-outlier-input">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table id="godina-izgradnje-outlier">
+                                <tr>
+                                    <td>
+                                        <input type="number" id="godina-izgradnje-outlier-input">
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <table id="svojstvo">
+                            <tr>
+                                <td>
+                                    Svojstvo:
+                                </td>
+                                <td>
+                                    <select id="svojstvo-outlier">
+                                        <option value="kvadratura">Kvadratura</option>
+                                        <option value="cijena">Cijena</option>
+                                        <option value="godina_izgradnje">Godina izgradnje</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="dodaj-kriterij-outlier">Dodaj kriterij</button>
+                        </td>
+                        <td>
+                            <button type="button" id="prikazi-outlier">Izračunaj</button>
+                        </td>
+                        <td>
+                            <button type="button" id="reset-outlier">Reset</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="moje-nekretnine">
+                <h3>Moje nekretnine</h3>
+                <table id="tabela-moje-nekretnine">
+                    <tr>
+                        <td>
+                            Korisnik:
+                        </td>
+                        <td>
+                            <select id="korisnici-dropdown">
+                            </select>
+                        <td>
+                            <button type="button" id="prikazi-moje-nekretnine">Prikaži moje nekretnine</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="prosjek-prikaz">
+                <h3>Prosječna kvadratura: </h3>
+                <h3 id="prosjek-data"></h3>
+            </div>
+            <div id="outlier-prikaz">
+                <h3>Outlier: </h3>
+                <h3 id="outlier-data"></h3>
+            </div>
+
+            <div id="moje-nekretnine-prikaz">
+                <h3>Nekretnine korisnika: </h3>
+                <ul id="moje-nekretnine-lista">
+                    <li>item1</li>
+                    <li>item2</li>
+                    <li>item3</li>
+                    <li>item4</li>
+                </ul>
+            </div>
+
+    
+        </div>
+    
+    
+    
+        <h2 id="naslov3">Generiranje histograma</h2>
+        <div id="wrapper2">
+            
+            <div id="form">
+                <form>
+                    <table id="input">
+                        <tr>
+                            <td><h3>CIJENA: </h3></td>
+                            <td></td>            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>OD: <input type = "number" id="cijena-od"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>DO: <input type = "number" id="cijena-do"></td>
+                            <td><button type="button" id="cijena-dodaj-opseg">Dodaj opseg</button></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><h3>GODINA OBJAVE: </h3></td>
+                            <td></td>            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>OD: <input type="number" id="godina-od"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>DO: <input type="number" id="godina-do"></td>
+                            <td><button type="button" id="godina-dodaj-opseg">Dodaj opseg</button></td>
+                        </tr>
+    
+                        <tr>
+                            <td><button type="button" id="reset">Resetuj formu</button></td>
+                            <td><button type="button" id="prikazi-histo">Prikaži graf/grafove</button></td>
+                        </tr>
+                
+                
+                    </table>
+                </form>
+            </div>
+            <div id="prikaz-rangova-cijena">UNESENI OPSEZI CIJENA:
+                <ul id="rangovi-cijena"></ul>
+                   
+            </div>
+            <div id="prikaz-rangova-godina">UNESENI OPSEZI GODINA:
+                <ul id="rangovi-godina"></ul>
+    
+            </div>
+    
+            <div id="histo-wrapper">
+                <div id="histogrami"></div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script src="../Scripts/SpisakNekretnina.js"></script>
+    <script src="../Scripts/StatistikaNekretnina.js"></script>
+    <script src="../Scripts/statistika.js"></script>
+    
+    <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js "></script>
+</body>
+
+
+
+</html>
+

@@ -71,8 +71,8 @@ const PoziviAjax = (() => {
         // Update user data with the provided values
         if (ime) loggedInUser.ime = ime;
         if (prezime) loggedInUser.prezime = prezime;
-        if (username) loggedInUser.adresa = adresa;
-        if (password) loggedInUser.brojTelefona = brojTelefona;
+        if (username) loggedInUser.username = username;
+        if (password) loggedInUser.password = password;
 
         // Save the updated user data back to the JSON file
         saveJsonFile('korisnici', users);
@@ -157,7 +157,8 @@ const PoziviAjax = (() => {
             }
             else if (ajax.readyState == 4) {
                 //desio se neki error
-                fnCallback(ajax.statusText, null)
+                console.log("Response", ajax.responseText);
+                fnCallback(ajax.responseText, null)
             }
         }
         ajax.open("POST", "http://localhost:3000/login", true)

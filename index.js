@@ -3,6 +3,7 @@ const session = require("express-session");
 const path = require('path');
 const fs = require('fs').promises; // Using asynchronus API for file read and write
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 3000;
@@ -10,13 +11,14 @@ const PORT = 3000;
 app.use(session({
   secret: 'tajna sifra',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
 app.use(express.static(__dirname + '/public'));
 
 // Enable JSON parsing without body-parser
 app.use(express.json());
+app.use(bodyParser.json());
 
 /* ---------------- SERVING HTML -------------------- */
 
@@ -76,8 +78,36 @@ async function saveJsonFile(filename, data) {
 Checks if the user exists and if the password is correct based on korisnici.json data. 
 If the data is correct, the username is saved in the session and a success message is sent.
 */
+
 app.post('/login', async (req, res) => {
+  console.log('Login request received');
+  console.log('session id:', req.session.id);
   const jsonObj = req.body;
+  const now = new Date(new Date().getTime() + 60*60*1000); // +1h jer je vrijeme na serveru UTC
+  const datumVrijeme = "["+ now.toISOString().split('T')[0] + "_" + now.toISOString().split('T')[1] + "]";
+
+  if(!req.session.loginAttempts) {
+    req.session.loginAttempts = 0;
+  }
+  if(!req.session.lockoutUntil) {
+    req.session.lockoutUntil = null;
+  }
+  var sada = new Date()
+  console.log("Now:", sada);
+  console.log(req.session.lockoutUntil);
+
+  
+  // MORA SE IZ req.session VRATITI U DATUM JER MAGIČNO NAKON MAGIJE NIJE VIŠE DATUM NEGO STRING KOJI SE DESERIJALIZIRA
+  // TYPESCRIPT JE BOLJI
+  // ALL MY HOMIES HATE JAVASCRIPT
+  // ALL MY HOMIES HATE NON STATIC TYPING
+  
+  if(req.session.lockoutUntil && sada < new Date(req.session.lockoutUntil)) {                                                  
+    console.log('User is locked out');                                              
+    const remainingTime = Math.ceil((new Date(req.session.lockoutUntil) - new Date()) / 1000); 
+    res.status(429).json({ greska: `Previse neuspjesnih pokusaja. Pokusajte ponovo za ${remainingTime} sekundi.` }); 
+    return;
+  }
 
   try {
     const data = await fs.readFile(path.join(__dirname, 'data', 'korisnici.json'), 'utf-8');
@@ -90,6 +120,7 @@ app.post('/login', async (req, res) => {
 
         if (isPasswordMatched) {
           req.session.username = korisnik.username;
+          req.session.loginAttempts = 0;
           found = true;
           break;
         }
@@ -98,10 +129,31 @@ app.post('/login', async (req, res) => {
 
     if (found) {
       res.json({ poruka: 'Uspješna prijava' });
-    } else {
-      res.json({ poruka: 'Neuspješna prijava' });
+    } 
+    else {
+      req.session.loginAttempts++;
+      if(req.session.loginAttempts >= 3) {
+
+        req.session.lockoutUntil = new Date(new Date().getTime() + 60000);
+        console.log("Too many requests, lockoutUntil set:")
+        console.log("User locked out until: " + req.session.lockoutUntil);
+        req.session.loginAttempts = 0;
+        res.status(429).json({ greska: "Previse neuspjesnih pokusaja. Pokusajte ponovo za 1 minutu." });
+      } else {
+        res.json({ poruka: 'Neuspješna prijava' });
+      }
     }
-  } catch (error) {
+
+    //spremanje u ../data/prijava.txt
+    //[datum_vrijeme] - username: "username" - status: "uspješno" ili "neuspješno"
+    let novaLinija = datumVrijeme + " - username: " + jsonObj.username + " - status: " + (found ? "uspješno" : "neuspješno");
+
+    await fs.appendFile('./data/prijave.txt', novaLinija + "\r\n", function(err){
+        if(err) 
+            throw err;
+    });
+  } 
+  catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ greska: 'Internal Server Error' });
   }
@@ -255,7 +307,8 @@ app.put('/korisnik', async (req, res) => {
     // Save the updated user data back to the JSON file
     await saveJsonFile('korisnici', users);
     res.status(200).json({ poruka: 'Podaci su uspješno ažurirani' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error updating user data:', error);
     res.status(500).json({ greska: 'Internal Server Error' });
   }

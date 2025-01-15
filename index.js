@@ -81,6 +81,7 @@ If the data is correct, the username is saved in the session and a success messa
 
 app.post('/login', async (req, res) => {
   const jsonObj = req.body;
+  console.log(jsonObj);
   const now = new Date(new Date().getTime() + 60*60*1000); // +1h jer je vrijeme na serveru UTC
   const datumVrijeme = "["+ now.toISOString().split('T')[0] + "_" + now.toISOString().split('T')[1] + "]";
 
@@ -99,7 +100,18 @@ app.post('/login', async (req, res) => {
 
   if(req.session.lockoutUntil && sada < new Date(req.session.lockoutUntil)) {                                                  
     const remainingTime = Math.ceil((new Date(req.session.lockoutUntil) - new Date()) / 1000); 
+    
+    let novaLinija = datumVrijeme + " - username: " + jsonObj.username + " - status: " + "neuspješno";
+
+    await fs.appendFile('./data/prijave.txt', novaLinija + "\r\n", function(err){
+        if(err) 
+            throw err;
+    });
+    
+    
     res.status(429).json({ greska: `Previse neuspjesnih pokusaja. Pokusajte ponovo za ${remainingTime} sekundi.` }); 
+    
+
     return;
   }
 
@@ -114,6 +126,7 @@ app.post('/login', async (req, res) => {
 
         if (isPasswordMatched) {
           req.session.username = korisnik.username;
+          console.log(req.session.username, "je ulogovan");
           req.session.loginAttempts = 0;
           found = true;
           break;
@@ -144,6 +157,8 @@ app.post('/login', async (req, res) => {
         if(err) 
             throw err;
     });
+
+
   } 
   catch (error) {
     console.error('Error during login:', error);
@@ -218,41 +233,41 @@ app.get('/korisnik', async (req, res) => {
 Allows logged user to make a request for a property
 */
 app.post('/upit', async (req, res) => {
-  // Check if the user is authenticated
-  if (!req.session.user) {
+  if (!req.session.username) { //username umjesto .user
     // User is not logged in
     return res.status(401).json({ greska: 'Neautorizovan pristup' });
   }
-
-  // Get data from the request body
+  
   const { nekretnina_id, tekst_upita } = req.body;
 
   try {
-    // Read user data from the JSON file
     const users = await readJsonFile('korisnici');
-
-    // Read properties data from the JSON file
     const nekretnine = await readJsonFile('nekretnine');
-
-    // Find the user by username
-    const loggedInUser = users.find((user) => user.username === req.session.user.username);
-
-    // Check if the property with nekretnina_id exists
+    const loggedInUser = users.find((user) => user.username === req.session.username);
     const nekretnina = nekretnine.find((property) => property.id === nekretnina_id);
 
     if (!nekretnina) {
-      // Property not found
       return res.status(400).json({ greska: `Nekretnina sa id-em ${nekretnina_id} ne postoji` });
     }
+    //NOVO
+    if(!req.session.numberOfUserRequests) {
+      req.session.numberOfUserRequests = 0;
+    }
 
-    // Add a new query to the property's queries array
+    if(req.session.numberOfUserRequests > 3) {
+      res.status(429).json({ greska: 'Previse upita za istu nekretninu' });
+      return;
+    }
+    //DO TU
     nekretnina.upiti.push({
       korisnik_id: loggedInUser.id,
       tekst_upita: tekst_upita
     });
-
-    // Save the updated properties data back to the JSON file
+    //NOVO
+    req.session.numberOfUserRequests++;
+    //DO TU
     await saveJsonFile('nekretnine', nekretnine);
+    
 
     res.status(200).json({ poruka: 'Upit je uspješno dodan' });
   } catch (error) {
@@ -318,6 +333,55 @@ app.get('/nekretnine', async (req, res) => {
     res.status(500).json({ greska: 'Internal Server Error' });
   }
 });
+
+/**
+ * Returns top 5 properties based on the date of publication
+ * in the location provided in the query
+ */
+
+app.get('/nekretnine/top5', async (req, res) => {
+  try {
+    const nekretnineData = await readJsonFile('nekretnine');
+    const nekretnineNaLokaciji = nekretnineData.filter((nekretnina) => nekretnina.lokacija === req.query.lokacija);
+    
+    const sortedNekretnineNaLokaciji = nekretnineNaLokaciji.sort((a, b) => {
+      let prvi = new Date(a.datum_objave.split(".").reverse().join("-"));
+      let drugi = new Date(b.datum_objave.split(".").reverse().join("-"));
+      return drugi - prvi;
+    });
+
+    const top5 = sortedNekretnineNaLokaciji.slice(0, 5);   
+    
+    res.status(200).json(top5);
+  } catch (error) {
+    console.error('Error fetching properties data:', error);
+    res.status(500).json({ greska: 'Internal Server Error' });
+  }
+});
+
+/**
+ * Returns all queries for the user that is currently logged in
+ */
+
+app.get('/upiti/moji', async (req, res) => {
+  if (!req.session.username) {
+    // User is not logged in
+    return res.status(401).json({ greska: 'Neautorizovan pristup' });
+  }
+
+  try {
+    
+  }
+  catch (error) {
+    console.error('Error fetching queries:', error);
+    res.status(500).json({ greska: 'Internal Server Error' });
+  }
+
+
+
+});
+
+
 
 /* ----------------- MARKETING ROUTES ----------------- */
 

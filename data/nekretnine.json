@@ -20,15 +20,15 @@
         "tekst_upita": "Phasellus viverra nulla."
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 1,
         "tekst_upita": "testiram123"
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 1,
         "tekst_upita": "testiram123"
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 1,
         "tekst_upita": "testiram123"
       }
     ]
@@ -42,7 +42,65 @@
     "tip_grijanja": "struja",
     "lokacija": "Centar",
     "godina_izgradnje": 2005,
-    "datum_objave": "20.08.2023.",
+    "datum_objave": "20.08.2020.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "Integer tincidunt."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "tip_nekretnine": "Poslovni prostor",
+    "naziv": "Mali poslovni prostor",
+    "kvadratura": 20,
+    "cijena": 70000,
+    "tip_grijanja": "struja",
+    "lokacija": "Centar",
+    "godina_izgradnje": 2005,
+    "datum_objave": "20.08.2022.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "Integer tincidunt."
+      },
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "testiramNaNekretnini 2"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "tip_nekretnine": "Poslovni prostor",
+    "naziv": "Mali poslovni prostor",
+    "kvadratura": 20,
+    "cijena": 70000,
+    "tip_grijanja": "struja",
+    "lokacija": "Centar",
+    "godina_izgradnje": 2005,
+    "datum_objave": "20.08.2021.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "Integer tincidunt."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "tip_nekretnine": "Poslovni prostor",
+    "naziv": "Mali poslovni prostor",
+    "kvadratura": 20,
+    "cijena": 70000,
+    "tip_grijanja": "struja",
+    "lokacija": "Centar",
+    "godina_izgradnje": 2005,
+    "datum_objave": "20.08.2019.",
     "opis": "Magnis dis parturient montes.",
     "upiti": [
       {

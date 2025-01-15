@@ -370,15 +370,32 @@ app.get('/upiti/moji', async (req, res) => {
   }
 
   try {
-    
-  }
-  catch (error) {
+    const nekretnineData = await readJsonFile('nekretnine');
+    const usersData = await readJsonFile('korisnici');
+    const loggedInUser = usersData.find((user) => user.username === req.session.username);
+
+    var listaUpita = [];
+
+    for (const nekretnina of nekretnineData) {
+      const upitiKorisnika = nekretnina.upiti.filter((upit) => upit.korisnik_id === loggedInUser.id);
+      for (const upit of upitiKorisnika) {
+        listaUpita.push({
+          id_nekretnine: nekretnina.id,
+          tekst_upita: upit.tekst_upita
+        });
+      }
+    }
+    if(listaUpita.length == 0) {
+      res.status(404).json(listaUpita);
+      return;
+    }
+
+
+    res.status(200).json(listaUpita);
+  } catch (error) {
     console.error('Error fetching queries:', error);
     res.status(500).json({ greska: 'Internal Server Error' });
   }
-
-
-
 });
 
 

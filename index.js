@@ -398,6 +398,30 @@ app.get('/upiti/moji', async (req, res) => {
   }
 });
 
+/**
+ * Returns the property with the provided id
+ */
+
+app.get('/nekretnina/:id', async (req, res) => {
+  try {
+    const nekretnineData = await readJsonFile('nekretnine');
+    let nekretninaSaID = nekretnineData.find((nekretnina) => nekretnina.id === Number(req.params.id));
+
+    // Cut the query list to last 3 queries
+    if(nekretninaSaID){
+      nekretninaSaID.upiti = nekretninaSaID.upiti.slice(-3);
+      res.status(200).json(nekretninaSaID);
+    } else {
+      res.status(404).json({ greska: 'Nekretnina sa tim ID-jem ne postoji' });
+      return;
+    }
+  } 
+  catch (error) {
+    console.error('Error fetching properties data:', error);
+    res.status(500).json({ greska: 'Internal Server Error' });
+  }
+});
+
 
 
 /* ----------------- MARKETING ROUTES ----------------- */

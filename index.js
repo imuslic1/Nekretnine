@@ -41,6 +41,8 @@ const routes = [
   { route: '/meni.html', file: 'meni.html' },
   { route: '/prijava.html', file: 'prijava.html' },
   { route: '/profil.html', file: 'profil.html' },
+  { route: '/statistika.html', file: 'statistika.html'},
+  { route: '/vijesti.html', file: 'vijesti.html'},
   // Practical for adding more .html files as the project grows
 ];
 

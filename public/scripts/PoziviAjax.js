@@ -188,19 +188,67 @@ const PoziviAjax = (() => {
     }
 
     function getTop5Nekretnina(lokacija, fncallback) {
+        let ajax = new XMLHttpRequest()
 
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fncallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fncallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("GET", `http://localhost:3000/nekretnine/top5?lokacija=${lokacija}`, true)
+        ajax.send()
     }
 
     function getMojiUpiti(fnCallback) {
+        let ajax = new XMLHttpRequest()
 
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("GET", "http://localhost:3000/upiti/moji", true)
+        ajax.send()
     }
 
     function getNekretnina(nekretnina_id, fnCallback) {
-    
+        let ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("GET", `http://localhost:3000/nekretnina/${nekretnina_id}`, true)
+        ajax.send()
     }
 
     function getNextUpiti(nekretnina_id, page, fnCallback) {
+        let ajax = new XMLHttpRequest()
 
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("GET", `http://localhost:3000/upiti/nekretnina/${nekretnina_id}?page=${page}`, true)
+        ajax.send()
     }
 
     return {

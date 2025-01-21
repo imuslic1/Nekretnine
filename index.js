@@ -431,34 +431,35 @@ app.get('/next/upiti/nekretnina/:id', async (req, res) => {
 
 
     if(nekretninaSaID) {
+      let listaUpita = nekretninaSaID.upiti;
       if(req.query.page < 0){
-        let novaNekretninaSaID = nekretninaSaID;
-        novaNekretninaSaID.upiti = [];
-        res.status(404).json(novaNekretninaSaID);
+        //let novaNekretninaSaID = nekretninaSaID;
+        //novaNekretninaSaID.upiti = [];
+        res.status(404).json([]);
         return;
       }
       else if(req.query.page == 0) {
-        nekretninaSaID.upiti = nekretninaSaID.upiti.slice(-3);
+        listaUpita = nekretninaSaID.upiti.slice(-3);
         if(nekretninaSaID.upiti.length == 0) {
-          res.status(404).json(nekretninaSaID);
+          res.status(404).json([]); // moze i json(listaUpita) ali je ovako citljivije
           return;
         }
         
-        res.status(200).json(nekretninaSaID);
+        res.status(200).json(listaUpita);
         return;
       }
       else if(req.query.page >= 1) {
-        nekretninaSaID.upiti = nekretninaSaID.upiti.reverse().slice(req.query.page * 3 , req.query.page * 3 + 3);
-        if(nekretninaSaID.upiti.length == 0) {
-          res.status(404).json(nekretninaSaID);
+        listaUpita = nekretninaSaID.upiti.reverse().slice(req.query.page * 3 , req.query.page * 3 + 3);
+        if(listaUpita.length == 0) {
+          res.status(404).json(listaUpita);
           return;
         }
 
-        res.status(200).json(nekretninaSaID);
+        res.status(200).json(listaUpita);
         return;
       }
       else {
-        res.status(404).json({ greska: 'Nekrenina sa tim ID-jem ne postoji' });
+        res.status(404).json({ greska: 'Nekretnina sa tim ID-jem ne postoji' });
         return;
       }
     }

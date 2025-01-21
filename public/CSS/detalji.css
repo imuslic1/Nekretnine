@@ -80,6 +80,7 @@ iframe {
   display: none;
 }
 
+/*
 @media screen and (max-width: 599px) {
   #upiti {
     display: flex;
@@ -104,8 +105,34 @@ iframe {
     padding: 10px;
   }
 }
+*/
 
+/* Izmijenjeni upiti, spirala 3*/
 
+#upiti {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 20px;
+}
+
+.upit {
+  display: none; 
+}
+
+.upit:first-child {
+  display: block;
+  white-space: normal;
+}
+
+#buttons {
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+/*
 @media screen and (min-width: 801px) {
   #upiti {
     display: flex;
@@ -119,3 +146,4 @@ iframe {
   }
 
 }
+*/

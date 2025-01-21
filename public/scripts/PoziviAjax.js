@@ -187,12 +187,32 @@ const PoziviAjax = (() => {
         ajax.send()
     }
 
+    function getTop5Nekretnina(lokacija, fncallback) {
+
+    }
+
+    function getMojiUpiti(fnCallback) {
+
+    }
+
+    function getNekretnina(nekretnina_id, fnCallback) {
+    
+    }
+
+    function getNextUpiti(nekretnina_id, page, fnCallback) {
+
+    }
+
     return {
         postLogin: impl_postLogin,
         postLogout: impl_postLogout,
         getKorisnik: impl_getKorisnik,
         putKorisnik: impl_putKorisnik,
         postUpit: impl_postUpit,
-        getNekretnine: impl_getNekretnine
+        getNekretnine: impl_getNekretnine,
+        getTop5Nekretnina: getTop5Nekretnina,
+        getMojiUpiti: getMojiUpiti,
+        getNekretnina: getNekretnina,
+        getNextUpiti: getNextUpiti
     };
 })();

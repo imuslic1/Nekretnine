@@ -28,3 +28,8 @@ iframe {
     border: 1pt solid black;   
     padding: 0% 1%;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+}

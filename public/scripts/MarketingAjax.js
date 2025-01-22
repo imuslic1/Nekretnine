@@ -99,13 +99,14 @@ const MarketingAjax = (() => {
         });
     }
     
-
+    // !!! ZAKOMENTIRANO PROSIRIVANJE DIVA ZBOG SIDE-EFFECTA !!!
+    // IMPLEMENTIRATI U SPIRALI 4   
     function impl_klikNekretnina(idNekretnine) {
         // Ažurirajte širinu nekretnine na 500px
         const nekretninaElement = document.getElementById(`${idNekretnine}`);
         globalniNizNekretninaKlikovi = [`${idNekretnine}`];
         if (nekretninaElement) {
-            nekretninaElement.style.width = '500px';
+            //nekretninaElement.style.width = '500px';
     
             // Pošalji zahtjev na rutu POST /marketing/nekretnina/:id
             ajaxRequest('POST', `/marketing/nekretnina/${idNekretnine}`, {}, (error, data) => {

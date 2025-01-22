@@ -13,15 +13,15 @@ function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
         filtriraneNekretnine.forEach(nekretnina => {
             const nekretninaElement = document.createElement('div');
             if (tip_nekretnine === "Stan") {
-                nekretninaElement.classList.add('nekretnina', 'stan');
+                nekretninaElement.classList.add('nekretnina-stan');
                 nekretninaElement.id = `${nekretnina.id}`;
             }
             else if (tip_nekretnine === "Kuća") {
-                nekretninaElement.classList.add('nekretnina', 'kuca');
+                nekretninaElement.classList.add('nekretnina-kuca');
                 nekretninaElement.id = `${nekretnina.id}`;
             }
             else {
-                nekretninaElement.classList.add('nekretnina', 'pp');
+                nekretninaElement.classList.add('nekretnina-pp');
                 nekretninaElement.id = `${nekretnina.id}`;
             }
 
@@ -38,7 +38,9 @@ function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
 
             const slikaElement = document.createElement('img');
             slikaElement.classList.add('slika-nekretnine');
-            slikaElement.src = `../Resources/${nekretnina.id}.jpg`;
+            //slikaElement.src = `../Resources/${nekretnina.id}.jpg`;
+            // Zasad jedna slika za sve nekretnine
+            slikaElement.src = `../Resources/photos/apartments/apartment_1.jpg`;
             slikaElement.alt = nekretnina.naziv;
             nekretninaElement.appendChild(slikaElement);
 
@@ -129,3 +131,6 @@ setInterval(() => {
     MarketingAjax.osvjeziPretrage(document.getElementById('divNekretnine'));
     MarketingAjax.osvjeziKlikove(document.getElementById('divNekretnine'));
 }, 500);
+
+
+

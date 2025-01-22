@@ -2,11 +2,11 @@ function postaviUpite() {
     var listaMojihUpita = PoziviAjax.getMojiUpiti((error, data) => {
         if(error) {
             if(error == "Not Found") {
-                document.getElementById("upiti").innerHTML = `<p style="color:red; font-weight:bold;">Niste postavili nijedan upit.</p>`;
+                document.getElementById("upiti").innerHTML = `<p class="error">Niste postavili nijedan upit.</p>`;
                 return;
             }
             else if(error == "Unauthorized") {
-                document.getElementById("upiti").innerHTML = `<p style="color:red; font-weight:bold;"> Morate biti logirani kako biste pristupili ovoj stranici.<br><br><a href="prijava.html" style="font-weight:normal">Prijava</a></p>`;
+                document.getElementById("upiti").innerHTML = `<p class="error"> Morate biti logirani kako biste pristupili ovoj stranici.<br><br><a href="prijava.html" style="font-weight:normal">Prijava</a></p>`;
                 return;
             }
         }

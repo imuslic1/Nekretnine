@@ -23,3 +23,11 @@
 [2025-01-22_01:30:09.494Z] - username: imuslic1 - status: uspješno
 [2025-01-22_21:41:47.095Z] - username: imuslic1 - status: uspješno
 [2025-01-22_21:52:32.314Z] - username: imuslic1 - status: uspješno
+[2025-01-22_21:58:12.153Z] - username: undefined - status: neuspješno
+[2025-01-22_21:58:22.746Z] - username: undefined - status: neuspješno
+[2025-01-22_21:59:08.788Z] - username: undefined - status: neuspješno
+[2025-01-22_21:59:36.663Z] - username: undefined - status: neuspješno
+[2025-01-22_22:01:57.710Z] - username: {username} - status: neuspješno
+[2025-01-22_22:04:44.173Z] - username: imuslic1 - status: uspješno
+[2025-01-22_22:06:44.806Z] - username: imuslic1 - status: uspješno
+[2025-01-22_22:07:02.349Z] - username: imuslic1 - status: uspješno

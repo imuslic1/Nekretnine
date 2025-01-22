@@ -43,6 +43,7 @@ const routes = [
   { route: '/profil.html', file: 'profil.html' },
   { route: '/statistika.html', file: 'statistika.html'},
   { route: '/vijesti.html', file: 'vijesti.html'},
+  { route: '/mojiUpiti.html', file: 'mojiUpiti.html'},
   // Practical for adding more .html files as the project grows
 ];
 

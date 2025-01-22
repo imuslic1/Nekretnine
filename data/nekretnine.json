@@ -12,20 +12,20 @@
     "opis": "Sociis natoque penatibus.",
     "upiti": [
       {
-        "korisnik_id": 1,
-        "tekst_upita": "1"
+        "korisnik_id": 3,
+        "tekst_upita": "Ovo je prvi upit"
       },
       {
-        "korisnik_id": 1,
-        "tekst_upita": "2"
+        "korisnik_id": 3,
+        "tekst_upita": "Ovo je drugi upit"
       },
       {
-        "korisnik_id": 1,
-        "tekst_upita": "3"
+        "korisnik_id": 3,
+        "tekst_upita": "Ovo je treci upit"
       },
       {
-        "korisnik_id": 1,
-        "tekst_upita": "4"
+        "korisnik_id": 3,
+        "tekst_upita": "Ovo je cetvrti upit"
       },
       {
         "korisnik_id": 1,
@@ -130,6 +130,10 @@
       {
         "korisnik_id": 2,
         "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "testiramNaNekretnini 2"
       }
     ]
   }

@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pocetniElementi = glavniElement.innerHTML;
 
+    const osnovnoDiv = document.getElementById("osnovno");
+    const detaljiDiv = document.getElementById("detalji");
+    const upitiDiv = document.getElementById("upiti");
+
+    
+
     /*
     window.addEventListener("resize", () => {
         if (window.innerWidth > 600) {
@@ -14,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     */
 
-    
+
 
     if (sviElementi.length <= 1) {
         return; 

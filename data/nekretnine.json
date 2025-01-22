@@ -12,19 +12,19 @@
     "opis": "Sociis natoque penatibus.",
     "upiti": [
       {
-        "korisnik_id": 3,
+        "korisnik_id": 2,
         "tekst_upita": "Ovo je prvi upit"
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 2,
         "tekst_upita": "Ovo je drugi upit"
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 2,
         "tekst_upita": "Ovo je treci upit"
       },
       {
-        "korisnik_id": 3,
+        "korisnik_id": 2,
         "tekst_upita": "Ovo je cetvrti upit"
       },
       {
@@ -76,7 +76,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "tip_nekretnine": "Poslovni prostor",
     "naziv": "Mali poslovni prostor",
     "kvadratura": 20,
@@ -98,7 +98,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "tip_nekretnine": "Poslovni prostor",
     "naziv": "Mali poslovni prostor",
     "kvadratura": 20,
@@ -116,7 +116,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 4,
     "tip_nekretnine": "Poslovni prostor",
     "naziv": "Mali poslovni prostor",
     "kvadratura": 20,
@@ -132,7 +132,7 @@
         "tekst_upita": "Integer tincidunt."
       }, 
       {
-        "korisnik_id": 3,
+        "korisnik_id": 2,
         "tekst_upita": "testiramNaNekretnini 2"
       }
     ]

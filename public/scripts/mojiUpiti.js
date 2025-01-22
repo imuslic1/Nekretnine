@@ -1,14 +1,16 @@
 function postaviUpite() {
     var listaMojihUpita = PoziviAjax.getMojiUpiti((error, data) => {
         if(error) {
-            console.log("GREŠKA:", error);
-            document.getElementById("upiti").innerHTML = `<p>${error}</p>`;
-            return;
+            if(error == "Not Found") {
+                document.getElementById("upiti").innerHTML = `<p style="color:red; font-weight:bold;">Niste postavili nijedan upit.</p>`;
+                return;
+            }
+            else if(error == "Unauthorized") {
+                document.getElementById("upiti").innerHTML = `<p style="color:red; font-weight:bold;"> Morate biti logirani kako biste pristupili ovoj stranici.<br><br><a href="prijava.html" style="font-weight:normal">Prijava</a></p>`;
+                return;
+            }
         }
-        if(data.length == 0) {
-            document.getElementById("upiti").innerHTML = "<p>Niste postavili nijedan upit.</p>";
-            return;
-        }
+      
         //set the gathered queries into a table with 1 column and as many rows as there are queries
         var table = "<table>";
         for(var i = 0; i < data.length; i++) {

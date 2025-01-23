@@ -33,8 +33,6 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
                 sviElementi.push(...data);
             });
         }
-        console.log(`Niz upita trenutno, velicina ${sviElementi.length}`, sviElementi);
-        console.log("Tekst upita trenutni", sviElementi[index].tekst_upita);
         prikaziTrenutni();
     }
 
@@ -57,17 +55,12 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
                 
                 sviElementi.push(...data);
             });
-            
         }
 
         prikaziTrenutni();
     }
 
     prikaziTrenutni();
-
-    
-
-    
 
     return {fnLijevo, fnDesno};
 }

@@ -50,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const idNekretnine = getNekretninaIdFromUrl();
     let upiti = [];
-    let page = 0;
-    let pokupljeno = false;
+    
 
 
     PoziviAjax.getNekretnina(idNekretnine, (error, data) =>{
@@ -82,26 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         //return data;
     });
 
-
-    if(upiti.length % 3 == 0 && !pokupljeno){
-        page++;
-        PoziviAjax.getNextUpiti(idNekretnine, page, (error, data) =>{
-            if(error){
-                if(error == "Not Found"){
-                    //ako je prazna lista upita
-                    if(page == 0){
-                        document.getElementById("upiti").innerHTML = `<div class="greske"><p>Nema postavljenih upita za ovu nekretninu.</p>`;
-                    }
-                    pokupljeno = true;
-                    return;
-                }
-            }
-            
-            upiti.push(...data);
-        });
-        
-    }
-    console.log(upiti);
-
+    
 
 });

@@ -13,19 +13,19 @@
     "upiti": [
       {
         "korisnik_id": 2,
-        "tekst_upita": "Ovo je prvi upit"
+        "tekst_upita": "1"
       },
       {
         "korisnik_id": 2,
-        "tekst_upita": "Ovo je drugi upit"
+        "tekst_upita": "2"
       },
       {
         "korisnik_id": 2,
-        "tekst_upita": "Ovo je treci upit"
+        "tekst_upita": "3"
       },
       {
         "korisnik_id": 2,
-        "tekst_upita": "Ovo je cetvrti upit"
+        "tekst_upita": "4"
       },
       {
         "korisnik_id": 1,

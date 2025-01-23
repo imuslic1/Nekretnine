@@ -3,6 +3,9 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
         return null;
     }
 
+    let page = 0;
+    let pokupljeno = false;
+
     function prikaziTrenutni() {
         glavniElement.innerHTML = ` <div class="upit">
                                         <strong>Korisnik ID ${sviElementi[index].korisnik_id}</strong>
@@ -12,15 +15,59 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
 
     function fnLijevo() {
         index = (index - 1 + sviElementi.length) % sviElementi.length;
+
+        if(sviElementi.length % 3 == 0 && !pokupljeno && index == 0){
+            page++;
+            PoziviAjax.getNextUpiti(getNekretninaIdFromUrl(), page, (error, data) =>{
+                if(error){
+                    if(error == "Not Found"){
+                        //ako je prazna lista upita
+                        if(page == 0){
+                            document.getElementById("upiti").innerHTML = `<div class="greske"><p>Nema postavljenih upita za ovu nekretninu.</p>`;
+                        }
+                        pokupljeno = true;
+                        return;
+                    }
+                }
+                
+                sviElementi.push(...data);
+            });
+        }
+        console.log(`Niz upita trenutno, velicina ${sviElementi.length}`, sviElementi);
+        console.log("Tekst upita trenutni", sviElementi[index].tekst_upita);
         prikaziTrenutni();
     }
 
     function fnDesno() {
         index = (index + 1) % sviElementi.length;
+        
+        if(sviElementi.length % 3 == 0 && !pokupljeno && index == sviElementi.length - 1){
+            page++;
+            PoziviAjax.getNextUpiti(getNekretninaIdFromUrl(), page, (error, data) =>{
+                if(error){
+                    if(error == "Not Found"){
+                        //ako je prazna lista upita
+                        if(page == 0){
+                            document.getElementById("upiti").innerHTML = `<div class="greske"><p>Nema postavljenih upita za ovu nekretninu.</p>`;
+                        }
+                        pokupljeno = true;
+                        return;
+                    }
+                }
+                
+                sviElementi.push(...data);
+            });
+            
+        }
+
         prikaziTrenutni();
-    }    
+    }
 
     prikaziTrenutni();
+
+    
+
+    
 
     return {fnLijevo, fnDesno};
 }

@@ -4,7 +4,10 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
     }
 
     function prikaziTrenutni() {
-        glavniElement.innerHTML = sviElementi[index].outerHTML;
+        glavniElement.innerHTML = ` <div class="upit">
+                                        <strong>Korisnik ID ${sviElementi[index].korisnik_id}</strong>
+                                        <p>${sviElementi[index].tekst_upita}</p>
+                                    </div>`;
     }
 
     function fnLijevo() {
@@ -16,6 +19,8 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
         index = (index + 1) % sviElementi.length;
         prikaziTrenutni();
     }    
+
+    prikaziTrenutni();
 
     return {fnLijevo, fnDesno};
 }

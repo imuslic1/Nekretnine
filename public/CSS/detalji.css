@@ -147,3 +147,31 @@ iframe {
 
 }
 */
+
+#top5-nekretnina {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.nekretnina {
+  border: 1px solid #000;
+  padding: 20px;
+  background-color: white;
+  text-align: center;
+}
+
+#top5-naslov {
+  text-align: center;
+  display: none;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}

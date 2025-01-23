@@ -98,7 +98,7 @@
     ]
   },
   {
-    "id": 3,
+    "id": 4,
     "tip_nekretnine": "Poslovni prostor",
     "naziv": "Mali poslovni prostor",
     "kvadratura": 20,
@@ -116,7 +116,7 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "tip_nekretnine": "Poslovni prostor",
     "naziv": "Mali poslovni prostor",
     "kvadratura": 20,
@@ -136,5 +136,92 @@
         "tekst_upita": "testiramNaNekretnini 2"
       }
     ]
+  },
+  {
+    "id": 6,
+    "tip_nekretnine": "Kuća",
+    "naziv": "Kuća Pofalići",
+    "kvadratura": 140,
+    "cijena": 70000,
+    "tip_grijanja": "plin",
+    "lokacija": "Novo Sarajevo",
+    "godina_izgradnje": 2005,
+    "datum_objave": "20.08.2019.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "testiramNaNekretnini 2"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "tip_nekretnine": "Kuća",
+    "naziv": "Vikendica Bjelašnica",
+    "kvadratura": 45,
+    "cijena": 270000,
+    "tip_grijanja": "struja",
+    "lokacija": "Bjelašnica",
+    "godina_izgradnje": 2012,
+    "datum_objave": "20.08.2018.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "testiramNaNekretnini 7"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "tip_nekretnine": "Kuća",
+    "naziv": "Kuća Vogošća",
+    "kvadratura": 20,
+    "cijena": 370000,
+    "tip_grijanja": "struja",
+    "lokacija": "Vogošća",
+    "godina_izgradnje": 2004,
+    "datum_objave": "20.08.2017.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 4,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      }
+    ]
   }
+
 ]

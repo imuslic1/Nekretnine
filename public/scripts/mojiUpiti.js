@@ -6,7 +6,7 @@ async function postaviUpite() {
                 return;
             }
             else if(error == "Unauthorized") {
-                document.getElementById("upiti").innerHTML = `<p class="error"> Morate biti logirani kako biste pristupili ovoj stranici.<br><br><a href="prijava.html" style="font-weight:normal">Prijava</a></p>`;
+                document.getElementById("upiti").innerHTML = `<p class="error"> Morate biti prijavljeni kako biste pristupili ovoj stranici.<br><br><a href="prijava.html" style="font-weight:normal">Prijava</a></p>`;
                 return;
             }
         }

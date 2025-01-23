@@ -12,27 +12,27 @@
     "opis": "Sociis natoque penatibus.",
     "upiti": [
       {
-        "korisnik_id": 2,
+        "korisnik_id": 3,
         "tekst_upita": "1"
       },
       {
-        "korisnik_id": 2,
+        "korisnik_id": 3,
         "tekst_upita": "2"
       },
       {
-        "korisnik_id": 2,
+        "korisnik_id": 3,
         "tekst_upita": "3"
       },
       {
-        "korisnik_id": 2,
+        "korisnik_id": 3,
         "tekst_upita": "4"
       },
       {
-        "korisnik_id": 1,
+        "korisnik_id": 3,
         "tekst_upita": "5"
       },
       {
-        "korisnik_id": 1,
+        "korisnik_id": 3,
         "tekst_upita": "6"
       },
       {
@@ -48,7 +48,7 @@
         "tekst_upita": "9"
       },
       {
-        "korisnik_id": 1,
+        "korisnik_id": 3,
         "tekst_upita": "10"
       },
       {

@@ -247,6 +247,7 @@ const PoziviAjax = (() => {
                 fnCallback(ajax.statusText, null)
             }
         }
+        console.log("pozvan next upiti");
         ajax.open("GET", `http://localhost:3000/next/upiti/nekretnina/${nekretnina_id}?page=${page}`, true)
         ajax.send()
     }

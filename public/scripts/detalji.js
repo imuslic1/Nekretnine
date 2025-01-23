@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         document.getElementById('slika').src = `../Resources/photos/${data.id}.jpg`;
-        document.getElementById('naziv').innerHTML = `Naziv: ${data.naziv}`;
-        document.getElementById('kvadratura').innerHTML = `Kvadratura: ${data.kvadratura}`;
-        document.getElementById('cijena').innerHTML = `Cijena: ${data.cijena}`;
-        document.getElementById('tip-grijanja').innerHTML = `Tip grijanja: ${data.tip_grijanja}`;
-        document.getElementById('lokacija').innerHTML = `Lokacija: ${data.lokacija}`; //ubaci link
-        document.getElementById('godina-izgradnje').innerHTML = `Godina izgradnje: ${data.godina_izgradnje}`;
-        document.getElementById('datum-objave').innerHTML = `Datum objave: ${data.datum_objave.slice(-5,-1)}`;
-        document.getElementById('opis').innerHTML = `<strong>Opis:</strong> <p>${data.opis}</p>`;
+        document.getElementById('naziv').innerHTML = `<strong> Naziv: </strong> ${data.naziv}`;
+        document.getElementById('kvadratura').innerHTML = `<strong> Kvadratura: </strong> ${data.kvadratura}`;
+        document.getElementById('cijena').innerHTML = `<strong> Cijena: </strong> ${data.cijena}`;
+        document.getElementById('tip-grijanja').innerHTML = `<strong> Tip grijanja: </strong> ${data.tip_grijanja}`;
+        document.getElementById('lokacija').innerHTML = `<strong> Lokacija: </strong> ${data.lokacija}`; //ubaci link
+        document.getElementById('godina-izgradnje').innerHTML = `<strong> Godina izgradnje: </strong> ${data.godina_izgradnje}`;
+        document.getElementById('datum-objave').innerHTML = `<strong> Datum objave: </strong> ${data.datum_objave.slice(-5,-1)}`;
+        document.getElementById('opis').innerHTML = `<strong> Opis: </strong> <p>${data.opis}</p>`;
 
         upiti = data.upiti;
         console.log("Upiti pri pozivu", upiti);
@@ -38,7 +38,4 @@ document.addEventListener('DOMContentLoaded', () => {
             next.addEventListener('click', carousel.fnDesno);
         }
     });
-
-    
-
 });

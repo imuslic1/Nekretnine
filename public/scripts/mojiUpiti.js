@@ -1,5 +1,5 @@
-function postaviUpite() {
-    var listaMojihUpita = PoziviAjax.getMojiUpiti((error, data) => {
+async function postaviUpite() {
+    var listaMojihUpita = await PoziviAjax.getMojiUpiti((error, data) => {
         if(error) {
             if(error == "Not Found") {
                 document.getElementById("upiti").innerHTML = `<p class="error">Niste postavili nijedan upit.</p>`;
@@ -12,12 +12,15 @@ function postaviUpite() {
         }
       
         //set the gathered queries into a table with 1 column and as many rows as there are queries
-        var table = "<table>";
+        var upiti = `<div>`;
         for(var i = 0; i < data.length; i++) {
-            table += "<tr><td>" + "Nekretnina " + data[i].id_nekretnine + ": " + data[i].tekst_upita + "</td></tr>";
+            upiti += `  <div class="upit">
+                        <strong>Nekretnina: ${data[i].id_nekretnine}</strong>
+                        <p>${data[i].tekst_upita}</p>
+                        </div>`;
         }
-        table += "</table>";
-        document.getElementById("upiti").innerHTML = table;
+        upiti += "</div>";
+        document.getElementById("upiti").innerHTML = upiti;
                 
     });
 

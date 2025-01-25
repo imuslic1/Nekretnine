@@ -15,8 +15,8 @@ async function postaviUpite() {
         var upiti = `<div>`;
         for(var i = 0; i < data.length; i++) {
             upiti += `  <div class="upit">
-                        <strong>Nekretnina: ${data[i].id_nekretnine}</strong>
-                        <p>${data[i].tekst_upita}</p>
+                        <strong>Nekretnina: ${data[i].nekretninaId}</strong>
+                        <p>${data[i].tekst}</p>
                         </div>`;
         }
         upiti += "</div>";

@@ -354,26 +354,13 @@ app.get('/upiti/moji', async (req, res) => {
   }
 
   try {
-    const nekretnineData = await readJsonFile('nekretnine');
-    const usersData = await readJsonFile('korisnici');
-    const loggedInUser = usersData.find((user) => user.username === req.session.username);
-
-    var listaUpita = [];
-
-    for (const nekretnina of nekretnineData) {
-      const upitiKorisnika = nekretnina.upiti.filter((upit) => upit.korisnik_id === loggedInUser.id);
-      for (const upit of upitiKorisnika) {
-        listaUpita.push({
-          id_nekretnine: nekretnina.id,
-          tekst_upita: upit.tekst_upita
-        });
-      }
-    }
+    const loggedInUser = await db.korisnik.findOne({ where: { username: req.session.username } });
+    const listaUpita = await db.upit.findAll({ where: { korisnikId: loggedInUser.id } });
+    
     if(listaUpita.length == 0) {
       res.status(404).json(listaUpita);
       return;
     }
-
 
     res.status(200).json(listaUpita);
   } catch (error) {
@@ -387,12 +374,17 @@ app.get('/upiti/moji', async (req, res) => {
  */
 app.get('/nekretnina/:id', async (req, res) => {
   try {
-    const nekretnineData = await readJsonFile('nekretnine');
-    let nekretninaSaID = nekretnineData.find((nekretnina) => nekretnina.id === Number(req.params.id));
+    const nekretninaSaID = await db.nekretnina.findOne({ where: { id: req.params.id } });
+    const upiti = await db.upit.findAll(
+      { 
+        where: { nekretninaId: req.params.id },
+        order: [['createdAt', 'DESC']],
+        limit: 3
+      }
+    );
 
-    // Cut the query list to last 3 queries
-    if(nekretninaSaID){
-      nekretninaSaID.upiti = nekretninaSaID.upiti.slice(-3);
+    if(nekretninaSaID) {
+      nekretninaSaID.dataValues.upiti = upiti;
       res.status(200).json(nekretninaSaID);
     } else {
       res.status(404).json({ greska: 'Nekretnina sa tim ID-jem ne postoji' });
@@ -410,18 +402,19 @@ app.get('/nekretnina/:id', async (req, res) => {
  */
 app.get('/next/upiti/nekretnina/:id', async (req, res) => {
   try {
-    const nekretnineData = await readJsonFile('nekretnine');
-    let nekretninaSaID = nekretnineData.find((nekretnina) => nekretnina.id === Number(req.params.id));
+    //const nekretnineData = await readJsonFile('nekretnine');
+    //let nekretninaSaID = nekretnineData.find((nekretnina) => nekretnina.id === Number(req.params.id));
 
+    const nekretninaSaID = await db.nekretnina.findOne({ where: { id: req.params.id } });
 
     if(nekretninaSaID) {
-      let listaUpita = nekretninaSaID.upiti;
+      let listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id } });
       if(req.query.page < 0){
         res.status(404).json([]);
         return;
       }
       else if(req.query.page == 0) {
-        listaUpita = nekretninaSaID.upiti.slice(-3);
+        listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id }, order: [['createdAt', 'DESC']], limit: 3 });
         if(nekretninaSaID.upiti.length == 0) {
           res.status(404).json([]); // moze i json(listaUpita) ali je ovako citljivije
           return;
@@ -431,7 +424,8 @@ app.get('/next/upiti/nekretnina/:id', async (req, res) => {
         return;
       }
       else if(req.query.page >= 1) {
-        listaUpita = nekretninaSaID.upiti.reverse().slice(req.query.page * 3 , req.query.page * 3 + 3);
+        //listaUpita = nekretninaSaID.upiti.reverse().slice(req.query.page * 3 , req.query.page * 3 + 3);
+        listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id }, order: [['createdAt', 'DESC']], limit: 3, offset: req.query.page * 3 });
         if(listaUpita.length == 0) {
           res.status(404).json(listaUpita);
           return;

@@ -8,8 +8,8 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
 
     function prikaziTrenutni() {
         glavniElement.innerHTML = ` <div class="upit">
-                                        <strong>Korisnik ID ${sviElementi[index].korisnik_id}</strong>
-                                        <p>${sviElementi[index].tekst_upita}</p>
+                                        <strong>Korisnik ID ${sviElementi[index].korisnikId}</strong>
+                                        <p>${sviElementi[index].tekst}</p>
                                     </div>`;
     }
 
@@ -29,7 +29,6 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
                         return;
                     }
                 }
-                
                 sviElementi.push(...data);
             });
         }
@@ -52,7 +51,6 @@ function postaviCarousel(glavniElement, sviElementi, index = 0) {
                         return;
                     }
                 }
-                
                 sviElementi.push(...data);
             });
         }

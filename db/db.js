@@ -5,7 +5,7 @@ const sequelize_obj = new Sequelize("wt24","root","",{
     dialect:"mysql"});
 const db = {};
 
-db.Sequelize = Sequelize;  
+db.Sequelize = Sequelize;
 db.sequelize = sequelize_obj;
 
 /**
@@ -51,6 +51,20 @@ db.ponuda.belongsTo(db.ponuda, { as: 'parentOffer', foreignKey: 'parent_offerId'
 
 module.exports=db;
 
+db.nekretnina.prototype.getInteresovanja = async function () {
+    const upiti = await this.getUpiti();
+    const zahtjevi = await this.getZahtjevi();
+    const ponude = await this.getPonude();
+    return { upiti, zahtjevi, ponude };
+};
+
+
+
+
+
+
+/*
+
 (async () => {
     try {
       await sequelize_obj.authenticate();
@@ -63,10 +77,5 @@ module.exports=db;
       console.error('Greška pri konekciji:', error);
     }
 })();
+*/
 
-db.nekretnina.prototype.getInteresovanja = async function () {
-    const upiti = await this.getUpiti();
-    const zahtjevi = await this.getZahtjevi();
-    const ponude = await this.getPonude();
-    return { upiti, zahtjevi, ponude };
-};

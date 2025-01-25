@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
+const db = require('./db/db.js');
+
 app.use(session({
   secret: 'tajna sifra',
   resave: true,
@@ -120,23 +122,23 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    const data = await fs.readFile(path.join(__dirname, 'data', 'korisnici.json'), 'utf-8');
-    const korisnici = JSON.parse(data);
+    //const data = await fs.readFile(path.join(__dirname, 'data', 'korisnici.json'), 'utf-8');
+    //const korisnici = JSON.parse(data);
+
+    const korisnik = await db.korisnik.findOne({ where: { username: jsonObj.username } });
     let found = false;
 
-    for (const korisnik of korisnici) {
-      if (korisnik.username == jsonObj.username) {
-        const isPasswordMatched = await bcrypt.compare(jsonObj.password, korisnik.password);
+    if (korisnik.username == jsonObj.username) {
+      const isPasswordMatched = await bcrypt.compare(jsonObj.password, korisnik.password);
 
-        if (isPasswordMatched) {
-          req.session.username = korisnik.username;
-          console.log(req.session.username, "je ulogovan");
-          req.session.loginAttempts = 0;
-          found = true;
-          break;
-        }
+      if (isPasswordMatched) {
+        req.session.username = korisnik.username;
+        console.log(req.session.username, "je ulogovan");
+        req.session.loginAttempts = 0;
+        found = true;
       }
     }
+
 
     if (found) {
       res.json({ poruka: 'Uspješna prijava' });
@@ -207,10 +209,12 @@ app.get('/korisnik', async (req, res) => {
 
   try {
     // Read user data from the JSON file
-    const users = await readJsonFile('korisnici');
+    //const users = await readJsonFile('korisnici');
 
     // Find the user by username
-    const user = users.find((u) => u.username === username);
+    //const user = users.find((u) => u.username === username);
+
+    const user = await db.korisnik.findOne({ where: { username: username } });
 
     if (!user) {
       // User not found (should not happen if users are correctly managed)

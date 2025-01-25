@@ -63,6 +63,7 @@ async function readJsonFile(filename) {
     const rawdata = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(rawdata);
   } catch (error) {
+    console.log("Error reading JSON file:", error);
     throw error;
   }
 }
@@ -519,8 +520,9 @@ app.post('/marketing/nekretnina/:id', async (req, res) => {
 
   try {
     // Read JSON 
+    console.log("usao u zahtjev post na serveru");
     const preferencije = await readJsonFile('preferencije');
-
+    
     // Finding the needed objects based on id
     const nekretninaData = preferencije.find((item) => item.id === parseInt(id, 10));
 

@@ -56,15 +56,20 @@ function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
             cijenaElement.classList.add('cijena-nekretnine');
             cijenaElement.innerHTML = `<p>Cijena: ${nekretnina.cijena} BAM</p>`;
             nekretninaElement.appendChild(cijenaElement);
-
+            
             const detaljiDugme = document.createElement('a');
-            detaljiDugme.href = `detalji.html?id=${nekretnina.id}`;
+            //detaljiDugme.href = `detalji.html?id=${nekretnina.id}`;
             detaljiDugme.classList.add('detalji-dugme');
             detaljiDugme.textContent = 'Detalji';
-            detaljiDugme.addEventListener('click', function () {
+            detaljiDugme.addEventListener('click', async function () {
                 const idNekretnine = nekretnina.id;
                 MarketingAjax.klikNekretnina(idNekretnine);
+                // 5ms delaya jer sam just a chill dude koji voli sacekati da se async funkcija izvrsi do kraja
+                setTimeout(() => {
+                    window.location.href = `detalji.html?id=${idNekretnine}`;    
+                }, 5);
             });
+            
             nekretninaElement.appendChild(detaljiDugme);
 
             // Dodavanje kreiranog elementa u divReferenci

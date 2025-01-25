@@ -151,7 +151,7 @@ app.post('/login', async (req, res) => {
         req.session.loginAttempts = 0;
         res.status(429).json({ greska: "Previse neuspjesnih pokusaja. Pokusajte ponovo za 1 minutu." });
       } else {
-        res.json({ poruka: 'Neuspješna prijava' });
+        res.status(401).json({ poruka: 'Neuspješna prijava' });
       }
     }
 
@@ -249,33 +249,26 @@ app.post('/upit', async (req, res) => {
   const { nekretnina_id, tekst_upita } = req.body;
 
   try {
-    const users = await readJsonFile('korisnici');
-    const nekretnine = await readJsonFile('nekretnine');
-    const loggedInUser = users.find((user) => user.username === req.session.username);
-    const nekretnina = nekretnine.find((property) => property.id === nekretnina_id);
+    const loggedInUser = await db.korisnik.findOne({ where: { username: req.session.username } });
+    const nekretnina = await db.nekretnina.findOne({ where: { id: nekretnina_id } });
 
     if (!nekretnina) {
       return res.status(400).json({ greska: `Nekretnina sa id-em ${nekretnina_id} ne postoji` });
     }
-    //NOVO
-    if(!req.session.numberOfUserRequests) {
-      req.session.numberOfUserRequests = 0;
-    }
 
-    if(req.session.numberOfUserRequests > 3) {
+    let upiti = await db.upit.findAll({where: {korisnikId : loggedInUser.id, nekretninaId : nekretnina_id}});
+    console.log(upiti.length);
+    
+    if(upiti.length >= 3) {
       res.status(429).json({ greska: 'Previse upita za istu nekretninu' });
       return;
     }
-    //DO TU
-    nekretnina.upiti.push({
-      korisnik_id: loggedInUser.id,
-      tekst_upita: tekst_upita
-    });
-    //NOVO
-    req.session.numberOfUserRequests++;
-    //DO TU
-    await saveJsonFile('nekretnine', nekretnine);
     
+    await db.upit.create({
+      korisnikId: loggedInUser.id,
+      nekretninaId: nekretnina.id,
+      tekst: tekst_upita
+    });
 
     res.status(200).json({ poruka: 'Upit je uspješno dodan' });
   } catch (error) {
@@ -288,39 +281,28 @@ app.post('/upit', async (req, res) => {
 Updates any user field
 */
 app.put('/korisnik', async (req, res) => {
-  // Check if the user is authenticated
   if (!req.session.username) {
-    // User is not logged in
     return res.status(401).json({ greska: 'Neautorizovan pristup' });
   }
 
-  // Get data from the request body
   const { ime, prezime, username, password } = req.body;
 
   try {
-    // Read user data from the JSON file
-    const users = await readJsonFile('korisnici');
-
-    // Find the user by username
-    const loggedInUser = users.find((user) => user.username === req.session.username);
+    const loggedInUser = await db.korisnik.findOne({ where: { username: req.session.username } });
 
     if (!loggedInUser) {
-      // User not found (should not happen if users are correctly managed)
       return res.status(401).json({ greska: 'Neautorizovan pristup' });
     }
 
-    // Update user data with the provided values
     if (ime) loggedInUser.ime = ime;
     if (prezime) loggedInUser.prezime = prezime;
     if (username) loggedInUser.username = username;
     if (password) {
-      // Hash the new password
       const hashedPassword = await bcrypt.hash(password, 10);
       loggedInUser.password = hashedPassword;
     }
 
-    // Save the updated user data back to the JSON file
-    await saveJsonFile('korisnici', users);
+    loggedInUser.save();
     res.status(200).json({ poruka: 'Podaci su uspješno ažurirani' });
   } 
   catch (error) {
@@ -334,7 +316,7 @@ Returns all properties from the file.
 */
 app.get('/nekretnine', async (req, res) => {
   try {
-    const nekretnineData = await readJsonFile('nekretnine');
+    const nekretnineData = await db.nekretnina.findAll();
     res.json(nekretnineData);
   } catch (error) {
     console.error('Error fetching properties data:', error);
@@ -439,8 +421,6 @@ app.get('/next/upiti/nekretnina/:id', async (req, res) => {
     if(nekretninaSaID) {
       let listaUpita = nekretninaSaID.upiti;
       if(req.query.page < 0){
-        //let novaNekretninaSaID = nekretninaSaID;
-        //novaNekretninaSaID.upiti = [];
         res.status(404).json([]);
         return;
       }

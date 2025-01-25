@@ -330,17 +330,13 @@ app.get('/nekretnine', async (req, res) => {
  */
 app.get('/nekretnine/top5', async (req, res) => {
   try {
-    const nekretnineData = await readJsonFile('nekretnine');
-    const nekretnineNaLokaciji = nekretnineData.filter((nekretnina) => nekretnina.lokacija === req.query.lokacija);
-    
-    const sortedNekretnineNaLokaciji = nekretnineNaLokaciji.sort((a, b) => {
-      let prvi = new Date(a.datum_objave.split(".").reverse().join("-"));
-      let drugi = new Date(b.datum_objave.split(".").reverse().join("-"));
-      return drugi - prvi;
-    });
-
-    const top5 = sortedNekretnineNaLokaciji.slice(0, 5);   
-    
+    const top5 = await db.nekretnina.findAll(
+        { 
+          where: { lokacija: req.query.lokacija },
+          order: [['datum_objave', 'DESC']],
+          limit: 5
+        }
+      );
     res.status(200).json(top5);
   } catch (error) {
     console.error('Error fetching properties data:', error);

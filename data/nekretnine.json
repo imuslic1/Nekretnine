@@ -214,7 +214,55 @@
         "tekst_upita": "testiramNaNekretnini 2"
       },
       {
-        "korisnik_id": 4,
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "tip_nekretnine": "Kuća",
+    "naziv": "Kuća Vogošća",
+    "kvadratura": 200,
+    "cijena": 400000,
+    "tip_grijanja": "struja",
+    "lokacija": "Vogošća",
+    "godina_izgradnje": 2004,
+    "datum_objave": "20.08.2017.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "tip_nekretnine": "Kuća",
+    "naziv": "Stan Sarajevo Centar",
+    "kvadratura": 70,
+    "cijena": 450000,
+    "tip_grijanja": "struja",
+    "lokacija": "Centar",
+    "godina_izgradnje": 1913,
+    "datum_objave": "20.08.2017.",
+    "opis": "Magnis dis parturient montes.",
+    "upiti": [
+      {
+        "korisnik_id": 1,
+        "tekst_upita": "Integer tincidunt."
+      }, 
+      {
+        "korisnik_id": 2,
+        "tekst_upita": "testiramNaNekretnini 2"
+      },
+      {
+        "korisnik_id": 3,
         "tekst_upita": "testiramNaNekretnini 2"
       },
       {

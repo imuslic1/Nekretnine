@@ -58,3 +58,7 @@
 [2025-01-25_21:45:19.187Z] - username: imuslic1 - status: neuspješno
 [2025-01-25_21:45:25.092Z] - username: imuslic1 - status: neuspješno
 [2025-01-25_21:45:32.996Z] - username: imuslic1 - status: uspješno
+[2025-01-25_21:53:04.539Z] - username: imuslic1 - status: neuspješno
+[2025-01-25_21:53:10.290Z] - username: imuslic1 - status: uspješno
+[2025-01-25_22:07:30.784Z] - username: imuslic1 - status: neuspješno
+[2025-01-25_22:07:36.725Z] - username: imuslic1 - status: uspješno

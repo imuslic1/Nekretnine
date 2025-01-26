@@ -505,21 +505,21 @@ app.put('/nekretnina/:id/zahtjev/:zid', async (req, res) => {
   try {
     const korisnik = await db.korisnik.findOne({ where: { username: req.session.username } });
 
-    if (!korisnik || !korisnik.admin) {
+    if(!korisnik || !korisnik.admin) {
       return res.status(401).json({ greska: 'Neautorizovan pristup' });
     }
 
     const zahtjev = await db.zahtjev.findOne({ where: {id: zid} });
 
-    if (!zahtjev) {
+    if(!zahtjev) {
       return res.status(404).json({ greska: `Zahtjev sa id-jem ${zid} ne postoji!` });
     }
-    if (!odobren && !addToTekst) {
+    if(!odobren && !addToTekst) {
       return res.status(400).json({ greska: 'Nedostaje odgovor admina!' });
     }
     
     zahtjev.odobren = odobren;
-    if (addToTekst) {
+    if(addToTekst) {
       zahtjev.tekst += `\n ODGOVOR ADMINA: ${addToTekst}`;
     }
 

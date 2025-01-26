@@ -296,7 +296,6 @@ const PoziviAjax = (() => {
         ajax.send(JSON.stringify(izmjena));
 
         fnCallback(null, { poruka: 'Zahtjev je uspješno ažuriran' });
-    
     }
 
 

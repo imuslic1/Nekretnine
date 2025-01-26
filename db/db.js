@@ -58,6 +58,21 @@ db.nekretnina.prototype.getInteresovanja = async function () {
     return { upiti, zahtjevi, ponude };
 };
 
+db.nekretnina.getInteresovanja = async function (nekretninaId) {
+  const nekretnina = await db.nekretnina.findByPk(nekretninaId, {
+    include: [
+      { model: db.upit, as: 'upiti'},
+      { model: db.zahtjev, as: 'zahtjevi'},
+      { model: db.ponuda, as: 'ponude'}
+    ]
+  });
+
+  if (!nekretnina) {
+    throw new Error('Nekretnina nije pronađena');
+  }
+
+  return [...nekretnina.upiti, ...nekretnina.zahtjevi, ...nekretnina.ponude];
+}
 
 
 

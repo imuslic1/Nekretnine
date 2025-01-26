@@ -51,14 +51,8 @@ db.ponuda.belongsTo(db.ponuda, { as: 'parentOffer', foreignKey: 'parent_offerId'
 
 module.exports=db;
 
-db.nekretnina.prototype.getInteresovanja = async function () {
-    const upiti = await this.getUpiti();
-    const zahtjevi = await this.getZahtjevi();
-    const ponude = await this.getPonude();
-    return { upiti, zahtjevi, ponude };
-};
-
-db.nekretnina.getInteresovanja = async function (nekretninaId) {
+/*
+db.nekretnina.prototype.getInteresovanja = async function (nekretninaId) {
   const nekretnina = await db.nekretnina.findByPk(nekretninaId, {
     include: [
       { model: db.upit, as: 'upiti'},
@@ -68,12 +62,21 @@ db.nekretnina.getInteresovanja = async function (nekretninaId) {
   });
 
   if (!nekretnina) {
-    throw new Error('Nekretnina nije pronađena');
+    throw new Error(`Nekretnina sa id-jem ${nekretninaId} ne postoji`);
   }
 
   return [...nekretnina.upiti, ...nekretnina.zahtjevi, ...nekretnina.ponude];
 }
+*/
 
+db.nekretnina.prototype.getInteresovanja = async function () {
+  const upiti = await db.upit.findAll({where: {nekretninaId: this.id}});
+  const zahtjevi = await db.zahtjev.findAll({where: {nekretninaId: this.id}});
+  const ponude = await db.ponuda.findAll({where: { nekretninaId: this.id }});
+  const interesovanja = { upiti, zahtjevi, ponude };
+  //console.log("Ovo su interesovanja:", interesovanja);
+  return interesovanja;
+};
 
 
 

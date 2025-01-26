@@ -252,12 +252,10 @@ app.post('/upit', async (req, res) => {
     if (!nekretnina) {
       return res.status(400).json({ greska: `Nekretnina sa id-em ${nekretnina_id} ne postoji` });
     }
-    //NOVO
-    if(!req.session.numberOfUserRequests) {
-      req.session.numberOfUserRequests = 0;
-    }
 
-    if(req.session.numberOfUserRequests > 3) {
+    const upitiKorisnika = nekretnina.upiti.filter((upit) => upit.korisnik_id === loggedInUser.id);
+
+    if(upitiKorisnika.length >= 3) {
       res.status(429).json({ greska: 'Previse upita za istu nekretninu' });
       return;
     }

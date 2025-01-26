@@ -12,30 +12,6 @@
     "opis": "Sociis natoque penatibus.",
     "upiti": [
       {
-        "korisnik_id": 3,
-        "tekst_upita": "1"
-      },
-      {
-        "korisnik_id": 3,
-        "tekst_upita": "2"
-      },
-      {
-        "korisnik_id": 3,
-        "tekst_upita": "3"
-      },
-      {
-        "korisnik_id": 3,
-        "tekst_upita": "4"
-      },
-      {
-        "korisnik_id": 3,
-        "tekst_upita": "5"
-      },
-      {
-        "korisnik_id": 3,
-        "tekst_upita": "6"
-      },
-      {
         "korisnik_id": 1,
         "tekst_upita": "7"
       },
@@ -48,12 +24,20 @@
         "tekst_upita": "9"
       },
       {
-        "korisnik_id": 3,
-        "tekst_upita": "10"
-      },
-      {
         "korisnik_id": 1,
         "tekst_upita": "11"
+      },
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "Neki Tekst novi koji sam dodao sad"
+      },
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "Neki Tekst novi koji sam dodao sad"
+      },
+      {
+        "korisnik_id": 3,
+        "tekst_upita": "Neki Tekst novi koji sam dodao sad"
       }
     ]
   },
@@ -130,7 +114,7 @@
       {
         "korisnik_id": 2,
         "tekst_upita": "Integer tincidunt."
-      }, 
+      },
       {
         "korisnik_id": 2,
         "tekst_upita": "testiramNaNekretnini 2"
@@ -152,7 +136,7 @@
       {
         "korisnik_id": 2,
         "tekst_upita": "Integer tincidunt."
-      }, 
+      },
       {
         "korisnik_id": 1,
         "tekst_upita": "testiramNaNekretnini 2"
@@ -182,7 +166,7 @@
       {
         "korisnik_id": 3,
         "tekst_upita": "Integer tincidunt."
-      }, 
+      },
       {
         "korisnik_id": 1,
         "tekst_upita": "testiramNaNekretnini 7"
@@ -204,7 +188,7 @@
       {
         "korisnik_id": 1,
         "tekst_upita": "Integer tincidunt."
-      }, 
+      },
       {
         "korisnik_id": 2,
         "tekst_upita": "testiramNaNekretnini 2"
@@ -223,5 +207,4 @@
       }
     ]
   }
-
 ]

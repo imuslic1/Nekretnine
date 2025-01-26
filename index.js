@@ -227,7 +227,8 @@ app.get('/korisnik', async (req, res) => {
       ime: user.ime,
       prezime: user.prezime,
       username: user.username,
-      password: user.password // Should exclude the password for security reasons
+      password: user.password,
+      admin: user.admin 
     };
 
     res.status(200).json(userData);
@@ -485,7 +486,7 @@ app.post('/nekretnina/:id/zahtjev', async (req, res) => {
       nekretninaId: id,
       odobren: null
     });
-
+    console.log("poslao server na bazu zahtjev");
     res.status(200).json({ poruka: 'Zahtjev je uspješno poslan' });
   } 
     catch (error) {
@@ -676,9 +677,10 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
       }
       return ponuda;
     });
-    console.log(filteredPonude);
-    return res.status(200).json({...svaInteresovanja, ponude: filteredPonude});
-    
+
+    const filteredZahtjevi = svaInteresovanja.zahtjevi.filter(zahtjev => zahtjev.korisnikId === loggedInUser.id);
+
+    return res.status(200).json({...svaInteresovanja, ponude: filteredPonude, zahtjevi: filteredZahtjevi});
   }
   catch(error) {
     console.error('Error fetching data:', error);

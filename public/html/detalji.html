@@ -32,20 +32,91 @@
         </div>
     </div>
 
-
-    <h3>UPITI</h3>
-    <div id="upiti">
-        
-    </div>
-
-    <div id="buttons">
-        <button id="previous">Prethodni</button>
-        <button id="next">Sljedeći</button>
-    </div>
-    
     <h2 id="top5-naslov">Top 5 nekretnina u istoj lokaciji</h2>
 
     <div id="top5-nekretnina"></div>
+
+    <div id="interesovanja">
+        <h3>UPITI</h3>
+        <div id="upiti">
+            
+        </div>
+
+        <div id="buttons">
+            <button id="previous">Prethodni</button>
+            <button id="next">Sljedeći</button>
+        </div>
+
+        <h3 id="zahtjevi-naslov">ZAHTJEVI</h3>
+        <div id="zahtjevi">
+            
+        </div>
+
+        <div id="buttons-zahtjevi">
+            <button id="previous-zahtjevi">Prethodni</button>
+            <button id="next-zahtjevi">Sljedeći</button>
+        </div>
+
+        <h3>PONUDE</h3>
+        <div id="ponude">
+           
+        </div>
+
+        <div id="buttons">
+            <button id="previous-ponude">Prethodna</button>
+            <button id="next-ponude">Sljedeća</button>
+        </div>
+    </div>
+    
+
+    <h3>DODAJ NOVO INTERESOVANJE</h3>
+    <div id="forma-interesovanje">
+        <form id="interesovanjeForm">
+            <label for="tipInteresovanja">Tip interesovanja:</label>
+            <select id="tipInteresovanja" name="tipInteresovanja">
+                <option value="upit">Upit</option>
+                <option value="zahtjev">Zahtjev</option>
+                <option value="ponuda">Ponuda</option>
+            </select>
+
+            <table>
+                <tr>
+                    <td>
+                        <label for="tekst">Tekst interesovanja:</label>
+                        <textarea id="tekst" name="tekst" rows="2" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr id = "zahtjev-div">
+                        <td>
+                            <label for="trazeniDatum">Traženi datum:</label>
+                        </td>
+                        <td>
+                            <input type="date" id="trazeniDatum" name="trazeniDatum">
+                        </td>
+                </tr>
+                    <tr id="ponuda-div">
+                        <td>
+                            <label for="vezanaPonuda">Vezana ponuda:</label>
+                        </td>
+                        <td>
+                            <select id="vezanaPonuda" name="vezanaPonuda">
+                                <option value="0">Null</option>
+                            </select>
+                        </td>
+                        <td>
+                            <label for="cijenaPonude">Cijena ponude:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="cijenaPonude" name="cijenaPonude">
+                        </td>
+                    </tr>
+            </table>
+
+            <button type="submit" id="interesovanjeBtn">Dodaj interesovanje</button>
+        </form>
+    </div>
+    
+    
     
     
     <script src="../Scripts/PoziviAjax.js"></script>

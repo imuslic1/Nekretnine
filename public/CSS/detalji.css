@@ -61,7 +61,7 @@ iframe {
 
 
 /* Stil za div #upiti */
-#upiti {
+#upiti, #ponude, #zahtjevi {
   display: flex;
   flex-direction: column;
   border: 1px solid #000;
@@ -70,14 +70,11 @@ iframe {
   gap: 20px;
 }
 
-.upit {
+.upit, .ponuda, .zahtjev {
+  width: 100%;
   border: 1px solid #000;
   padding: 10px;
   background-color: white;
-}
-
-#buttons {
-  display: none;
 }
 
 /*
@@ -109,7 +106,7 @@ iframe {
 
 /* Izmijenjeni upiti, spirala 3*/
 
-#upiti {
+#upiti, #zahtjevi, #ponude {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
@@ -126,7 +123,7 @@ iframe {
   white-space: normal;
 }
 
-#buttons {
+#buttons, #buttons-zahtjevi {
   display: block;
   text-align: center;
   padding: 10px;
@@ -174,4 +171,23 @@ iframe {
 .error {
   color: red;
   font-weight: bold;
+}
+
+#forma-interesovanje{
+  margin-left: 20px;
+  margin-bottom: 200px;
+}
+
+#forma-interesovanje select{
+  padding: 10px;
+  margin: 10px;
+}
+
+#forma-interesovanje label{
+  margin: 10px;
+}
+
+#interesovanjeBtn{
+  padding: 10px;
+  margin: 15px;
 }

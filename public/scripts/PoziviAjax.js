@@ -247,10 +247,59 @@ const PoziviAjax = (() => {
                 fnCallback(ajax.statusText, null)
             }
         }
-        console.log("pozvan next upiti");
+        //console.log("pozvan next upiti");
         ajax.open("GET", `http://localhost:3000/next/upiti/nekretnina/${nekretnina_id}?page=${page}`, true)
         ajax.send()
     }
+
+    function postNekretninaZahtjev(nekretnina_id, tekst, trazeni_datum, fnCallback) {
+        let ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("POST", `http://localhost:3000/nekretina/${nekretnina_id}/zahtjev`, true)
+        ajax.setRequestHeader("Content-Type", "application/json")
+        let zahtjev = {
+            tekst: tekst,
+            trazeni_datum: trazeni_datum
+        }
+        ajax.send(JSON.stringify(zahtjev));
+
+        fnCallback(null, { poruka: 'Zahtjev je uspješno dodan' });
+    }
+
+    function putZahtjevModify(zahtjev_id, nekretnina_id, addToTekst=null, odobren, fnCallback) {
+        let ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("PUT", `http://localhost:3000/nekretnina/${nekretnina_id}/zahtjev/${zahtjev_id}`, true)
+        ajax.setRequestHeader("Content-Type", "application/json")
+        let izmjena = {
+            odobren: odobren,
+            addToTekst: addToTekst,
+        }
+        ajax.send(JSON.stringify(izmjena));
+
+        fnCallback(null, { poruka: 'Zahtjev je uspješno ažuriran' });
+    
+    }
+
+
 
     return {
         postLogin: impl_postLogin,

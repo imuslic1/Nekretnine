@@ -402,19 +402,22 @@ app.get('/nekretnina/:id', async (req, res) => {
  */
 app.get('/next/upiti/nekretnina/:id', async (req, res) => {
   try {
-    //const nekretnineData = await readJsonFile('nekretnine');
-    //let nekretninaSaID = nekretnineData.find((nekretnina) => nekretnina.id === Number(req.params.id));
-
     const nekretninaSaID = await db.nekretnina.findOne({ where: { id: req.params.id } });
 
     if(nekretninaSaID) {
       let listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id } });
-      if(req.query.page < 0){
+
+      if(req.query.page < 0) {
         res.status(404).json([]);
         return;
       }
       else if(req.query.page == 0) {
-        listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id }, order: [['createdAt', 'DESC']], limit: 3 });
+        
+        listaUpita = await db.upit.findAll({ 
+          where: { nekretninaId: req.params.id }, 
+          order: [['createdAt', 'DESC']], limit: 3 
+        });
+        
         if(nekretninaSaID.upiti.length == 0) {
           res.status(404).json([]); // moze i json(listaUpita) ali je ovako citljivije
           return;
@@ -424,8 +427,14 @@ app.get('/next/upiti/nekretnina/:id', async (req, res) => {
         return;
       }
       else if(req.query.page >= 1) {
-        //listaUpita = nekretninaSaID.upiti.reverse().slice(req.query.page * 3 , req.query.page * 3 + 3);
-        listaUpita = await db.upit.findAll({ where: { nekretninaId: req.params.id }, order: [['createdAt', 'DESC']], limit: 3, offset: req.query.page * 3 });
+        
+        listaUpita = await db.upit.findAll({ 
+          where: { nekretninaId: req.params.id }, 
+          order: [['createdAt', 'DESC']], 
+          limit: 3, 
+          offset: req.query.page * 3 
+        });
+        
         if(listaUpita.length == 0) {
           res.status(404).json(listaUpita);
           return;
@@ -446,7 +455,83 @@ app.get('/next/upiti/nekretnina/:id', async (req, res) => {
   }
 });
 
+app.post('/nekretnina/:id/zahtjev', async (req, res) => {
+  if(!req.session.username) {
+    return res.status(401).json({ greska: 'Neautorizovan pristup' });
+  }
 
+  const { id } = req.params;
+  const { tekst, trazeniDatum } = req.body;
+
+  try {
+    let datum = new Date(trazeniDatum);
+
+    if(datum < new Date()) {
+      return res.status(400).json({ greska: 'Neispravan datum' });
+    }
+
+    const nekretnina = await db.nekretnina.findOne({ where: { id: id } });
+
+    if(!nekretnina) {
+      return res.status(404).json({ greska: `Nekretnina sa id-em ${id} ne postoji` });
+    }
+
+    let loggedUser = await db.korisnik.findOne({ where: { username: req.session.username } });
+
+    db.zahtjev.create({
+      tekst: tekst,
+      trazeniDatum: trazeniDatum,
+      korisnikId: loggedUser.id,
+      nekretninaId: id,
+      odobren: null
+    });
+
+    res.status(200).json({ poruka: 'Zahtjev je uspješno poslan' });
+  } 
+    catch (error) {
+    console.error('Error processing request: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.put('/nekretnina/:id/zahtjev/:zid', async (req, res) => {
+  if (!req.session.username) {
+    return res.status(401).json({ greska: 'Neautorizovan pristup' });
+  }
+
+  const { id, zid } = req.params;
+  const { odobren, addToTekst } = req.body;
+
+  try {
+    const korisnik = await db.korisnik.findOne({ where: { username: req.session.username } });
+
+    if (!korisnik || !korisnik.admin) {
+      return res.status(401).json({ greska: 'Neautorizovan pristup' });
+    }
+
+    const zahtjev = await db.zahtjev.findOne({ where: {id: zid} });
+
+    if (!zahtjev) {
+      return res.status(404).json({ greska: `Zahtjev sa id-jem ${zid} ne postoji!` });
+    }
+    if (!odobren && !addToTekst) {
+      return res.status(400).json({ greska: 'Nedostaje odgovor admina!' });
+    }
+    
+    zahtjev.odobren = odobren;
+    if (addToTekst) {
+      zahtjev.tekst += `\n ODGOVOR ADMINA: ${addToTekst}`;
+    }
+
+    zahtjev.save();
+
+    res.status(200).json({ poruka: 'Zahtjev je uspješno ažuriran!' });
+  } 
+    catch (error) {
+    console.error('Error updating request:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 /* ----------------- MARKETING ROUTES ----------------- */
 

@@ -116,6 +116,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 }
                 
+                let admin = false;
+                if(korisnik && korisnik.admin) {
+                    admin = true;
+                }
+
                 //ponude
                 if(ponude.length == 0){
                     document.getElementById("ponude").innerHTML = `<div class="error"><p>Nema postavljenih ponuda za ovu nekretninu.</p>`;
@@ -127,25 +132,42 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if(ponude[0].odbijenaPonuda == null){
                         status = "na čekanju";
                     }
-    
+                    
+                    
+                        
                     let cijena = ponude[0].cijenaPonude;
-                    if(cijena) {
-                        glavniElementPonude.innerHTML = `
-                        <div class="ponuda">
-                            <strong>Korisnik ${ponude[0].korisnikId}<br><br></strong>
-                            <strong>Ponuda ${ponude[0].id}</strong>
-                            <p>${ponude[0].tekst}</p>
-                            <p>Status ponude: ${status}</p>
-                            <p>Cijena ponude: ${cijena}</p>
-                        </div>`;
-                    } else {
+                    
+                    if(admin) {
                         glavniElement.innerHTML = `
                         <div class="ponuda">
-                            <strong>Korisnik ${ponude[0].korisnikId}<br><br></strong>
-                            <strong>Ponuda ${ponude[0].id}</strong>
-                            <p>${ponude[0].tekst}</p>
+                            <strong>Korisnik ${sviElementi[index].korisnikId}<br><br></strong>
+                            <strong>Ponuda ${sviElementi[index].id}</strong>
+                            <p>${sviElementi[index].tekst}</p>
                             <p>Status ponude: ${status}</p>
+                            <p>Cijena ponude: ${cijena}</p>
+                            <p>Datum ponude: ${sviElementi[index].datumPonude}</p>
+                            <p>Id Nekretnine: ${sviElementi[index].nekretninaId}</p>
+                            <p>Id Vezane Ponude: ${sviElementi[index].parent_offerId}</p>
                         </div>`;
+                    } else {
+                        if(cijena) {
+                            glavniElementPonude.innerHTML = `
+                            <div class="ponuda">
+                                <strong>Korisnik ${ponude[0].korisnikId}<br><br></strong>
+                                <strong>Ponuda ${ponude[0].id}</strong>
+                                <p>${ponude[0].tekst}</p>
+                                <p>Status ponude: ${status}</p>
+                                <p>Cijena ponude: ${cijena}</p>
+                            </div>`;
+                        } else {
+                            glavniElement.innerHTML = `
+                            <div class="ponuda">
+                                <strong>Korisnik ${ponude[0].korisnikId}<br><br></strong>
+                                <strong>Ponuda ${ponude[0].id}</strong>
+                                <p>${ponude[0].tekst}</p>
+                                <p>Status ponude: ${status}</p>
+                            </div>`;
+                        }
                     }
     
                     
@@ -154,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
                 else{
                     //mora tu jer inace se zavrsi prije nego se dobave zahtjevi
-                    const carouselPonude = postaviCarouselPonuda(glavniElementPonude, ponude);
+                    const carouselPonude = postaviCarouselPonuda(admin, glavniElementPonude, ponude);
         
                     if(carouselPonude){
                         previousButtonPonude.addEventListener('click', carouselPonude.fnLijevoPonuda);

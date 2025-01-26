@@ -61,7 +61,7 @@ function postaviCarouselZahtjeva(glavniElement, sviElementi, index = 0) {
     return {fnLijevoZahtjev, fnDesnoZahtjev};
 }
 
-function postaviCarouselPonuda(glavniElement, sviElementi, index = 0) {
+function postaviCarouselPonuda(admin, glavniElement, sviElementi, index = 0) {
     if(glavniElement === null || glavniElement === undefined || sviElementi.length === 0 || index < 0 || index >= sviElementi.length) {
         return null;
     }
@@ -71,9 +71,8 @@ function postaviCarouselPonuda(glavniElement, sviElementi, index = 0) {
         if(sviElementi[index].odbijenaPonuda == null){
             status = "na čekanju";
         }
-        let cijena = ponude[0].cijenaPonude;
-        PoziviAjax.getKorisnik((error, korisnik) => {
-            if(korisnik && korisnik.admin) {
+        let cijena = sviElementi[index].cijenaPonude;
+            if(admin) {
                 glavniElement.innerHTML = `
                 <div class="ponuda">
                     <strong>Korisnik ${sviElementi[index].korisnikId}<br><br></strong>
@@ -83,6 +82,7 @@ function postaviCarouselPonuda(glavniElement, sviElementi, index = 0) {
                     <p>Cijena ponude: ${cijena}</p>
                     <p>Datum ponude: ${sviElementi[index].datumPonude}</p>
                     <p>Id Nekretnine: ${sviElementi[index].nekretninaId}</p>
+                    <p>Id Vezane Ponude: ${sviElementi[index].parent_offerId == null ? "Nema" : sviElementi[index].parent_offerId}</p>
                 </div>`;
             } else {
                 if(cijena) {
@@ -104,8 +104,6 @@ function postaviCarouselPonuda(glavniElement, sviElementi, index = 0) {
                     </div>`;
                 }
             }
-        });
-       
     }
 
     function fnLijevoPonuda() {

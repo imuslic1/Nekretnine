@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
-const db = require('./db/db.js');
+const {db, inicijalizacija} = require('./db/db.js');
 
 app.use(session({
   secret: 'tajna sifra',
@@ -798,7 +798,20 @@ app.post('/marketing/osvjezi/klikovi', async (req, res) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+async function StartServer() {
+  try {
+    await db.sequelize.sync({ force: true });
+    await inicijalizacija();
+    
+    // Start server
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Greška prilikom povezivanja s bazom podataka:', error);
+  }
+}
+
+
+StartServer();
+

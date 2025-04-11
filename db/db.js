@@ -1,22 +1,19 @@
 const Sequelize = require("sequelize");
 //password je password
-const sequelize_obj = new Sequelize("wt24","root","password",{
-    host:"localhost",
-    dialect:"mysql"});
-const db = {};
+const sequelize_obj = new Sequelize("wt24","root","password",{ 
+  host:"mysql-db",
+  dialect:"mysql",
+  port: '3306',
+  logging: false,
+  retry: {
+    max: 10, //Broj pokusaja konekcije
+    backoffBase: 1000, //Osnovno vrijeme cekanja u ms
+    backoffExponent: 1.5, //Eksponent za povecanje vremena cekanja
+  }});
+const db={};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize_obj;
-
-/**
- * DEPRECATED   
- *
-db.korisnik = sequelize_obj.import(__dirname+'/Korisnik.js');
-db.nekretnina = sequelize_obj.import(__dirname+'/Nekretnina.js');
-db.ponuda = sequelize_obj.import(__dirname+'/Ponuda.js');
-db.upit = sequelize_obj.import(__dirname+'/Upit.js');
-db.zahtjev = sequelize_obj.import(__dirname+'/Zahtjev.js');
-*/
 
 //import modela
 const path = require('path');
@@ -51,23 +48,145 @@ db.ponuda.belongsTo(db.ponuda, { as: 'parentOffer', foreignKey: 'parent_offerId'
 
 module.exports=db;
 
-/*
-db.nekretnina.prototype.getInteresovanja = async function (nekretninaId) {
-  const nekretnina = await db.nekretnina.findByPk(nekretninaId, {
-    include: [
-      { model: db.upit, as: 'upiti'},
-      { model: db.zahtjev, as: 'zahtjevi'},
-      { model: db.ponuda, as: 'ponude'}
-    ]
+async function inicijalizacija() {
+  return new Promise(function (resolve, reject) {
+    const korisniciListaPromisea = [];
+    const nekretnineListaPromisea = [];
+    const upitiListaPromisea = [];
+
+    // Dodavanje korisnika
+    const korisniciPodaci = [
+      {
+        id: 1,
+        ime: "Neko",
+        prezime: "Nekic",
+        username: "username1",
+        password: "$2b$10$OFykzLMWv.wpDk2dXT5C8ObIgy8tlZYbm0ZPN0VTe8I/jXosIX1EG",
+      },
+      {
+        id: 2,
+        ime: "Neko2",
+        prezime: "Nekic2",
+        username: "username2",
+        password: "$2b$10$eN2a0Ii0mkjvpSUU.6.S4uASuULIlAspWFc2LkJTmIYPZszB8oyXC",
+      },
+      {
+        id: 3,
+        ime: "ivona",
+        prezime: "jozic",
+        username: "ijozic1",
+        password: "$2b$10$XT28eJbWux2bWpB1B9rUhumRtirUV1Kp2wMFSN0bVygGhHuZp7kyi",
+      },
+      {
+        id: 4,
+        ime: "admin",
+        prezime: "admin",
+        username: "admin",
+        password: "$2b$10$jZUkGiHI/FrIV8JKfNIc5umh83NBd.mox8ASyOnSf2.gmfETVq0/S", // sifra: admin
+        admin: true
+      },
+      {
+        id: 5,
+        ime: "user",
+        prezime: "user",
+        username: "user",
+        password: "$2b$10$iTPTTHRQINzsUhE5lc5wjOFjSfrdAl7QIHt/lXIk5CHSlo6u6Q5D6" // sifra: user
+
+      }
+    ];
+
+    korisniciPodaci.forEach((korisnik) => {
+      korisniciListaPromisea.push(db.korisnik.create(korisnik));
+    });
+
+    Promise.all(korisniciListaPromisea).then(function (korisnici) {
+      const nekretninePodaci = [
+        {
+          id: 1,
+          tip_nekretnine: "Stan",
+          naziv: "Useljiv stan Sarajevo",
+          kvadratura: 58,
+          cijena: 232000,
+          tip_grijanja: "plin",
+          lokacija: "Novo Sarajevo",
+          godina_izgradnje: 2019,
+          datum_objave: "01.10.2023.",
+          opis: "Sociis natoque penatibus.",
+          upiti: [
+            {
+              korisnik_id: 1,
+              tekst_upita: "Nullam eu pede mollis pretium.",
+            },
+            {
+              korisnik_id: 2,
+              tekst_upita: "Phasellus viverra nulla.",
+            },
+          ],
+        },
+        {
+          id: 2,
+          tip_nekretnine: "Poslovni prostor",
+          naziv: "Mali poslovni prostor",
+          kvadratura: 20,
+          cijena: 70000,
+          tip_grijanja: "struja",
+          lokacija: "Centar",
+          godina_izgradnje: 2005,
+          datum_objave: "20.08.2023.",
+          opis: "Magnis dis parturient montes.",
+          upiti: [
+            {
+              korisnik_id: 2,
+              tekst_upita: "Integer tincidunt.",
+            },
+          ],
+        },
+      ];
+
+      nekretninePodaci.forEach((nekretnina) => {
+        nekretnineListaPromisea.push(
+          db.nekretnina
+            .create({
+              id: nekretnina.id,
+              tip_nekretnine: nekretnina.tip_nekretnine,
+              naziv: nekretnina.naziv,
+              kvadratura: nekretnina.kvadratura,
+              cijena: nekretnina.cijena,
+              tip_grijanja: nekretnina.tip_grijanja,
+              lokacija: nekretnina.lokacija,
+              godina_izgradnje: nekretnina.godina_izgradnje,
+              datum_objave: nekretnina.datum_objave,
+              opis: nekretnina.opis,
+            })
+            .then(function (kreiranaNekretnina) {
+              const upiti = nekretnina.upiti.map((upit) => ({
+                korisnikId: upit.korisnik_id,
+                tekst: upit.tekst_upita,
+                nekretninaId: kreiranaNekretnina.id,
+              }));
+
+              upiti.forEach((upit) => {
+                upitiListaPromisea.push(db.upit.create(upit));
+              });
+
+              return kreiranaNekretnina;
+            })
+        );
+      });
+
+      Promise.all(nekretnineListaPromisea)
+        .then(() => Promise.all(upitiListaPromisea))
+        .then(() => resolve())
+        .catch((err) => {
+          console.error("Greška prilikom kreiranja nekretnina ili upita:", err);
+          reject(err);
+        });
+    });
   });
-
-  if (!nekretnina) {
-    throw new Error(`Nekretnina sa id-jem ${nekretninaId} ne postoji`);
-  }
-
-  return [...nekretnina.upiti, ...nekretnina.zahtjevi, ...nekretnina.ponude];
 }
-*/
+
+
+module.exports={db, inicijalizacija};
 
 db.nekretnina.prototype.getInteresovanja = async function () {
   const upiti = await db.upit.findAll({where: {nekretninaId: this.id}});
@@ -77,23 +196,3 @@ db.nekretnina.prototype.getInteresovanja = async function () {
   //console.log("Ovo su interesovanja:", interesovanja);
   return interesovanja;
 };
-
-
-
-
-/*
-
-(async () => {
-    try {
-      await sequelize_obj.authenticate();
-      console.log('Konekcija na bazu je uspješna!');
-  
-      // Kreiranje tabela
-      await sequelize_obj.sync({ force: true });
-      console.log('Tabele su kreirane!');
-    } catch (error) {
-      console.error('Greška pri konekciji:', error);
-    }
-})();
-*/
-

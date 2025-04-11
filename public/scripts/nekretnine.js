@@ -38,9 +38,8 @@ function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
 
             const slikaElement = document.createElement('img');
             slikaElement.classList.add('slika-nekretnine');
-            //slikaElement.src = `../Resources/${nekretnina.id}.jpg`;
-            // Zasad jedna slika za sve nekretnine
-            slikaElement.src = `../Resources/photos/apartments/apartment_1.jpg`;
+            
+            slikaElement.src = `../resources/photos/apartments/stan1.jpg`;
             slikaElement.alt = nekretnina.naziv;
             nekretninaElement.appendChild(slikaElement);
 

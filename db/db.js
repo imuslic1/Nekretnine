@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 //password je password
-const sequelize_obj = new Sequelize("wt24","root","root_password",{ 
+const sequelize_obj = new Sequelize("my_database","root","root_password",{ 
   host:'10.0.137.13',
   dialect:"mysql",
   port: '3306',

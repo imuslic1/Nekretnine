@@ -5,11 +5,8 @@ const sequelize_obj = new Sequelize("wt24","root","root_password",{
   dialect:"mysql",
   port: '3306',
   logging: false,
-  retry: {
-    max: 10, //Broj pokusaja konekcije
-    backoffBase: 1000, //Osnovno vrijeme cekanja u ms
-    backoffExponent: 1.5, //Eksponent za povecanje vremena cekanja
-  }});
+});
+
 const db={};
 
 db.Sequelize = Sequelize;
